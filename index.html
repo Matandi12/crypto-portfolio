@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>תיק קריפטו - גידול של 2% ליום</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+
+        .stat-card h3 {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .stat-card .value {
+            font-size: 2em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .table-container {
+            padding: 30px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        th {
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        tbody tr {
+            transition: background 0.3s;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        tbody tr:hover {
+            background: #e9ecef;
+        }
+
+        td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .day-cell {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .amount-cell {
+            font-weight: bold;
+            color: #28a745;
+            font-size: 1.1em;
+        }
+
+        .profit-cell {
+            color: #17a2b8;
+        }
+
+        .milestone {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%) !important;
+            font-weight: bold;
+        }
+
+        .footer {
+            background: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .stat-card .value {
+                font-size: 1.5em;
+            }
+            
+            table {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 תיק קריפטו - מסע ל-365 ימים</h1>
+            <p>גידול של 2% ליום | השקעה ראשונית: $2,200</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <h3>השקעה ראשונית</h3>
+                <div class="value">$2,200</div>
+            </div>
+            <div class="stat-card">
+                <h3>גידול יומי</h3>
+                <div class="value">2%</div>
+            </div>
+            <div class="stat-card">
+                <h3>ערך סופי (365 ימים)</h3>
+                <div class="value" id="finalValue">$3,030,286</div>
+            </div>
+            <div class="stat-card">
+                <h3>סך רווח</h3>
+                <div class="value" id="totalProfit">$3,028,086</div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table id="portfolioTable">
+                <thead>
+                    <tr>
+                        <th>יום</th>
+                        <th>תאריך</th>
+                        <th>ערך התיק</th>
+                        <th>גידול יומי</th>
+                        <th>רווח מצטבר</th>
+                        <th>% רווח</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- JavaScript will populate this -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <p>💎 הכוח של ריבית דריבית - 2% ליום משנה הכל! 💎</p>
+            <p style="margin-top: 10px; opacity: 0.7;">נוצר עבור מתן דימרי 🚀</p>
+        </div>
+    </div>
+
+    <script>
+        const INITIAL_AMOUNT = 2200;
+        const DAILY_GROWTH = 1.02; // 2% growth
+        const DAYS = 365;
+        const START_DATE = new Date('2026-03-23'); // היום!
+
+        function formatCurrency(amount) {
+            return '$' + amount.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        function formatPercent(percent) {
+            return percent.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }) + '%';
+        }
+
+        function formatDate(date) {
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        function generateTable() {
+            const tbody = document.getElementById('tableBody');
+            let currentAmount = INITIAL_AMOUNT;
+            
+            // יום 0 - התחלה
+            let row = `
+                <tr class="milestone">
+                    <td class="day-cell">0</td>
+                    <td>${formatDate(START_DATE)}</td>
+                    <td class="amount-cell">${formatCurrency(INITIAL_AMOUNT)}</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>0%</td>
+                </tr>
+            `;
+            tbody.innerHTML += row;
+
+            // ימים 1-365
+            for (let day = 1; day <= DAYS; day++) {
+                const previousAmount = currentAmount;
+                currentAmount = currentAmount * DAILY_GROWTH;
+                const dailyProfit = currentAmount - previousAmount;
+                const totalProfit = currentAmount - INITIAL_AMOUNT;
+                const profitPercent = ((currentAmount / INITIAL_AMOUNT) - 1) * 100;
+
+                const currentDate = new Date(START_DATE);
+                currentDate.setDate(START_DATE.getDate() + day);
+
+                // הדגשת ימים מיוחדים
+                const isMilestone = day % 30 === 0 || day === 365;
+                const rowClass = isMilestone ? 'class="milestone"' : '';
+
+                row = `
+                    <tr ${rowClass}>
+                        <td class="day-cell">${day}</td>
+                        <td>${formatDate(currentDate)}</td>
+                        <td class="amount-cell">${formatCurrency(currentAmount)}</td>
+                        <td class="profit-cell">+${formatCurrency(dailyProfit)}</td>
+                        <td class="profit-cell">+${formatCurrency(totalProfit)}</td>
+                        <td>${formatPercent(profitPercent)}</td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            }
+
+            // עדכון הסטטיסטיקות
+            const finalAmount = INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, DAYS);
+            const totalProfit = finalAmount - INITIAL_AMOUNT;
+            
+            document.getElementById('finalValue').textContent = formatCurrency(finalAmount);
+            document.getElementById('totalProfit').textContent = formatCurrency(totalProfit);
+        }
+
+        // טעינת הטבלה כשהדף נטען
+        window.addEventListener('load', generateTable);
+    </script>
+</body>
+</html>
