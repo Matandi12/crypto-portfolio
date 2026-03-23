@@ -17,6 +17,7 @@
             --text-primary: #ffffff;
             --text-secondary: #a0aec0;
             --success: #48bb78;
+            --danger: #e74c3c;
             --shadow: rgba(0, 0, 0, 0.5);
         }
 
@@ -35,7 +36,6 @@
             position: relative;
         }
 
-        /* Animated Background */
         .bg-animation {
             position: fixed;
             top: 0;
@@ -60,16 +60,14 @@
             50% { opacity: 1; transform: scale(1.5); }
         }
 
-        /* Main Container */
         .container {
             position: relative;
             z-index: 1;
-            max-width: 1600px;
+            max-width: 1800px;
             margin: 0 auto;
             padding: 40px 20px;
         }
 
-        /* Header */
         .header {
             text-align: center;
             margin-bottom: 60px;
@@ -77,14 +75,8 @@
         }
 
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .header-title {
@@ -111,15 +103,13 @@
             font-weight: 400;
         }
 
-        /* Main Grid */
         .main-grid {
             display: grid;
-            grid-template-columns: 1fr 1.5fr 1fr;
+            grid-template-columns: 1fr 2fr 1fr;
             gap: 30px;
             margin-bottom: 30px;
         }
 
-        /* Glass Card */
         .glass-card {
             background: rgba(26, 31, 58, 0.8);
             backdrop-filter: blur(20px);
@@ -132,14 +122,8 @@
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .glass-card:hover {
@@ -157,23 +141,17 @@
             gap: 12px;
         }
 
-        .card-icon {
-            font-size: 1.2em;
-            filter: drop-shadow(0 0 10px currentColor);
-        }
-
-        /* Villa 3D Display */
+        /* Villa Scene - ENHANCED */
         .villa-scene {
             position: relative;
-            height: 500px;
-            background: linear-gradient(180deg, #1e3a8a 0%, #3b82f6 50%, #e0f2fe 100%);
+            height: 600px;
+            background: linear-gradient(180deg, #1e3a8a 0%, #3b82f6 40%, #93c5fd 70%, #e0f2fe 100%);
             border-radius: 25px;
             overflow: hidden;
             margin-bottom: 30px;
             box-shadow: inset 0 -50px 100px rgba(0, 0, 0, 0.3);
         }
 
-        /* Sun/Moon */
         .celestial {
             position: absolute;
             top: 50px;
@@ -191,7 +169,6 @@
             50% { transform: translateY(-20px); }
         }
 
-        /* Clouds */
         .cloud {
             position: absolute;
             width: 100px;
@@ -211,7 +188,7 @@
             100% { left: calc(100% + 120px); }
         }
 
-        /* Ground Layers */
+        /* Ground */
         .ground-layer {
             position: absolute;
             bottom: 0;
@@ -220,41 +197,40 @@
         }
 
         .grass {
-            height: 60px;
+            height: 80px;
             background: linear-gradient(180deg, #22c55e 0%, #15803d 100%);
             box-shadow: inset 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
         .soil {
-            height: 50px;
+            height: 60px;
             background: linear-gradient(180deg, #92400e 0%, #78350f 100%);
         }
 
-        /* 3D Villa Structure */
+        /* Villa Structure - MEGA ENHANCED */
         .villa-structure {
             position: absolute;
-            bottom: 110px;
+            bottom: 140px;
             left: 50%;
             transform: translateX(-50%);
-            width: 350px;
-            height: 300px;
+            width: 500px;
+            height: 400px;
             transform-style: preserve-3d;
-            transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
         /* Foundation */
         .foundation {
             position: absolute;
             bottom: 0;
-            left: 10%;
-            width: 80%;
-            height: 25px;
+            left: 5%;
+            width: 90%;
+            height: 30px;
             background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s ease-out;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
         .foundation.visible {
@@ -262,44 +238,41 @@
             transform: translateY(0);
         }
 
-        /* Main Walls */
-        .wall {
+        /* Main Building */
+        .building-main {
             position: absolute;
+            bottom: 30px;
+            left: 10%;
+            width: 80%;
+            height: 220px;
             background: linear-gradient(135deg, #f5deb3 0%, #daa520 100%);
-            border: 4px solid #8b7355;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            border: 5px solid #8b7355;
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
             opacity: 0;
             transform: scale(0.8);
-            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
-        .wall.visible {
+        .building-main.visible {
             opacity: 1;
             transform: scale(1);
         }
 
-        .wall-main {
-            bottom: 25px;
-            left: 10%;
-            width: 80%;
-            height: 180px;
-            border-radius: 10px;
-        }
-
-        /* Roof */
+        /* Roof - Detailed */
         .roof {
             position: absolute;
-            bottom: 205px;
+            bottom: 250px;
             left: 5%;
             width: 0;
             height: 0;
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
-            border-bottom: 90px solid #dc2626;
-            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+            border-left: 225px solid transparent;
+            border-right: 225px solid transparent;
+            border-bottom: 110px solid #dc2626;
+            filter: drop-shadow(0 15px 40px rgba(0, 0, 0, 0.6));
             opacity: 0;
-            transform: translateY(-30px);
-            transition: all 0.8s ease-out;
+            transform: translateY(-40px);
+            transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
         .roof.visible {
@@ -307,18 +280,61 @@
             transform: translateY(0);
         }
 
-        /* Windows */
+        .roof::after {
+            content: '';
+            position: absolute;
+            top: -110px;
+            left: -225px;
+            width: 450px;
+            height: 10px;
+            background: #991b1b;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Chimney */
+        .chimney {
+            position: absolute;
+            bottom: 310px;
+            right: 120px;
+            width: 30px;
+            height: 60px;
+            background: linear-gradient(135deg, #7c2d12 0%, #991b1b 100%);
+            border: 3px solid #450a0a;
+            border-radius: 5px;
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+
+        .chimney.visible {
+            opacity: 1;
+        }
+
+        .chimney::after {
+            content: '💨';
+            position: absolute;
+            top: -20px;
+            left: 5px;
+            font-size: 1.2em;
+            animation: smoke 2s infinite;
+        }
+
+        @keyframes smoke {
+            0% { opacity: 0.8; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-30px); }
+        }
+
+        /* Windows - Multiple Floors */
         .window {
             position: absolute;
-            width: 50px;
-            height: 65px;
+            width: 55px;
+            height: 70px;
             background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
-            border: 4px solid #1e3a8a;
-            border-radius: 8px;
-            box-shadow: inset 0 2px 10px rgba(255, 255, 255, 0.3),
-                        0 5px 20px rgba(0, 0, 0, 0.3);
+            border: 5px solid #1e3a8a;
+            border-radius: 10px;
+            box-shadow: inset 0 3px 15px rgba(255, 255, 255, 0.4),
+                        0 8px 25px rgba(0, 0, 0, 0.4);
             opacity: 0;
-            transition: all 0.6s ease-out;
+            transition: all 0.8s ease-out;
         }
 
         .window.visible {
@@ -331,7 +347,7 @@
             top: 50%;
             left: 0;
             width: 100%;
-            height: 2px;
+            height: 3px;
             background: #1e3a8a;
         }
 
@@ -340,29 +356,76 @@
             position: absolute;
             left: 50%;
             top: 0;
-            width: 2px;
+            width: 3px;
             height: 100%;
             background: #1e3a8a;
         }
 
-        .window-left { top: 60px; left: 40px; }
-        .window-right { top: 60px; right: 40px; }
+        /* Ground Floor Windows */
+        .window-g1 { bottom: 60px; left: 60px; }
+        .window-g2 { bottom: 60px; left: 150px; }
+        .window-g3 { bottom: 60px; right: 150px; }
+        .window-g4 { bottom: 60px; right: 60px; }
 
-        /* Door */
+        /* First Floor Windows */
+        .window-f1 { bottom: 150px; left: 60px; }
+        .window-f2 { bottom: 150px; left: 150px; }
+        .window-f3 { bottom: 150px; right: 150px; }
+        .window-f4 { bottom: 150px; right: 60px; }
+
+        /* Balcony */
+        .balcony {
+            position: absolute;
+            bottom: 140px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 50px;
+            background: linear-gradient(135deg, #f5deb3 0%, #daa520 100%);
+            border: 4px solid #8b7355;
+            border-radius: 10px;
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+
+        .balcony.visible {
+            opacity: 1;
+        }
+
+        .balcony-rail {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-top: 3px solid #8b7355;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            padding-top: 5px;
+        }
+
+        .rail-bar {
+            width: 3px;
+            height: 40px;
+            background: #8b7355;
+        }
+
+        /* Door - Grand Entrance */
         .door {
             position: absolute;
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
-            height: 100px;
+            width: 75px;
+            height: 120px;
             background: linear-gradient(135deg, #92400e 0%, #78350f 100%);
-            border: 4px solid #451a03;
-            border-radius: 10px 10px 0 0;
-            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5),
-                        0 5px 20px rgba(0, 0, 0, 0.4);
+            border: 5px solid #451a03;
+            border-radius: 15px 15px 0 0;
+            box-shadow: inset 0 3px 15px rgba(0, 0, 0, 0.6),
+                        0 10px 30px rgba(0, 0, 0, 0.5);
             opacity: 0;
-            transition: all 0.6s ease-out;
+            transition: all 0.8s ease-out;
         }
 
         .door.visible {
@@ -371,30 +434,35 @@
 
         .door-knob {
             position: absolute;
-            right: 12px;
-            top: 50%;
-            width: 8px;
-            height: 8px;
+            right: 15px;
+            top: 55%;
+            width: 10px;
+            height: 10px;
             background: gold;
             border-radius: 50%;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .door-glass {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 50px;
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+            border: 3px solid #1e3a8a;
+            border-radius: 20px 20px 0 0;
         }
 
         /* Garden Elements */
-        .garden-element {
-            position: absolute;
-            bottom: 110px;
-            font-size: 4em;
-            opacity: 0;
-            transition: all 0.8s ease-out;
-            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
-        }
-
-        .garden-element.visible {
-            opacity: 1;
-        }
-
         .tree {
+            position: absolute;
+            bottom: 140px;
+            font-size: 5em;
+            opacity: 0;
+            transition: all 1s ease-out;
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4));
             animation: treeSway 4s ease-in-out infinite;
         }
 
@@ -403,23 +471,27 @@
             50% { transform: rotate(3deg); }
         }
 
-        .tree-left { left: 30px; }
-        .tree-right { right: 30px; }
+        .tree.visible {
+            opacity: 1;
+        }
 
-        /* Pool */
+        .tree-left { left: 10px; }
+        .tree-right { right: 10px; }
+
+        /* Luxury Pool */
         .pool {
             position: absolute;
-            bottom: 110px;
-            left: 30px;
-            width: 120px;
-            height: 70px;
+            bottom: 140px;
+            left: 40px;
+            width: 140px;
+            height: 85px;
             background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
             border-radius: 50%;
-            border: 5px solid #0e7490;
-            box-shadow: inset 0 5px 20px rgba(255, 255, 255, 0.3),
-                        0 10px 30px rgba(0, 0, 0, 0.4);
+            border: 6px solid #0e7490;
+            box-shadow: inset 0 8px 25px rgba(255, 255, 255, 0.4),
+                        0 15px 40px rgba(0, 0, 0, 0.5);
             opacity: 0;
-            transition: all 0.8s ease-out;
+            transition: all 1s ease-out;
         }
 
         .pool.visible {
@@ -429,20 +501,66 @@
 
         @keyframes waterRipple {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.03); }
         }
 
-        /* Fence */
+        /* Family Members */
+        .family {
+            position: absolute;
+            font-size: 2.5em;
+            opacity: 0;
+            transition: all 1s ease-out;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+        }
+
+        .family.visible {
+            opacity: 1;
+            animation: familyWave 3s ease-in-out infinite;
+        }
+
+        @keyframes familyWave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .dad { bottom: 145px; left: 180px; }
+        .mom { bottom: 145px; left: 230px; }
+        .kid1 { bottom: 145px; left: 280px; }
+        .kid2 { bottom: 145px; left: 320px; }
+
+        /* Luxury Cars */
+        .car {
+            position: absolute;
+            font-size: 3em;
+            opacity: 0;
+            transition: all 1s ease-out;
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4));
+        }
+
+        .car.visible {
+            opacity: 1;
+            animation: carShine 2s ease-in-out infinite;
+        }
+
+        @keyframes carShine {
+            0%, 100% { filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4)); }
+            50% { filter: drop-shadow(0 8px 20px rgba(255, 215, 0, 0.6)); }
+        }
+
+        .car-1 { bottom: 145px; right: 180px; }
+        .car-2 { bottom: 145px; right: 250px; }
+
+        /* Fence - Elegant */
         .fence {
             position: absolute;
-            bottom: 110px;
+            bottom: 140px;
             left: 0;
             width: 100%;
-            height: 50px;
+            height: 60px;
             display: flex;
             justify-content: space-around;
             opacity: 0;
-            transition: all 0.8s ease-out;
+            transition: all 1s ease-out;
         }
 
         .fence.visible {
@@ -450,23 +568,23 @@
         }
 
         .fence-post {
-            width: 8px;
+            width: 10px;
             height: 100%;
             background: linear-gradient(135deg, #92400e 0%, #78350f 100%);
-            border-radius: 4px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         }
 
-        /* Lights Effect */
+        /* Lights */
         .lights {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 50% 30%, rgba(255, 215, 0, 0.2) 0%, transparent 60%);
+            background: radial-gradient(circle at 50% 35%, rgba(255, 215, 0, 0.25) 0%, transparent 65%);
             opacity: 0;
-            transition: all 0.8s ease-out;
+            transition: all 1s ease-out;
             pointer-events: none;
         }
 
@@ -476,38 +594,38 @@
         }
 
         @keyframes lightPulse {
-            0%, 100% { opacity: 0.6; }
+            0%, 100% { opacity: 0.7; }
             50% { opacity: 1; }
         }
 
         /* Stage Banner */
         .stage-banner {
             background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
-            padding: 20px 30px;
-            border-radius: 20px;
+            padding: 25px 35px;
+            border-radius: 25px;
             text-align: center;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            margin-bottom: 30px;
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
             transition: all 0.4s ease;
         }
 
         .stage-banner:hover {
-            transform: scale(1.02);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+            transform: scale(1.03);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.7);
         }
 
         .stage-name {
-            font-size: 1.6em;
-            font-weight: 700;
-            margin-bottom: 8px;
+            font-size: 1.8em;
+            font-weight: 800;
+            margin-bottom: 10px;
         }
 
         .stage-desc {
-            font-size: 1em;
+            font-size: 1.1em;
             opacity: 0.95;
         }
 
-        /* Progress Section */
+        /* Progress */
         .progress-section {
             margin-bottom: 30px;
         }
@@ -520,36 +638,32 @@
         }
 
         .progress-percent {
-            font-size: 1.8em;
-            font-weight: 800;
+            font-size: 2em;
+            font-weight: 900;
             background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-gold) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .progress-track {
-            height: 50px;
+            height: 55px;
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 25px;
+            border-radius: 30px;
             overflow: hidden;
-            position: relative;
-            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: inset 0 3px 12px rgba(0, 0, 0, 0.4);
         }
 
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-secondary) 50%, var(--accent-gold) 100%);
             background-size: 200% 100%;
-            border-radius: 25px;
+            border-radius: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 1.1em;
-            transition: width 2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            position: relative;
-            overflow: hidden;
+            font-weight: 800;
+            font-size: 1.2em;
+            transition: width 2.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             animation: progressGradient 3s linear infinite;
         }
 
@@ -558,23 +672,7 @@
             100% { background-position: 200% 50%; }
         }
 
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            animation: progressShine 2s infinite;
-        }
-
-        @keyframes progressShine {
-            0% { left: -100%; }
-            100% { left: 200%; }
-        }
-
-        /* Stats Grid */
+        /* Stats */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -588,20 +686,17 @@
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
-            cursor: pointer;
         }
 
         .stat-box:hover {
             background: rgba(255, 255, 255, 0.08);
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .stat-label {
-            font-size: 0.9em;
+            font-size: 0.95em;
             color: var(--text-secondary);
             margin-bottom: 10px;
-            font-weight: 500;
         }
 
         .stat-value {
@@ -610,120 +705,19 @@
             background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-gold) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
-        /* Milestones Timeline */
-        .timeline {
-            position: relative;
-            padding: 20px 0;
-        }
-
-        .timeline-line {
-            position: absolute;
-            left: 30px;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: linear-gradient(180deg, var(--accent-primary) 0%, var(--accent-gold) 100%);
-            border-radius: 2px;
-        }
-
-        .milestone {
-            position: relative;
-            padding-left: 70px;
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-        }
-
-        .milestone:hover {
-            transform: translateX(10px);
-        }
-
-        .milestone-dot {
-            position: absolute;
-            left: 21px;
-            top: 10px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            border: 3px solid var(--accent-primary);
-            transition: all 0.4s ease;
-        }
-
-        .milestone.completed .milestone-dot {
-            background: var(--accent-primary);
-            box-shadow: 0 0 20px var(--accent-primary);
-            animation: dotPulse 2s infinite;
-        }
-
-        @keyframes dotPulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 20px var(--accent-primary); }
-            50% { transform: scale(1.2); box-shadow: 0 0 30px var(--accent-primary); }
-        }
-
-        .milestone-content {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .milestone.completed .milestone-content {
-            background: rgba(102, 126, 234, 0.2);
-            border-color: var(--accent-primary);
-        }
-
-        .milestone-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .milestone-icon {
-            font-size: 1.8em;
-            filter: grayscale(100%);
-        }
-
-        .milestone.completed .milestone-icon {
-            filter: grayscale(0%);
-            animation: iconBounce 0.6s;
-        }
-
-        @keyframes iconBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .milestone-title {
-            font-weight: 700;
-            font-size: 1.1em;
-        }
-
-        .milestone-day {
-            color: var(--text-secondary);
-            font-size: 0.9em;
-        }
-
-        .milestone-value {
-            color: var(--accent-gold);
-            font-weight: 700;
-        }
-
-        /* Action Buttons */
+        /* Buttons */
         .action-buttons {
             display: grid;
             gap: 15px;
         }
 
         .btn {
-            padding: 20px;
+            padding: 22px;
             border: none;
-            border-radius: 15px;
-            font-size: 1.1em;
+            border-radius: 18px;
+            font-size: 1.15em;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -731,33 +725,26 @@
             overflow: hidden;
         }
 
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
         .btn-primary {
             background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
             color: white;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
         }
 
         .btn-primary:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+            transform: translateY(-6px);
+            box-shadow: 0 18px 45px rgba(102, 126, 234, 0.7);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger) 0%, #c0392b 100%);
+            color: white;
+            box-shadow: 0 12px 35px rgba(231, 76, 60, 0.5);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 45px rgba(231, 76, 60, 0.7);
         }
 
         .btn-secondary {
@@ -768,17 +755,113 @@
 
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-3px);
+            transform: translateY(-4px);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--accent-primary) 0%, var(--accent-gold) 100%);
+            border-radius: 2px;
+        }
+
+        .milestone {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 35px;
+            transition: all 0.3s ease;
+        }
+
+        .milestone:hover {
+            transform: translateX(12px);
+        }
+
+        .milestone-dot {
+            position: absolute;
+            left: 20px;
+            top: 12px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 4px solid var(--accent-primary);
+            transition: all 0.4s ease;
+        }
+
+        .milestone.completed .milestone-dot {
+            background: var(--accent-primary);
+            box-shadow: 0 0 25px var(--accent-primary);
+            animation: dotPulse 2s infinite;
+        }
+
+        @keyframes dotPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.25); }
+        }
+
+        .milestone-content {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .milestone.completed .milestone-content {
+            background: rgba(102, 126, 234, 0.25);
+            border-color: var(--accent-primary);
+        }
+
+        .milestone-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .milestone-icon {
+            font-size: 2em;
+            filter: grayscale(100%);
+        }
+
+        .milestone.completed .milestone-icon {
+            filter: grayscale(0%);
+            animation: iconBounce 0.6s;
+        }
+
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .milestone-title {
+            font-weight: 700;
+            font-size: 1.15em;
+        }
+
+        .milestone-value {
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 1.1em;
         }
 
         /* Responsive */
-        @media (max-width: 1200px) {
+        @media (max-width: 1400px) {
             .main-grid {
                 grid-template-columns: 1fr;
             }
 
-            .header-title {
-                font-size: 3em;
+            .villa-structure {
+                width: 450px;
+                height: 380px;
             }
         }
 
@@ -787,35 +870,35 @@
                 font-size: 2.5em;
             }
 
-            .stats-grid {
-                grid-template-columns: 1fr;
+            .villa-scene {
+                height: 500px;
             }
 
-            .villa-scene {
-                height: 400px;
+            .villa-structure {
+                width: 350px;
+                height: 300px;
+                bottom: 140px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Animated Background -->
     <div class="bg-animation" id="bgAnimation"></div>
 
     <div class="container">
-        <!-- Header -->
         <div class="header">
             <h1 class="header-title">🏗️ VILLA BUILDER</h1>
             <p class="header-subtitle">Building Your Dream Villa | $2,200 → $3,925,613</p>
         </div>
 
-        <!-- Main Grid -->
         <div class="main-grid">
-            <!-- Left Column: Stats -->
+            <!-- Left: Stats -->
             <div class="glass-card">
-                <h2 class="card-title">
-                    <span class="card-icon">📊</span>
-                    Your Progress
-                </h2>
+                <h2 class="card-title">📊 Progress</h2>
 
                 <div class="stats-grid">
                     <div class="stat-box">
@@ -850,44 +933,74 @@
 
                 <div class="action-buttons">
                     <button class="btn btn-primary" onclick="completeDay()">
-                        ✅ Complete Another Day
+                        ✅ Complete Day
+                    </button>
+                    <button class="btn btn-danger" onclick="resetGame()">
+                        🔄 Reset Game
                     </button>
                     <button class="btn btn-secondary" onclick="window.location.href='index.html'">
-                        📊 Back to Dashboard
+                        📊 Dashboard
                     </button>
                 </div>
             </div>
 
-            <!-- Center Column: Villa -->
+            <!-- Center: Villa -->
             <div class="glass-card">
-                <h2 class="card-title">
-                    <span class="card-icon">🏠</span>
-                    Your Villa
-                </h2>
+                <h2 class="card-title">🏠 Your Luxury Villa</h2>
 
                 <div class="villa-scene">
-                    <!-- Sky Elements -->
                     <div class="celestial"></div>
                     <div class="cloud"></div>
                     <div class="cloud"></div>
                     <div class="cloud"></div>
 
-                    <!-- Villa Structure -->
                     <div class="villa-structure">
+                        <!-- Building -->
                         <div class="foundation" id="foundation"></div>
-                        <div class="wall wall-main" id="wallMain"></div>
-                        <div class="window window-left" id="windowLeft"></div>
-                        <div class="window window-right" id="windowRight"></div>
+                        <div class="building-main" id="buildingMain"></div>
+                        <div class="roof" id="roof"></div>
+                        <div class="chimney" id="chimney"></div>
+                        
+                        <!-- Windows -->
+                        <div class="window window-g1" id="windowG1"></div>
+                        <div class="window window-g2" id="windowG2"></div>
+                        <div class="window window-g3" id="windowG3"></div>
+                        <div class="window window-g4" id="windowG4"></div>
+                        <div class="window window-f1" id="windowF1"></div>
+                        <div class="window window-f2" id="windowF2"></div>
+                        <div class="window window-f3" id="windowF3"></div>
+                        <div class="window window-f4" id="windowF4"></div>
+                        
+                        <!-- Door & Balcony -->
                         <div class="door" id="door">
+                            <div class="door-glass"></div>
                             <div class="door-knob"></div>
                         </div>
-                        <div class="roof" id="roof"></div>
+                        <div class="balcony" id="balcony">
+                            <div class="balcony-rail">
+                                <div class="rail-bar"></div>
+                                <div class="rail-bar"></div>
+                                <div class="rail-bar"></div>
+                                <div class="rail-bar"></div>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Garden -->
-                    <div class="garden-element tree tree-left" id="treeLeft">🌳</div>
-                    <div class="garden-element tree tree-right" id="treeRight">🌳</div>
+                    <!-- Garden & Luxury -->
+                    <div class="tree tree-left" id="treeLeft">🌳</div>
+                    <div class="tree tree-right" id="treeRight">🌳</div>
                     <div class="pool" id="pool"></div>
+                    
+                    <!-- Family -->
+                    <div class="family dad" id="dad">👨</div>
+                    <div class="family mom" id="mom">👩</div>
+                    <div class="family kid1" id="kid1">👦</div>
+                    <div class="family kid2" id="kid2">👧</div>
+                    
+                    <!-- Cars -->
+                    <div class="car car-1" id="car1">🚗</div>
+                    <div class="car car-2" id="car2">💎</div>
+                    
                     <div class="fence" id="fence">
                         <div class="fence-post"></div>
                         <div class="fence-post"></div>
@@ -897,10 +1010,12 @@
                         <div class="fence-post"></div>
                         <div class="fence-post"></div>
                         <div class="fence-post"></div>
+                        <div class="fence-post"></div>
+                        <div class="fence-post"></div>
                     </div>
+                    
                     <div class="lights" id="lights"></div>
 
-                    <!-- Ground -->
                     <div class="ground-layer">
                         <div class="grass"></div>
                         <div class="soil"></div>
@@ -909,20 +1024,15 @@
 
                 <div class="stage-banner" id="stageBanner">
                     <div class="stage-name">🏗️ Foundation Stage</div>
-                    <div class="stage-desc">Building the foundation of your villa</div>
+                    <div class="stage-desc">Building the foundation</div>
                 </div>
             </div>
 
-            <!-- Right Column: Milestones -->
+            <!-- Right: Milestones -->
             <div class="glass-card">
-                <h2 class="card-title">
-                    <span class="card-icon">🏆</span>
-                    Milestones
-                </h2>
-
+                <h2 class="card-title">🏆 Milestones</h2>
                 <div class="timeline" id="timeline">
                     <div class="timeline-line"></div>
-                    <!-- Milestones will be added here -->
                 </div>
             </div>
         </div>
@@ -933,33 +1043,29 @@
         const DAILY_GROWTH = 1.02;
         const TOTAL_DAYS = 365;
 
-        // Stages
         const stages = [
-            { min: 0, max: 5, name: '🏗️ Foundation Stage', desc: 'Building the foundation', elements: ['foundation'] },
-            { min: 5, max: 15, name: '🧱 Walls Stage', desc: 'Constructing walls and structure', elements: ['foundation', 'wallMain'] },
-            { min: 15, max: 30, name: '🏠 Roof Stage', desc: 'Adding roof, doors and windows', elements: ['foundation', 'wallMain', 'roof', 'door', 'windowLeft', 'windowRight'] },
-            { min: 30, max: 50, name: '🏡 Finishing Stage', desc: 'Interior and exterior finishing', elements: ['foundation', 'wallMain', 'roof', 'door', 'windowLeft', 'windowRight'] },
-            { min: 50, max: 75, name: '🏘️ Garden Stage', desc: 'Adding garden, trees and pool', elements: ['foundation', 'wallMain', 'roof', 'door', 'windowLeft', 'windowRight', 'treeLeft', 'treeRight', 'pool'] },
-            { min: 75, max: 100, name: '🏰 Luxury Villa!', desc: 'Lighting, fence and all luxuries!', elements: ['foundation', 'wallMain', 'roof', 'door', 'windowLeft', 'windowRight', 'treeLeft', 'treeRight', 'pool', 'fence', 'lights'] }
+            { min: 0, max: 5, name: '🏗️ Foundation', desc: 'Building the foundation', elements: ['foundation'] },
+            { min: 5, max: 15, name: '🧱 Main Structure', desc: 'Walls and structure', elements: ['foundation', 'buildingMain', 'windowG1', 'windowG2', 'windowG3', 'windowG4'] },
+            { min: 15, max: 30, name: '🏠 Roof & Windows', desc: 'Roof, doors, upper windows', elements: ['foundation', 'buildingMain', 'roof', 'chimney', 'door', 'windowG1', 'windowG2', 'windowG3', 'windowG4', 'windowF1', 'windowF2', 'windowF3', 'windowF4', 'balcony'] },
+            { min: 30, max: 50, name: '🏡 Garden & Pool', desc: 'Trees and luxury pool', elements: ['foundation', 'buildingMain', 'roof', 'chimney', 'door', 'windowG1', 'windowG2', 'windowG3', 'windowG4', 'windowF1', 'windowF2', 'windowF3', 'windowF4', 'balcony', 'treeLeft', 'treeRight', 'pool'] },
+            { min: 50, max: 75, name: '👨‍👩‍👧‍👦 Family Home', desc: 'Family moves in!', elements: ['foundation', 'buildingMain', 'roof', 'chimney', 'door', 'windowG1', 'windowG2', 'windowG3', 'windowG4', 'windowF1', 'windowF2', 'windowF3', 'windowF4', 'balcony', 'treeLeft', 'treeRight', 'pool', 'dad', 'mom', 'kid1', 'kid2'] },
+            { min: 75, max: 100, name: '🏰 Luxury Estate!', desc: 'Luxury cars, fence, lights!', elements: ['foundation', 'buildingMain', 'roof', 'chimney', 'door', 'windowG1', 'windowG2', 'windowG3', 'windowG4', 'windowF1', 'windowF2', 'windowF3', 'windowF4', 'balcony', 'treeLeft', 'treeRight', 'pool', 'dad', 'mom', 'kid1', 'kid2', 'car1', 'car2', 'fence', 'lights'] }
         ];
 
-        // Milestones
         const milestones = [
-            { day: 7, icon: '🌟', text: 'First Week', value: 2613 },
-            { day: 30, icon: '📅', text: 'First Month', value: 3987 },
-            { day: 60, icon: '💰', text: 'Two Months', value: 7224 },
-            { day: 90, icon: '🏆', text: '3 Months', value: 13078 },
+            { day: 7, icon: '🌟', text: 'Week 1', value: 2613 },
+            { day: 30, icon: '📅', text: 'Month 1', value: 3987 },
+            { day: 60, icon: '💰', text: 'Month 2', value: 7224 },
+            { day: 90, icon: '🏆', text: 'Month 3', value: 13078 },
             { day: 180, icon: '💎', text: 'Half Year', value: 340318 },
             { day: 365, icon: '🏰', text: 'Full Year!', value: 3925613 }
         ];
 
-        // Game State
         let gameState = {
             day: 13,
             currentValue: INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, 13)
         };
 
-        // Load/Save
         function loadGame() {
             const saved = localStorage.getItem('villaSave');
             if (saved) {
@@ -971,7 +1077,23 @@
             localStorage.setItem('villaSave', JSON.stringify(gameState));
         }
 
-        // Format
+        function resetGame() {
+            if (confirm('🚨 Are you sure? This will delete ALL progress!')) {
+                localStorage.removeItem('villaSave');
+                gameState = {
+                    day: 13,
+                    currentValue: INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, 13)
+                };
+                saveGame();
+                updateUI();
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }
+        }
+
         function formatCurrency(amount) {
             if (amount >= 1000000) return '$' + (amount / 1000000).toFixed(1) + 'M';
             if (amount >= 1000) return '$' + (amount / 1000).toFixed(1) + 'K';
@@ -990,34 +1112,31 @@
             return stages[stages.length - 1];
         }
 
-        // Update Villa
         function updateVilla() {
             const stage = getCurrentStage();
             
-            // Hide all
-            ['foundation', 'wallMain', 'roof', 'door', 'windowLeft', 'windowRight', 'treeLeft', 'treeRight', 'pool', 'fence', 'lights'].forEach(id => {
+            const allElements = ['foundation', 'buildingMain', 'roof', 'chimney', 'door', 'windowG1', 'windowG2', 'windowG3', 'windowG4', 'windowF1', 'windowF2', 'windowF3', 'windowF4', 'balcony', 'treeLeft', 'treeRight', 'pool', 'dad', 'mom', 'kid1', 'kid2', 'car1', 'car2', 'fence', 'lights'];
+            
+            allElements.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.classList.remove('visible');
             });
 
-            // Show current stage elements
             setTimeout(() => {
                 stage.elements.forEach((id, index) => {
                     setTimeout(() => {
                         const el = document.getElementById(id);
                         if (el) el.classList.add('visible');
-                    }, index * 200);
+                    }, index * 150);
                 });
             }, 300);
 
-            // Update stage banner
             document.getElementById('stageBanner').innerHTML = `
                 <div class="stage-name">${stage.name}</div>
                 <div class="stage-desc">${stage.desc}</div>
             `;
         }
 
-        // Update UI
         function updateUI() {
             const progress = getProgressPercent();
             const profit = gameState.currentValue - INITIAL_AMOUNT;
@@ -1033,7 +1152,6 @@
             updateMilestones();
         }
 
-        // Update Milestones
         function updateMilestones() {
             const timeline = document.getElementById('timeline');
             timeline.innerHTML = '<div class="timeline-line"></div>';
@@ -1049,7 +1167,7 @@
                             <span class="milestone-icon">${milestone.icon}</span>
                             <span class="milestone-title">${milestone.text}</span>
                         </div>
-                        <div class="milestone-day">Day ${milestone.day}</div>
+                        <div>Day ${milestone.day}</div>
                         <div class="milestone-value">${formatCurrency(milestone.value)}</div>
                     </div>
                 `;
@@ -1057,7 +1175,6 @@
             });
         }
 
-        // Complete Day
         function completeDay() {
             gameState.day++;
             gameState.currentValue = INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, gameState.day);
@@ -1075,7 +1192,6 @@
             }
         }
 
-        // Generate Stars
         function generateStars() {
             const bg = document.getElementById('bgAnimation');
             for (let i = 0; i < 100; i++) {
@@ -1088,14 +1204,12 @@
             }
         }
 
-        // Initialize
         loadGame();
         generateStars();
         updateUI();
 
         setTimeout(() => {
-            const progress = getProgressPercent();
-            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressFill').style.width = getProgressPercent() + '%';
         }, 500);
     </script>
 </body>
