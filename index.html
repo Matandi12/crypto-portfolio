@@ -820,7 +820,246 @@
                 height: 300px;
             }
         }
-    </style>
+    
+
+/* Mobile-First Complete Redesign */
+
+/* Hide complex elements on mobile */
+@media (max-width: 768px) {
+    /* Show only essential content */
+    .chart-section,
+    .days-viz-container,
+    .table-container {
+        display: none !important;
+    }
+
+    /* Mobile Tabs */
+    .mobile-tabs {
+        display: flex;
+        gap: 10px;
+        padding: 15px 20px;
+        background: var(--card-bg);
+        border-bottom: 2px solid var(--table-even);
+    }
+
+    .mobile-tab {
+        flex: 1;
+        padding: 12px;
+        background: rgba(102, 126, 234, 0.1);
+        border: 2px solid rgba(102, 126, 234, 0.3);
+        border-radius: 12px;
+        text-align: center;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+        color: var(--text-primary);
+    }
+
+    .mobile-tab.active {
+        background: var(--accent-primary);
+        border-color: transparent;
+        color: white;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Mobile Views */
+    .mobile-view {
+        display: none;
+        padding: 20px;
+        background: var(--card-bg);
+    }
+
+    .mobile-view.active {
+        display: block;
+    }
+
+    /* Simple Days List */
+    .mobile-days-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .mobile-day-item {
+        background: rgba(102, 126, 234, 0.05);
+        padding: 20px;
+        border-radius: 15px;
+        border: 2px solid rgba(102, 126, 234, 0.2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s;
+    }
+
+    .mobile-day-item.current {
+        background: var(--accent-primary);
+        color: white;
+        border-color: transparent;
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.5);
+    }
+
+    .mobile-day-item.milestone {
+        border-color: var(--accent-gold);
+    }
+
+    .day-info {
+        flex: 1;
+    }
+
+    .day-label {
+        font-size: 0.85em;
+        opacity: 0.8;
+        margin-bottom: 5px;
+    }
+
+    .day-number {
+        font-size: 1.8em;
+        font-weight: 900;
+        font-family: 'Orbitron', sans-serif;
+    }
+
+    .day-value-box {
+        text-align: right;
+    }
+
+    .day-amount {
+        font-size: 1.5em;
+        font-weight: 800;
+        font-family: 'Orbitron', sans-serif;
+    }
+
+    .day-profit {
+        font-size: 0.9em;
+        opacity: 0.8;
+        margin-top: 3px;
+    }
+
+    /* Compact Stats for Mobile */
+    body {
+        padding: 0 !important;
+    }
+
+    .container {
+        border-radius: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .header {
+        padding: 25px 20px !important;
+    }
+
+    .header h1 {
+        font-size: 1.8em !important;
+    }
+
+    .header p {
+        font-size: 0.95em !important;
+    }
+
+    .header .highlight {
+        display: block;
+        margin-top: 12px;
+        padding: 12px !important;
+        font-size: 1em !important;
+    }
+
+    .header a {
+        display: block !important;
+        margin: 15px 0 0 0 !important;
+        padding: 15px 25px !important;
+        font-size: 1em !important;
+    }
+
+    .mission-progress {
+        padding: 20px !important;
+    }
+
+    .progress-bar-container {
+        height: 55px !important;
+    }
+
+    .progress-text {
+        font-size: 1.1em !important;
+    }
+
+    .stats {
+        padding: 20px !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 12px !important;
+    }
+
+    .stat-card {
+        padding: 18px 12px !important;
+    }
+
+    .stat-card h3 {
+        font-size: 0.7em !important;
+        margin-bottom: 8px !important;
+    }
+
+    .stat-card .value {
+        font-size: 1.6em !important;
+        min-height: 45px !important;
+    }
+
+    .stat-card.current {
+        grid-column: span 2;
+    }
+
+    .stat-card.current .value {
+        font-size: 2.2em !important;
+    }
+
+    .stat-card.current p {
+        font-size: 1em !important;
+    }
+
+    .theme-toggle,
+    .sound-toggle {
+        top: 8px !important;
+        transform: scale(0.85) !important;
+    }
+
+    .theme-toggle {
+        left: 8px !important;
+    }
+
+    .sound-toggle {
+        left: 100px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.6em !important;
+    }
+
+    .stats {
+        grid-template-columns: 1fr !important;
+    }
+
+    .stat-card.current {
+        grid-column: span 1;
+    }
+
+    .stat-card .value {
+        font-size: 2em !important;
+    }
+
+    .stat-card.current .value {
+        font-size: 2.5em !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-tabs,
+    .mobile-view {
+        display: none !important;
+    }
+}
+
+</style>
 </head>
 <body data-theme="light">
     <canvas id="particles-canvas"></canvas>
@@ -847,6 +1086,24 @@
                 </a>
             </p>
         </div>
+
+<!-- Mobile Tabs (Insert after .container div opens, before main content) -->
+<div class="mobile-tabs">
+    <button class="mobile-tab active" onclick="showMobileView('overview')">📊 סקירה</button>
+    <button class="mobile-tab" onclick="showMobileView('days')">📅 ימים</button>
+</div>
+
+<!-- Mobile Overview (wraps existing stats) -->
+<div class="mobile-view active" id="mobileOverview">
+    <!-- Stats will be here by default -->
+</div>
+
+<!-- Mobile Days List -->
+<div class="mobile-view" id="mobileDays">
+    <div class="mobile-days-list" id="mobileDaysList">
+        <!-- Will be generated by JS -->
+    </div>
+</div>
 
         <div class="mission-progress">
             <div class="progress-label">
@@ -1340,6 +1597,65 @@
                 card.addEventListener('click', () => sounds.click());
             });
         });
-    </script>
+    
+
+// Mobile View Management
+function showMobileView(view) {
+    const tabs = document.querySelectorAll('.mobile-tab');
+    const views = document.querySelectorAll('.mobile-view');
+    
+    tabs.forEach(tab => tab.classList.remove('active'));
+    views.forEach(v => v.classList.remove('active'));
+    
+    if (view === 'overview') {
+        tabs[0].classList.add('active');
+        document.getElementById('mobileOverview').classList.add('active');
+    } else {
+        tabs[1].classList.add('active');
+        document.getElementById('mobileDays').classList.add('active');
+        generateMobileDaysList();
+    }
+}
+
+// Generate Mobile Days List
+function generateMobileDaysList() {
+    const list = document.getElementById('mobileDaysList');
+    if (list.children.length > 0) return;
+    
+    const INITIAL = 2200;
+    const GROWTH = 1.02;
+    const CURRENT = 13;
+    const milestones = [7, 30, 60, 90, 180, 365];
+    
+    // Show key days
+    const keyDays = [0, 7, 13, 30, 60, 90, 180, 365];
+    
+    keyDays.forEach(day => {
+        const amount = INITIAL * Math.pow(GROWTH, day);
+        const profit = amount - INITIAL;
+        const isCurrent = day === CURRENT;
+        const isMilestone = milestones.includes(day);
+        
+        const div = document.createElement('div');
+        div.className = 'mobile-day-item';
+        if (isCurrent) div.classList.add('current');
+        if (isMilestone) div.classList.add('milestone');
+        
+        div.innerHTML = `
+            <div class="day-info">
+                <div class="day-label">${isCurrent ? '📍 היום' : 'יום'}</div>
+                <div class="day-number">${day}</div>
+            </div>
+            <div class="day-value-box">
+                <div class="day-amount">$${Math.round(amount).toLocaleString()}</div>
+                <div class="day-profit">+$${Math.round(profit).toLocaleString()}</div>
+            </div>
+        `;
+        
+        list.appendChild(div);
+    });
+}
+
+</script>
 </body>
 </html>
