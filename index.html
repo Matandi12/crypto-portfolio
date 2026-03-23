@@ -527,15 +527,15 @@
             <div class="stats-grid">
                 <div class="stat-box">
                     <div class="stat-label">💰 השקעה ראשונית</div>
-                    <div class="stat-value">$2.2K</div>
+                    <div class="stat-value">$2,200</div>
                 </div>
                 <div class="stat-box">
                     <div class="stat-label">🎯 יעד סופי</div>
-                    <div class="stat-value">$3.9M</div>
+                    <div class="stat-value">$3,925,613</div>
                 </div>
                 <div class="stat-box">
                     <div class="stat-label">📈 ערך נוכחי</div>
-                    <div class="stat-value" id="currentValue">$2.8K</div>
+                    <div class="stat-value" id="currentValue">$2,850</div>
                 </div>
                 <div class="stat-box">
                     <div class="stat-label">💵 רווח מצטבר</div>
@@ -682,6 +682,10 @@
             return '$' + amount.toLocaleString('en-US', { minimumFractionDigits: 0 });
         }
 
+        function formatCurrencyFull(amount) {
+            return '$' + Math.round(amount).toLocaleString('en-US');
+        }
+
         function completeDay() {
             gameState.day++;
             gameState.currentValue = INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, gameState.day);
@@ -736,13 +740,13 @@
             const profit = currentValue - INITIAL_AMOUNT;
             const progress = (gameState.day / TOTAL_DAYS) * 100;
 
-            document.getElementById('currentValue').textContent = formatCurrency(currentValue);
-            document.getElementById('profitValue').textContent = formatCurrency(profit);
+            document.getElementById('currentValue').textContent = formatCurrencyFull(currentValue);
+            document.getElementById('profitValue').textContent = formatCurrencyFull(profit);
             document.getElementById('progressPercent').textContent = progress.toFixed(1) + '%';
             document.getElementById('progressText').textContent = `Day ${gameState.day}/365`;
 
             document.getElementById('headerStatus').innerHTML = 
-                `📍 יום ${gameState.day} במשימה | ${formatCurrency(currentValue)} | רווח: ${formatCurrency(profit)}`;
+                `📍 יום ${gameState.day} במשימה | ${formatCurrencyFull(currentValue)} | רווח: ${formatCurrencyFull(profit)}`;
 
             setTimeout(() => {
                 document.getElementById('progressFill').style.width = progress + '%';
