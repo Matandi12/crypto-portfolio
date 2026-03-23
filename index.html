@@ -124,54 +124,6 @@
             50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(102, 126, 234, 0.6); }
         }
 
-        /* Tab Navigation */
-        .tab-nav {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 40px;
-        }
-
-        .tab-btn {
-            background: rgba(26, 31, 58, 0.85);
-            backdrop-filter: blur(25px);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-            padding: 15px 35px;
-            border-radius: 15px;
-            font-size: 1.1em;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .tab-btn:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent-primary);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-        }
-
-        .tab-btn.active {
-            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
-            border-color: transparent;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
-        }
-
-        /* Main Views */
-        .view {
-            display: none;
-        }
-
-        .view.active {
-            display: block;
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
         /* Glass Card */
         .glass-card {
             background: rgba(26, 31, 58, 0.85);
@@ -286,116 +238,60 @@
             100% { transform: translateX(100%); }
         }
 
-        /* Calendar View */
-        .calendar-view {
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .calendar-title {
-            font-size: 2em;
-            font-weight: 800;
-            color: var(--accent-gold);
-            flex: 1;
-            text-align: center;
-        }
-
-        .calendar-nav {
-            display: flex;
-            gap: 15px;
-            width: 100%;
-            justify-content: center;
-        }
-
-        .nav-btn {
-            background: rgba(255, 255, 255, 0.06);
-            border: 2px solid rgba(255, 255, 255, 0.15);
-            color: var(--text-primary);
-            padding: 15px 25px;
-            border-radius: 12px;
-            font-size: 1.1em;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-width: 60px;
-        }
-
-        .nav-btn:hover:not(:disabled) {
-            background: rgba(255, 255, 255, 0.12);
-            transform: translateY(-3px);
-            border-color: var(--accent-primary);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        .nav-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
-        .calendar-grid {
+        /* Calendar Preview */
+        .calendar-preview {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(35px, 1fr));
+            gap: 8px;
+            margin: 25px 0;
         }
 
-        .calendar-day {
+        .day-preview {
             aspect-ratio: 1;
-            border-radius: 15px;
+            border-radius: 8px;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.75em;
+            font-weight: 700;
             transition: all 0.3s ease;
             cursor: pointer;
         }
 
-        .calendar-day:hover {
-            transform: scale(1.1);
+        .day-preview:hover {
+            transform: scale(1.2);
             z-index: 10;
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
         }
 
-        .calendar-day.completed {
+        .day-preview.completed {
             background: linear-gradient(135deg, var(--success) 0%, #2d8659 100%);
-            border-color: var(--success);
         }
 
-        .calendar-day.current {
+        .day-preview.current {
             background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
-            border-color: var(--accent-gold);
-            transform: scale(1.05);
             animation: currentPulse 2s infinite;
+            font-size: 1em;
         }
 
         @keyframes currentPulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.6); }
-            50% { box-shadow: 0 0 40px rgba(102, 126, 234, 0.9); }
+            0%, 100% { box-shadow: 0 0 15px rgba(102, 126, 234, 0.6); }
+            50% { box-shadow: 0 0 25px rgba(102, 126, 234, 0.9); }
         }
 
-        .day-num {
-            font-size: 1.2em;
-            font-weight: 700;
-            margin-bottom: 5px;
+        .day-preview.future {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
         }
 
-        .day-value {
-            font-size: 0.85em;
-            font-weight: 600;
-            opacity: 0.9;
+        /* Action Buttons */
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 25px;
         }
 
-        /* Buttons */
         .btn {
             background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
             color: white;
@@ -416,6 +312,14 @@
             box-shadow: 0 15px 35px rgba(102, 126, 234, 0.6);
         }
 
+        .btn-primary {
+            background: linear-gradient(135deg, var(--success) 0%, #2d8659 100%);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 15px 35px rgba(72, 187, 120, 0.6);
+        }
+
         .btn-secondary {
             background: rgba(255, 255, 255, 0.06);
             border: 2px solid rgba(255, 255, 255, 0.15);
@@ -423,6 +327,99 @@
 
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.12);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger) 0%, #c0392b 100%);
+        }
+
+        .btn-danger:hover {
+            box-shadow: 0 15px 35px rgba(231, 76, 60, 0.6);
+        }
+
+        /* Quick Links Cards */
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .link-card {
+            background: rgba(26, 31, 58, 0.85);
+            backdrop-filter: blur(25px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .link-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.5);
+        }
+
+        .link-icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .link-title {
+            font-size: 1.5em;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .link-desc {
+            color: var(--text-secondary);
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        /* Table Preview */
+        .table-preview {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 25px 0;
+        }
+
+        .table-preview table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-preview thead {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+        }
+
+        .table-preview th {
+            padding: 15px;
+            font-weight: 700;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .table-preview td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .table-preview tbody tr:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .table-preview .current-row {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+            font-weight: 700;
         }
 
         /* Footer */
@@ -459,16 +456,6 @@
                 font-size: 1em;
             }
 
-            .tab-nav {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .tab-btn {
-                padding: 12px 20px;
-                font-size: 1em;
-            }
-
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 15px;
@@ -482,26 +469,29 @@
                 font-size: 1.6em;
             }
 
-            .calendar-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 12px;
+            .calendar-preview {
+                grid-template-columns: repeat(auto-fill, minmax(25px, 1fr));
+                gap: 5px;
             }
 
-            .calendar-day {
-                padding: 10px;
+            .day-preview {
+                font-size: 0.65em;
             }
 
-            .day-num {
-                font-size: 1em;
+            .btn-group {
+                flex-direction: column;
             }
 
-            .day-value {
-                font-size: 0.75em;
+            .btn {
+                width: 100%;
             }
 
-            .nav-btn {
-                padding: 12px 20px;
-                font-size: 1em;
+            .quick-links {
+                grid-template-columns: 1fr;
+            }
+
+            .table-preview {
+                font-size: 0.85em;
             }
         }
 
@@ -517,23 +507,6 @@
             .stat-value {
                 font-size: 2em;
             }
-
-            .calendar-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-
-            .calendar-day {
-                padding: 8px;
-            }
-
-            .day-num {
-                font-size: 0.9em;
-            }
-
-            .day-value {
-                font-size: 0.7em;
-            }
         }
     </style>
 </head>
@@ -544,105 +517,129 @@
         <div class="header">
             <h1 class="header-title">🚀 MISSION CONTROL</h1>
             <p class="header-subtitle">$2,200 → $3,925,613 | גידול של 2% ליום | 365 ימים</p>
-            <div class="header-highlight">📍 יום 13 במשימה | $2,850 | רווח: $650</div>
+            <div class="header-highlight" id="headerStatus">📍 יום 13 במשימה | $2,850 | רווח: $650</div>
         </div>
 
-        <!-- Navigation Tabs -->
-        <div class="tab-nav">
-            <button class="tab-btn active" onclick="showView('overview')">📊 סקירה</button>
-            <button class="tab-btn" onclick="showView('calendar')">📅 לוח 365 ימים</button>
-            <button class="tab-btn" onclick="window.location.href='villa.html'">🏗️ Villa Builder</button>
-        </div>
+        <!-- Main Dashboard -->
+        <div class="glass-card">
+            <h2 class="card-title">📊 התקדמות המשימה</h2>
 
-        <!-- Overview View -->
-        <div class="view active" id="overviewView">
-            <div class="glass-card">
-                <h2 class="card-title">📊 התקדמות המשימה</h2>
-
-                <div class="stats-grid">
-                    <div class="stat-box">
-                        <div class="stat-label">💰 השקעה ראשונית</div>
-                        <div class="stat-value">$2.2K</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-label">🎯 יעד סופי</div>
-                        <div class="stat-value">$3.9M</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-label">📈 ערך נוכחי</div>
-                        <div class="stat-value" id="currentValue">$2.8K</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-label">💵 רווח מצטבר</div>
-                        <div class="stat-value" id="profitValue">$650</div>
-                    </div>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-label">💰 השקעה ראשונית</div>
+                    <div class="stat-value">$2.2K</div>
                 </div>
-
-                <div class="progress-section">
-                    <div class="progress-header">
-                        <span>🛸 התקדמות כוללת</span>
-                        <span class="progress-percent" id="progressPercent">3.6%</span>
-                    </div>
-                    <div class="progress-track">
-                        <div class="progress-fill" id="progressFill" style="width: 0%;">
-                            <span id="progressText">Day 13/365</span>
-                        </div>
-                    </div>
+                <div class="stat-box">
+                    <div class="stat-label">🎯 יעד סופי</div>
+                    <div class="stat-value">$3.9M</div>
                 </div>
-
-                <div style="text-align: center; margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                    <button class="btn" onclick="completeDay()">✅ התקדם יום</button>
-                    <a href="villa.html" class="btn">🏗️ Build Your Villa!</a>
-                    <a href="transactions.html" class="btn btn-secondary">📋 כל העסקאות</a>
+                <div class="stat-box">
+                    <div class="stat-label">📈 ערך נוכחי</div>
+                    <div class="stat-value" id="currentValue">$2.8K</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">💵 רווח מצטבר</div>
+                    <div class="stat-value" id="profitValue">$650</div>
                 </div>
             </div>
 
-            <!-- Key Milestones -->
-            <div class="glass-card">
-                <h2 class="card-title">🏆 Milestones Ahead</h2>
-                <div class="stats-grid">
-                    <div class="stat-box">
-                        <div class="stat-label">🌟 Week 1 (Day 7)</div>
-                        <div class="stat-value">$2.6K</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-label">📅 Month 1 (Day 30)</div>
-                        <div class="stat-value">$4.0K</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-label">💰 Month 2 (Day 60)</div>
-                        <div class="stat-value">$7.2K</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-label">💎 Half Year (Day 180)</div>
-                        <div class="stat-value">$340K</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-label">🏆 Month 3 (Day 90)</div>
-                        <div class="stat-value">$13K</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-label">🏰 Full Year (Day 365)</div>
-                        <div class="stat-value">$3.9M</div>
+            <div class="progress-section">
+                <div class="progress-header">
+                    <span>🛸 התקדמות כוללת</span>
+                    <span class="progress-percent" id="progressPercent">3.6%</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressFill" style="width: 0%;">
+                        <span id="progressText">Day 13/365</span>
                     </div>
                 </div>
             </div>
+
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="completeDay()">✅ התקדם יום</button>
+                <button class="btn btn-danger" onclick="resetGame()">🔄 Reset Game</button>
+            </div>
         </div>
 
-        <!-- Calendar View -->
-        <div class="view" id="calendarView">
-            <div class="glass-card">
-                <div class="calendar-header">
-                    <div style="width: 100%; text-align: center;">
-                        <h2 class="calendar-title" id="calendarTitle">Month 1 (Days 1–30)</h2>
-                    </div>
-                    <div class="calendar-nav">
-                        <button class="nav-btn" id="prevBtn" onclick="prevMonth()">←</button>
-                        <button class="nav-btn" id="nextBtn" onclick="nextMonth()">→</button>
-                    </div>
+        <!-- 365 Days Visual Preview -->
+        <div class="glass-card">
+            <h2 class="card-title">📅 365 Days Overview</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 20px;">
+                כל יום במסע | 
+                <span style="color: var(--success);">■</span> הושלם | 
+                <span style="color: var(--accent-primary);">■</span> היום | 
+                <span style="color: var(--text-secondary);">■</span> עתידי
+            </p>
+            <div class="calendar-preview" id="calendarPreview">
+                <!-- Generated by JS -->
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="transactions.html" class="btn btn-secondary">📋 טבלה מלאה עם כל הפרטים</a>
+            </div>
+        </div>
+
+        <!-- Recent Days Table -->
+        <div class="glass-card">
+            <h2 class="card-title">📊 הימים האחרונים</h2>
+            <div class="table-preview">
+                <table id="recentTable">
+                    <thead>
+                        <tr>
+                            <th>יום</th>
+                            <th>ערך התיק</th>
+                            <th>גידול יומי</th>
+                            <th>רווח מצטבר</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentTableBody">
+                        <!-- Generated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="quick-links">
+            <a href="villa.html" class="link-card">
+                <span class="link-icon">🏗️</span>
+                <div class="link-title">Villa Builder</div>
+                <div class="link-desc">בנה את הווילה שלך שלב אחר שלב! 6 שלבי בניה מרהיבים עם אנימציות</div>
+            </a>
+
+            <a href="transactions.html" class="link-card">
+                <span class="link-icon">📋</span>
+                <div class="link-title">Full Table</div>
+                <div class="link-desc">טבלה מפורטת של כל 365 הימים עם כל הנתונים והחישובים</div>
+            </a>
+        </div>
+
+        <!-- Milestones -->
+        <div class="glass-card">
+            <h2 class="card-title">🏆 Milestones Ahead</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-label">🌟 Week 1 (Day 7)</div>
+                    <div class="stat-value">$2.6K</div>
                 </div>
-                <div class="calendar-grid" id="calendarGrid">
-                    <!-- Days will be generated by JS -->
+                <div class="stat-box">
+                    <div class="stat-label">📅 Month 1 (Day 30)</div>
+                    <div class="stat-value">$4.0K</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">💰 Month 2 (Day 60)</div>
+                    <div class="stat-value">$7.2K</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">🏆 Month 3 (Day 90)</div>
+                    <div class="stat-value">$13K</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">💎 Half Year (Day 180)</div>
+                    <div class="stat-value">$340K</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">🏰 Full Year (Day 365)</div>
+                    <div class="stat-value">$3.9M</div>
                 </div>
             </div>
         </div>
@@ -668,8 +665,6 @@
             currentValue: INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, 13)
         };
 
-        let currentMonth = Math.floor(gameState.day / 30);
-
         function loadGame() {
             const saved = localStorage.getItem('villaSave');
             if (saved) {
@@ -681,13 +676,18 @@
             localStorage.setItem('villaSave', JSON.stringify(gameState));
         }
 
+        function formatCurrency(amount) {
+            if (amount >= 1000000) return '$' + (amount / 1000000).toFixed(1) + 'M';
+            if (amount >= 1000) return '$' + (amount / 1000).toFixed(1) + 'K';
+            return '$' + amount.toLocaleString('en-US', { minimumFractionDigits: 0 });
+        }
+
         function completeDay() {
             gameState.day++;
             gameState.currentValue = INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, gameState.day);
             
             saveGame();
-            updateStats();
-            currentMonth = Math.floor(gameState.day / 30);
+            updateAll();
 
             confetti({
                 particleCount: 150,
@@ -695,77 +695,107 @@
                 origin: { y: 0.6 }
             });
 
-            // Refresh calendar if visible
-            if (document.getElementById('calendarView').classList.contains('active')) {
-                renderCalendar(currentMonth);
+            // Check milestones
+            const milestones = [7, 30, 60, 90, 180, 365];
+            if (milestones.includes(gameState.day)) {
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 250,
+                        spread: 100,
+                        origin: { y: 0.6 }
+                    });
+                }, 500);
             }
         }
 
-        function formatCurrency(amount) {
-            if (amount >= 1000000) return '$' + (amount / 1000000).toFixed(1) + 'M';
-            if (amount >= 1000) return '$' + (amount / 1000).toFixed(1) + 'K';
-            return '$' + amount.toLocaleString('en-US', { minimumFractionDigits: 0 });
-        }
-
-        function showView(view) {
-            const views = document.querySelectorAll('.view');
-            const tabs = document.querySelectorAll('.tab-btn');
-
-            views.forEach(v => v.classList.remove('active'));
-            tabs.forEach(t => t.classList.remove('active'));
-
-            if (view === 'overview') {
-                document.getElementById('overviewView').classList.add('active');
-                tabs[0].classList.add('active');
-            } else if (view === 'calendar') {
-                document.getElementById('calendarView').classList.add('active');
-                tabs[1].classList.add('active');
-                renderCalendar(currentMonth);
+        function resetGame() {
+            if (confirm('🚨 Are you sure? This will delete ALL progress!')) {
+                localStorage.removeItem('villaSave');
+                gameState = {
+                    day: 13,
+                    currentValue: INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, 13)
+                };
+                saveGame();
+                updateAll();
+                confetti({
+                    particleCount: 150,
+                    spread: 80,
+                    origin: { y: 0.6 }
+                });
             }
         }
 
-        function renderCalendar(month) {
-            const grid = document.getElementById('calendarGrid');
-            grid.innerHTML = '';
+        function updateAll() {
+            updateStats();
+            renderCalendarPreview();
+            renderRecentTable();
+        }
 
-            const startDay = month * 30 + 1;
-            const endDay = Math.min((month + 1) * 30, TOTAL_DAYS);
+        function updateStats() {
+            const currentValue = gameState.currentValue;
+            const profit = currentValue - INITIAL_AMOUNT;
+            const progress = (gameState.day / TOTAL_DAYS) * 100;
 
-            document.getElementById('calendarTitle').textContent = `Month ${month + 1} (Days ${startDay}–${endDay})`;
+            document.getElementById('currentValue').textContent = formatCurrency(currentValue);
+            document.getElementById('profitValue').textContent = formatCurrency(profit);
+            document.getElementById('progressPercent').textContent = progress.toFixed(1) + '%';
+            document.getElementById('progressText').textContent = `Day ${gameState.day}/365`;
 
-            document.getElementById('prevBtn').disabled = month === 0;
-            document.getElementById('nextBtn').disabled = endDay >= TOTAL_DAYS;
+            document.getElementById('headerStatus').innerHTML = 
+                `📍 יום ${gameState.day} במשימה | ${formatCurrency(currentValue)} | רווח: ${formatCurrency(profit)}`;
+
+            setTimeout(() => {
+                document.getElementById('progressFill').style.width = progress + '%';
+            }, 100);
+        }
+
+        function renderCalendarPreview() {
+            const preview = document.getElementById('calendarPreview');
+            preview.innerHTML = '';
+
+            for (let day = 1; day <= TOTAL_DAYS; day++) {
+                const div = document.createElement('div');
+                div.className = 'day-preview';
+                
+                if (day < gameState.day) {
+                    div.classList.add('completed');
+                } else if (day === gameState.day) {
+                    div.classList.add('current');
+                    div.textContent = day;
+                } else {
+                    div.classList.add('future');
+                }
+
+                preview.appendChild(div);
+            }
+        }
+
+        function renderRecentTable() {
+            const tbody = document.getElementById('recentTableBody');
+            tbody.innerHTML = '';
+
+            const startDay = Math.max(1, gameState.day - 5);
+            const endDay = Math.min(TOTAL_DAYS, gameState.day + 4);
 
             for (let day = startDay; day <= endDay; day++) {
-                const value = INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, day);
-                const completed = day <= gameState.day;
-                const isCurrent = day === gameState.day;
+                const amount = INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, day);
+                const prevAmount = INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, day - 1);
+                const dailyProfit = amount - prevAmount;
+                const totalProfit = amount - INITIAL_AMOUNT;
 
-                const dayDiv = document.createElement('div');
-                dayDiv.className = 'calendar-day';
-                if (completed) dayDiv.classList.add('completed');
-                if (isCurrent) dayDiv.classList.add('current');
+                const row = document.createElement('tr');
+                if (day === gameState.day) {
+                    row.className = 'current-row';
+                }
 
-                dayDiv.innerHTML = `
-                    <div class="day-num">Day ${day}</div>
-                    <div class="day-value">${formatCurrency(value)}</div>
+                row.innerHTML = `
+                    <td style="font-weight: 700;">${day === gameState.day ? '👉 ' : ''}Day ${day}</td>
+                    <td style="color: var(--success); font-weight: 700;">${formatCurrency(amount)}</td>
+                    <td style="color: #17a2b8;">+${formatCurrency(dailyProfit)}</td>
+                    <td style="color: var(--accent-gold); font-weight: 600;">+${formatCurrency(totalProfit)}</td>
                 `;
 
-                grid.appendChild(dayDiv);
-            }
-        }
-
-        function prevMonth() {
-            if (currentMonth > 0) {
-                currentMonth--;
-                renderCalendar(currentMonth);
-            }
-        }
-
-        function nextMonth() {
-            if ((currentMonth + 1) * 30 < TOTAL_DAYS) {
-                currentMonth++;
-                renderCalendar(currentMonth);
+                tbody.appendChild(row);
             }
         }
 
@@ -781,31 +811,11 @@
             }
         }
 
-        function updateStats() {
-            const currentValue = gameState.currentValue;
-            const profit = currentValue - INITIAL_AMOUNT;
-            const progress = (gameState.day / TOTAL_DAYS) * 100;
-
-            document.getElementById('currentValue').textContent = formatCurrency(currentValue);
-            document.getElementById('profitValue').textContent = formatCurrency(profit);
-            document.getElementById('progressPercent').textContent = progress.toFixed(1) + '%';
-            document.getElementById('progressText').textContent = `Day ${gameState.day}/365`;
-
-            // Update header
-            document.querySelector('.header-highlight').innerHTML = 
-                `📍 יום ${gameState.day} במשימה | ${formatCurrency(currentValue)} | רווח: ${formatCurrency(profit)}`;
-
-            setTimeout(() => {
-                document.getElementById('progressFill').style.width = progress + '%';
-            }, 500);
-        }
-
         // Initialize
         window.addEventListener('load', () => {
             loadGame();
             generateStars();
-            updateStats();
-            currentMonth = Math.floor(gameState.day / 30);
+            updateAll();
             
             confetti({
                 particleCount: 100,
