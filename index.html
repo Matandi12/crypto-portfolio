@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>תיק קריפטו - גידול של 2% ליום</title>
+    <title>🚀 Mission Control - תיק קריפטו</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
@@ -12,88 +14,300 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
             padding: 20px;
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* אפקט כוכבים ברקע */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+                radial-gradient(2px 2px at 60px 70px, #fff, transparent),
+                radial-gradient(1px 1px at 50px 50px, #ddd, transparent),
+                radial-gradient(1px 1px at 130px 80px, #fff, transparent),
+                radial-gradient(2px 2px at 90px 10px, #eee, transparent);
+            background-size: 200px 200px;
+            animation: twinkle 3s infinite;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 30px;
+            box-shadow: 0 30px 90px rgba(0,0,0,0.5);
             overflow: hidden;
+            position: relative;
+            z-index: 1;
         }
 
         .header {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 40px;
+            padding: 50px 40px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255,255,255,0.1),
+                transparent
+            );
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
 
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            letter-spacing: 2px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 3px 3px 6px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.3); }
+            to { text-shadow: 3px 3px 6px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.6); }
         }
 
         .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
+            font-size: 1.3em;
+            opacity: 0.95;
+            margin: 5px 0;
+        }
+
+        .highlight {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 10px;
+            backdrop-filter: blur(10px);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Progress Bar למסע */
+        .mission-progress {
+            background: #f8f9fa;
+            padding: 30px 40px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #495057;
+        }
+
+        .progress-bar-container {
+            height: 40px;
+            background: linear-gradient(90deg, #e9ecef 0%, #dee2e6 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            border-radius: 20px;
+            transition: width 2s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.3),
+                transparent
+            );
+            animation: progress-shine 1.5s infinite;
+        }
+
+        @keyframes progress-shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            font-size: 1.1em;
         }
 
         .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 30px;
-            background: #f8f9fa;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 40px;
+            background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
         }
 
         .stat-card {
             background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 30px 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
             text-align: center;
-            transition: transform 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
         }
 
         .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
         }
 
         .stat-card h3 {
-            color: #666;
-            font-size: 0.9em;
-            margin-bottom: 10px;
+            color: #6c757d;
+            font-size: 0.85em;
+            margin-bottom: 15px;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
         }
 
         .stat-card .value {
-            font-size: 2em;
-            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8em;
+            font-weight: 900;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            line-height: 1.3;
+            word-break: break-word;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-card.current {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            animation: current-glow 2s infinite;
+        }
+
+        @keyframes current-glow {
+            0%, 100% { box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4); }
+            50% { box-shadow: 0 8px 30px rgba(102, 126, 234, 0.7), 0 0 40px rgba(102, 126, 234, 0.3); }
+        }
+
+        .stat-card.current h3 {
+            color: rgba(255,255,255,0.95);
+        }
+
+        .stat-card.current .value {
+            color: white;
+            -webkit-text-fill-color: white;
+            font-size: 2.2em;
+        }
+
+        .stat-card.current p {
+            margin-top: 8px;
+            font-size: 0.95em;
+            opacity: 0.9;
         }
 
         .table-container {
-            padding: 30px;
+            padding: 40px;
             overflow-x: auto;
+        }
+
+        .table-header {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .table-header h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: #495057;
+            font-size: 2em;
+            margin-bottom: 10px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border-radius: 15px;
             overflow: hidden;
+            background: white;
         }
 
         thead {
@@ -102,15 +316,16 @@
         }
 
         th {
-            padding: 15px;
+            padding: 18px 15px;
             text-align: center;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
-            font-size: 0.9em;
+            font-size: 0.85em;
+            letter-spacing: 1px;
         }
 
         tbody tr {
-            transition: background 0.3s;
+            transition: all 0.3s;
         }
 
         tbody tr:nth-child(even) {
@@ -118,11 +333,13 @@
         }
 
         tbody tr:hover {
-            background: #e9ecef;
+            background: #e7f3ff;
+            transform: scale(1.01);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
         td {
-            padding: 12px 15px;
+            padding: 15px;
             text-align: center;
             border-bottom: 1px solid #dee2e6;
         }
@@ -130,16 +347,19 @@
         .day-cell {
             font-weight: bold;
             color: #667eea;
+            font-family: 'Orbitron', sans-serif;
         }
 
         .amount-cell {
             font-weight: bold;
             color: #28a745;
-            font-size: 1.1em;
+            font-size: 1.05em;
+            font-family: 'Orbitron', sans-serif;
         }
 
         .profit-cell {
             color: #17a2b8;
+            font-weight: 500;
         }
 
         .milestone {
@@ -148,32 +368,47 @@
         }
 
         .footer {
-            background: #343a40;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
             color: white;
             text-align: center;
-            padding: 20px;
-            font-size: 0.9em;
+            padding: 30px;
+            font-size: 0.95em;
         }
 
-        .highlight {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-weight: bold;
+        .footer p {
+            margin: 8px 0;
         }
 
+        .footer .rocket {
+            font-size: 2em;
+            animation: rocket-fly 2s infinite;
+        }
+
+        @keyframes rocket-fly {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .header h1 {
-                font-size: 1.8em;
+                font-size: 2em;
             }
             
             .stat-card .value {
                 font-size: 1.5em;
             }
             
+            .stat-card.current .value {
+                font-size: 1.8em;
+            }
+            
             table {
-                font-size: 0.9em;
+                font-size: 0.85em;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -181,32 +416,48 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🚀 תיק קריפטו - מסע ל-365 ימים</h1>
+            <h1>🚀 MISSION CONTROL - תיק קריפטו</h1>
             <p>גידול של 2% ליום | השקעה ראשונית: $2,200</p>
-            <p style="margin-top: 10px;"><span class="highlight">📍 אנחנו היום ביום 13 - $2,850!</span></p>
+            <p><span class="highlight">📍 יום 13 במשימה - $2,850 | רווח: $650</span></p>
+        </div>
+
+        <div class="mission-progress">
+            <div class="progress-label">
+                <span>🛸 התקדמות במשימה</span>
+                <span id="progressPercent">3.6% מתוך 365 ימים</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar" style="width: 0%;">
+                    <span class="progress-text" id="progressText">יום 13 / 365</span>
+                </div>
+            </div>
         </div>
 
         <div class="stats">
             <div class="stat-card">
-                <h3>השקעה ראשונית</h3>
-                <div class="value">$2,200</div>
+                <h3>🎯 השקעה ראשונית</h3>
+                <div class="value" data-target="2200">$0</div>
             </div>
-            <div class="stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
-                <h3 style="color: white;">🔥 איפה אנחנו עכשיו</h3>
-                <div class="value" style="color: white; -webkit-text-fill-color: white;">$2,850</div>
-                <p style="margin-top: 5px; font-size: 0.9em;">יום 13 | רווח: $650</p>
+            <div class="stat-card current">
+                <h3>🔥 איפה אנחנו עכשיו</h3>
+                <div class="value" data-target="2850">$0</div>
+                <p>יום 13 | רווח: $650</p>
             </div>
             <div class="stat-card">
-                <h3>גידול יומי</h3>
+                <h3>📈 גידול יומי</h3>
                 <div class="value">2%</div>
             </div>
             <div class="stat-card">
-                <h3>ערך סופי (365 ימים)</h3>
-                <div class="value" id="finalValue">$3,030,286</div>
+                <h3>🎖️ ערך סופי (365 ימים)</h3>
+                <div class="value" data-target="3925613">$0</div>
             </div>
         </div>
 
         <div class="table-container">
+            <div class="table-header">
+                <h2>📊 מסלול הטיסה - 365 ימים</h2>
+                <p style="color: #6c757d; margin-top: 10px;">גלול למטה לראות את כל המסע 🚀</p>
+            </div>
             <table id="portfolioTable">
                 <thead>
                     <tr>
@@ -225,22 +476,24 @@
         </div>
 
         <div class="footer">
-            <p>💎 הכוח של ריבית דריבית - 2% ליום משנה הכל! 💎</p>
-            <p style="margin-top: 10px; opacity: 0.7;">נוצר עבור מתן דימרי 🚀</p>
+            <p class="rocket">🚀</p>
+            <p style="font-size: 1.2em; margin: 15px 0;">💎 הכוח של ריבית דריבית - 2% ליום משנה הכל! 💎</p>
+            <p style="opacity: 0.8; margin-top: 15px;">Mission Control Created for Matan Dimri</p>
+            <p style="opacity: 0.6; margin-top: 5px; font-size: 0.9em;">Powered by Innovation 🌟</p>
         </div>
     </div>
 
     <script>
         const INITIAL_AMOUNT = 2200;
-        const CURRENT_DAY = 13; // היום אנחנו כאן!
         const DAILY_GROWTH = 1.02; // 2% growth
         const DAYS = 365;
+        const CURRENT_DAY = 13; // היום אנחנו כאן!
         const START_DATE = new Date('2026-03-23'); // היום!
 
         function formatCurrency(amount) {
             return '$' + amount.toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
             });
         }
 
@@ -256,6 +509,21 @@
             const month = (date.getMonth() + 1).toString().padStart(2, '0');
             const year = date.getFullYear();
             return `${day}/${month}/${year}`;
+        }
+
+        // אנימציה למונים
+        function animateValue(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const current = Math.floor(progress * (end - start) + start);
+                element.textContent = formatCurrency(current);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
         }
 
         function generateTable() {
@@ -291,15 +559,15 @@
                 const isCurrentDay = day === CURRENT_DAY;
                 let rowClass = '';
                 if (isCurrentDay) {
-                    rowClass = 'style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; font-weight: bold; box-shadow: 0 0 20px rgba(240, 147, 251, 0.5);"';
+                    rowClass = 'style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-weight: bold; box-shadow: 0 0 25px rgba(102, 126, 234, 0.6);"';
                 } else if (isMilestone) {
                     rowClass = 'class="milestone"';
                 }
 
-                const currentDayMarker = isCurrentDay ? ' 👈 אנחנו כאן!' : '';
+                const currentDayMarker = isCurrentDay ? ' 👈 כאן!' : '';
                 
                 row = `
-                    <tr ${rowClass}>
+                    <tr ${rowClass} id="day-${day}">
                         <td class="day-cell">${day}${currentDayMarker}</td>
                         <td>${formatDate(currentDate)}</td>
                         <td class="amount-cell">${formatCurrency(currentAmount)}</td>
@@ -310,25 +578,32 @@
                 `;
                 tbody.innerHTML += row;
             }
-
-            // עדכון הסטטיסטיקות
-            const finalAmount = INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, DAYS);
-            const totalProfit = finalAmount - INITIAL_AMOUNT;
-            
-            document.getElementById('finalValue').textContent = formatCurrency(finalAmount);
-            document.getElementById('totalProfit').textContent = formatCurrency(totalProfit);
         }
 
-        // טעינת הטבלה כשהדף נטען
+        // טעינה ואנימציות
         window.addEventListener('load', () => {
+            // ייצור הטבלה
             generateTable();
-            // גלילה ליום הנוכחי אחרי טעינה
+
+            // אנימציה למונים
+            document.querySelectorAll('.stat-card .value[data-target]').forEach(element => {
+                const target = parseInt(element.getAttribute('data-target'));
+                animateValue(element, 0, target, 2000);
+            });
+
+            // אנימציה ל-progress bar
             setTimeout(() => {
-                const currentRow = document.querySelector('tr[style*="linear-gradient"]');
+                const progressPercent = (CURRENT_DAY / DAYS) * 100;
+                document.getElementById('progressBar').style.width = progressPercent + '%';
+            }, 500);
+
+            // גלילה ליום הנוכחי
+            setTimeout(() => {
+                const currentRow = document.getElementById('day-' + CURRENT_DAY);
                 if (currentRow) {
                     currentRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
-            }, 500);
+            }, 2500);
         });
     </script>
 </body>
