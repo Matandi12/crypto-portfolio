@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📋 365 Days Full Table - Mission Control</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #0a0e27;
+            --bg-card: #1a1f3a;
+            --accent-primary: #667eea;
+            --accent-secondary: #764ba2;
+            --accent-gold: #f39c12;
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --success: #48bb78;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header-title {
+            font-size: 2.5em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f39c12 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .header-subtitle {
+            font-size: 1.2em;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        /* Table Card */
+        .table-card {
+            background: rgba(26, 31, 58, 0.85);
+            backdrop-filter: blur(25px);
+            border-radius: 25px;
+            padding: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .table-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .table-title {
+            font-size: 2em;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .table-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1em;
+        }
+
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        th {
+            padding: 18px 15px;
+            text-align: center;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        tbody tr {
+            transition: all 0.3s;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        tbody tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        tbody tr:hover {
+            background: rgba(102, 126, 234, 0.15);
+            transform: scale(1.01);
+        }
+
+        tbody tr.current {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            font-weight: 700;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+        }
+
+        tbody tr.milestone {
+            background: linear-gradient(135deg, rgba(243, 156, 18, 0.2) 0%, rgba(243, 156, 18, 0.1) 100%);
+            border: 2px solid var(--accent-gold);
+        }
+
+        td {
+            padding: 15px;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .day-cell {
+            font-weight: 700;
+            color: var(--accent-primary);
+            font-size: 1.1em;
+        }
+
+        .current .day-cell {
+            color: white;
+        }
+
+        .amount-cell {
+            font-weight: 700;
+            color: var(--success);
+            font-size: 1.05em;
+        }
+
+        .current .amount-cell {
+            color: white;
+        }
+
+        .profit-cell {
+            color: #17a2b8;
+            font-weight: 600;
+        }
+
+        .current .profit-cell {
+            color: white;
+        }
+
+        .milestone-badge {
+            display: inline-block;
+            background: var(--accent-gold);
+            color: var(--bg-dark);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            font-weight: 700;
+            margin-right: 5px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header-title {
+                font-size: 1.8em;
+            }
+
+            .header-subtitle {
+                font-size: 1em;
+            }
+
+            .table-card {
+                padding: 20px;
+            }
+
+            table {
+                font-size: 0.85em;
+            }
+
+            th {
+                padding: 12px 8px;
+                font-size: 0.75em;
+            }
+
+            td {
+                padding: 10px 6px;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-title {
+                font-size: 1.5em;
+            }
+
+            table {
+                font-size: 0.75em;
+            }
+
+            th {
+                padding: 10px 5px;
+                font-size: 0.7em;
+            }
+
+            td {
+                padding: 8px 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="header-title">📋 365 Days Full Table</h1>
+            <p class="header-subtitle">מסלול הטיסה המלא - $2,200 → $3,925,613</p>
+            <p class="header-subtitle" id="currentStatus">📍 יום 13 במשימה</p>
+            
+            <div class="btn-group">
+                <a href="index.html" class="btn">📊 Dashboard</a>
+                <a href="villa.html" class="btn btn-secondary">🏗️ Villa Builder</a>
+            </div>
+        </div>
+
+        <div class="table-card">
+            <div class="table-header">
+                <h2 class="table-title">📈 All 365 Days</h2>
+                <p class="table-subtitle">גלול למטה לראות את כל המסע 🚀</p>
+            </div>
+
+            <div class="table-container">
+                <table id="transactionsTable">
+                    <thead>
+                        <tr>
+                            <th>יום</th>
+                            <th>תאריך</th>
+                            <th>ערך התיק</th>
+                            <th>גידול יומי</th>
+                            <th>רווח מצטבר</th>
+                            <th>% רווח</th>
+                            <th>אירוע</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- JavaScript will populate this -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const INITIAL_AMOUNT = 2200;
+        const DAILY_GROWTH = 1.02;
+        const TOTAL_DAYS = 365;
+        const START_DATE = new Date('2026-03-23');
+
+        let gameState = {
+            day: 13,
+            currentValue: INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, 13)
+        };
+
+        const milestones = {
+            7: { icon: '🌟', text: 'Week 1' },
+            30: { icon: '📅', text: 'Month 1' },
+            60: { icon: '💰', text: 'Month 2' },
+            90: { icon: '🏆', text: 'Month 3' },
+            180: { icon: '💎', text: 'Half Year' },
+            365: { icon: '🏰', text: 'Full Year!' }
+        };
+
+        function loadGame() {
+            const saved = localStorage.getItem('villaSave');
+            if (saved) {
+                gameState = JSON.parse(saved);
+            }
+        }
+
+        function formatCurrency(amount) {
+            if (amount >= 1000000) return '$' + (amount / 1000000).toFixed(1) + 'M';
+            if (amount >= 1000) return '$' + (amount / 1000).toFixed(1) + 'K';
+            return '$' + amount.toLocaleString('en-US', { minimumFractionDigits: 0 });
+        }
+
+        function formatPercent(percent) {
+            return percent.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }) + '%';
+        }
+
+        function formatDate(date) {
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        function generateTable() {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            
+            let currentAmount = INITIAL_AMOUNT;
+            
+            // Day 0
+            const currentDate0 = new Date(START_DATE);
+            let row = `
+                <tr class="milestone">
+                    <td class="day-cell">0</td>
+                    <td>${formatDate(currentDate0)}</td>
+                    <td class="amount-cell">${formatCurrency(INITIAL_AMOUNT)}</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>0%</td>
+                    <td><span class="milestone-badge">🚀 START</span></td>
+                </tr>
+            `;
+            tbody.innerHTML += row;
+
+            // Days 1-365
+            for (let day = 1; day <= TOTAL_DAYS; day++) {
+                const previousAmount = currentAmount;
+                currentAmount = currentAmount * DAILY_GROWTH;
+                const dailyProfit = currentAmount - previousAmount;
+                const totalProfit = currentAmount - INITIAL_AMOUNT;
+                const profitPercent = ((currentAmount / INITIAL_AMOUNT) - 1) * 100;
+
+                const currentDate = new Date(START_DATE);
+                currentDate.setDate(START_DATE.getDate() + day);
+
+                const isMilestone = milestones[day];
+                const isCurrentDay = day === gameState.day;
+                
+                let rowClass = '';
+                let currentMarker = '';
+                let milestoneCol = '';
+
+                if (isCurrentDay) {
+                    rowClass = 'class="current"';
+                    currentMarker = ' 👈 כאן!';
+                } else if (isMilestone) {
+                    rowClass = 'class="milestone"';
+                }
+
+                if (isMilestone) {
+                    milestoneCol = `<span class="milestone-badge">${isMilestone.icon} ${isMilestone.text}</span>`;
+                } else {
+                    milestoneCol = '-';
+                }
+                
+                row = `
+                    <tr ${rowClass} id="day-${day}">
+                        <td class="day-cell">${day}${currentMarker}</td>
+                        <td>${formatDate(currentDate)}</td>
+                        <td class="amount-cell">${formatCurrency(currentAmount)}</td>
+                        <td class="profit-cell">+${formatCurrency(dailyProfit)}</td>
+                        <td class="profit-cell">+${formatCurrency(totalProfit)}</td>
+                        <td>${formatPercent(profitPercent)}</td>
+                        <td>${milestoneCol}</td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            }
+        }
+
+        function updateHeader() {
+            const currentValue = gameState.currentValue;
+            const profit = currentValue - INITIAL_AMOUNT;
+            document.getElementById('currentStatus').textContent = 
+                `📍 יום ${gameState.day} במשימה | ${formatCurrency(currentValue)} | רווח: ${formatCurrency(profit)}`;
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            loadGame();
+            generateTable();
+            updateHeader();
+
+            // Scroll to current day
+            setTimeout(() => {
+                const currentRow = document.getElementById('day-' + gameState.day);
+                if (currentRow) {
+                    currentRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 500);
+        });
+    </script>
+</body>
+</html>

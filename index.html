@@ -590,8 +590,10 @@
                     </div>
                 </div>
 
-                <div style="text-align: center; margin-top: 30px;">
+                <div style="text-align: center; margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn" onclick="completeDay()">✅ התקדם יום</button>
                     <a href="villa.html" class="btn">🏗️ Build Your Villa!</a>
+                    <a href="transactions.html" class="btn btn-secondary">📋 כל העסקאות</a>
                 </div>
             </div>
 
@@ -660,9 +662,44 @@
         const INITIAL_AMOUNT = 2200;
         const DAILY_GROWTH = 1.02;
         const TOTAL_DAYS = 365;
-        const CURRENT_DAY = 13;
 
-        let currentMonth = Math.floor(CURRENT_DAY / 30);
+        let gameState = {
+            day: 13,
+            currentValue: INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, 13)
+        };
+
+        let currentMonth = Math.floor(gameState.day / 30);
+
+        function loadGame() {
+            const saved = localStorage.getItem('villaSave');
+            if (saved) {
+                gameState = JSON.parse(saved);
+            }
+        }
+
+        function saveGame() {
+            localStorage.setItem('villaSave', JSON.stringify(gameState));
+        }
+
+        function completeDay() {
+            gameState.day++;
+            gameState.currentValue = INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, gameState.day);
+            
+            saveGame();
+            updateStats();
+            currentMonth = Math.floor(gameState.day / 30);
+
+            confetti({
+                particleCount: 150,
+                spread: 80,
+                origin: { y: 0.6 }
+            });
+
+            // Refresh calendar if visible
+            if (document.getElementById('calendarView').classList.contains('active')) {
+                renderCalendar(currentMonth);
+            }
+        }
 
         function formatCurrency(amount) {
             if (amount >= 1000000) return '$' + (amount / 1000000).toFixed(1) + 'M';
@@ -701,8 +738,8 @@
 
             for (let day = startDay; day <= endDay; day++) {
                 const value = INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, day);
-                const completed = day <= CURRENT_DAY;
-                const isCurrent = day === CURRENT_DAY;
+                const completed = day <= gameState.day;
+                const isCurrent = day === gameState.day;
 
                 const dayDiv = document.createElement('div');
                 dayDiv.className = 'calendar-day';
@@ -745,13 +782,18 @@
         }
 
         function updateStats() {
-            const currentValue = INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, CURRENT_DAY);
+            const currentValue = gameState.currentValue;
             const profit = currentValue - INITIAL_AMOUNT;
-            const progress = (CURRENT_DAY / TOTAL_DAYS) * 100;
+            const progress = (gameState.day / TOTAL_DAYS) * 100;
 
             document.getElementById('currentValue').textContent = formatCurrency(currentValue);
             document.getElementById('profitValue').textContent = formatCurrency(profit);
             document.getElementById('progressPercent').textContent = progress.toFixed(1) + '%';
+            document.getElementById('progressText').textContent = `Day ${gameState.day}/365`;
+
+            // Update header
+            document.querySelector('.header-highlight').innerHTML = 
+                `📍 יום ${gameState.day} במשימה | ${formatCurrency(currentValue)} | רווח: ${formatCurrency(profit)}`;
 
             setTimeout(() => {
                 document.getElementById('progressFill').style.width = progress + '%';
@@ -760,8 +802,11 @@
 
         // Initialize
         window.addEventListener('load', () => {
+            loadGame();
             generateStars();
             updateStats();
+            currentMonth = Math.floor(gameState.day / 30);
+            
             confetti({
                 particleCount: 100,
                 spread: 70,
