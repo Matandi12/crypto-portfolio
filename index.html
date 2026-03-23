@@ -3,63 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#667eea">
     <title>🚀 Mission Control - תיק קריפטו</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <!-- Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-primary: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            --bg-secondary: rgba(255, 255, 255, 0.98);
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --accent-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --accent-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --card-bg: white;
+            --table-even: #f8f9fa;
+            --table-hover: #e7f3ff;
+            --shadow-color: rgba(0,0,0,0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #1a1a1a 100%);
+            --bg-secondary: rgba(20, 20, 20, 0.98);
+            --text-primary: #e9ecef;
+            --text-secondary: #adb5bd;
+            --accent-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --accent-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --card-bg: rgba(30, 30, 30, 0.95);
+            --table-even: rgba(40, 40, 40, 0.5);
+            --table-hover: rgba(102, 126, 234, 0.2);
+            --shadow-color: rgba(0,0,0,0.5);
+        }
+
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            background: var(--bg-primary);
             padding: 20px;
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
+            transition: all 0.5s ease;
         }
 
-        /* אפקט כוכבים ברקע */
-        body::before {
-            content: '';
+        /* Particles Background */
+        #particles-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
-                radial-gradient(2px 2px at 60px 70px, #fff, transparent),
-                radial-gradient(1px 1px at 50px 50px, #ddd, transparent),
-                radial-gradient(1px 1px at 130px 80px, #fff, transparent),
-                radial-gradient(2px 2px at 90px 10px, #eee, transparent);
-            background-size: 200px 200px;
-            animation: twinkle 3s infinite;
-            opacity: 0.3;
             z-index: 0;
+            opacity: 0.3;
         }
 
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 1000;
+            background: var(--card-bg);
+            border-radius: 50px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px var(--shadow-color);
+        }
+
+        .theme-icon {
+            font-size: 1.5em;
+            transition: transform 0.5s ease;
+        }
+
+        .theme-toggle:hover .theme-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Sound Toggle */
+        .sound-toggle {
+            position: fixed;
+            top: 30px;
+            left: 150px;
+            z-index: 1000;
+            background: var(--card-bg);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-size: 1.5em;
+        }
+
+        .sound-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.98);
+            background: var(--bg-secondary);
             border-radius: 30px;
-            box-shadow: 0 30px 90px rgba(0,0,0,0.5);
+            box-shadow: 0 30px 90px var(--shadow-color);
             overflow: hidden;
             position: relative;
             z-index: 1;
+            transition: all 0.5s ease;
         }
 
+        /* Glass Morphism Header */
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--accent-primary);
             color: white;
             padding: 50px 40px;
             text-align: center;
@@ -124,11 +209,12 @@
             50% { transform: scale(1.05); }
         }
 
-        /* Progress Bar למסע */
+        /* Progress Bar */
         .mission-progress {
-            background: #f8f9fa;
+            background: var(--card-bg);
             padding: 30px 40px;
-            border-bottom: 2px solid #e9ecef;
+            border-bottom: 2px solid var(--table-even);
+            transition: all 0.5s ease;
         }
 
         .progress-label {
@@ -136,21 +222,21 @@
             justify-content: space-between;
             margin-bottom: 10px;
             font-weight: bold;
-            color: #495057;
+            color: var(--text-primary);
         }
 
         .progress-bar-container {
             height: 40px;
-            background: linear-gradient(90deg, #e9ecef 0%, #dee2e6 100%);
+            background: var(--table-even);
             border-radius: 20px;
             overflow: hidden;
             position: relative;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: inset 0 2px 4px var(--shadow-color);
         }
 
         .progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background: var(--accent-primary);
             border-radius: 20px;
             transition: width 2s ease-out;
             position: relative;
@@ -190,24 +276,27 @@
             font-size: 1.1em;
         }
 
+        /* Stats Cards */
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
             padding: 40px;
-            background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+            background: var(--card-bg);
+            transition: all 0.5s ease;
         }
 
         .stat-card {
-            background: white;
+            background: var(--card-bg);
             padding: 30px 20px;
             border-radius: 20px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px var(--shadow-color);
             text-align: center;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 2px solid transparent;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(10px);
         }
 
         .stat-card::before {
@@ -232,7 +321,7 @@
         }
 
         .stat-card h3 {
-            color: #6c757d;
+            color: var(--text-secondary);
             font-size: 0.85em;
             margin-bottom: 15px;
             text-transform: uppercase;
@@ -244,7 +333,7 @@
             font-family: 'Orbitron', sans-serif;
             font-size: 1.8em;
             font-weight: 900;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--accent-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -257,7 +346,7 @@
         }
 
         .stat-card.current {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--accent-primary);
             color: white;
             border: none;
             animation: current-glow 2s infinite;
@@ -284,9 +373,107 @@
             opacity: 0.9;
         }
 
+        /* Chart Container */
+        .chart-section {
+            padding: 40px;
+            background: var(--card-bg);
+            transition: all 0.5s ease;
+        }
+
+        .chart-header {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .chart-header h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--text-primary);
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .chart-container {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            margin-bottom: 30px;
+            position: relative;
+            height: 400px;
+        }
+
+        /* Days Visualization */
+        .days-viz-container {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            margin-top: 30px;
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(25px, 1fr));
+            gap: 5px;
+            margin-top: 20px;
+        }
+
+        .day-cell-viz {
+            aspect-ratio: 1;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .day-cell-viz:hover {
+            transform: scale(1.3);
+            z-index: 10;
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+
+        .day-cell-viz.past {
+            background: linear-gradient(135deg, #52c234 0%, #061700 100%);
+        }
+
+        .day-cell-viz.current {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            animation: current-day-pulse 1.5s infinite;
+        }
+
+        @keyframes current-day-pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(102, 126, 234, 0.5); }
+            50% { transform: scale(1.2); box-shadow: 0 0 20px rgba(102, 126, 234, 0.8); }
+        }
+
+        .day-cell-viz.future {
+            background: var(--table-even);
+        }
+
+        .day-cell-viz.milestone {
+            border: 2px solid gold;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            pointer-events: none;
+            z-index: 1000;
+            display: none;
+            white-space: nowrap;
+        }
+
+        /* Table */
         .table-container {
             padding: 40px;
             overflow-x: auto;
+            background: var(--card-bg);
+            transition: all 0.5s ease;
         }
 
         .table-header {
@@ -296,7 +483,7 @@
 
         .table-header h2 {
             font-family: 'Orbitron', sans-serif;
-            color: #495057;
+            color: var(--text-primary);
             font-size: 2em;
             margin-bottom: 10px;
         }
@@ -304,14 +491,14 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 20px var(--shadow-color);
             border-radius: 15px;
             overflow: hidden;
-            background: white;
+            background: var(--card-bg);
         }
 
         thead {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--accent-primary);
             color: white;
         }
 
@@ -329,19 +516,20 @@
         }
 
         tbody tr:nth-child(even) {
-            background: #f8f9fa;
+            background: var(--table-even);
         }
 
         tbody tr:hover {
-            background: #e7f3ff;
+            background: var(--table-hover);
             transform: scale(1.01);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px var(--shadow-color);
         }
 
         td {
             padding: 15px;
             text-align: center;
-            border-bottom: 1px solid #dee2e6;
+            border-bottom: 1px solid var(--table-even);
+            color: var(--text-primary);
         }
 
         .day-cell {
@@ -367,6 +555,7 @@
             font-weight: bold;
         }
 
+        /* Footer */
         .footer {
             background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
             color: white;
@@ -391,6 +580,17 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .theme-toggle {
+                top: 15px;
+                left: 15px;
+                padding: 8px 15px;
+            }
+
+            .sound-toggle {
+                top: 15px;
+                left: 120px;
+            }
+
             .header h1 {
                 font-size: 2em;
             }
@@ -410,10 +610,31 @@
             .stats {
                 grid-template-columns: 1fr;
             }
+
+            .days-grid {
+                grid-template-columns: repeat(auto-fill, minmax(20px, 1fr));
+            }
+
+            .chart-container {
+                height: 300px;
+            }
         }
     </style>
 </head>
-<body>
+<body data-theme="light">
+    <canvas id="particles-canvas"></canvas>
+    
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <span class="theme-icon" id="themeIcon">🌙</span>
+        <span id="themeText">Dark Mode</span>
+    </div>
+
+    <div class="sound-toggle" onclick="toggleSound()" id="soundToggle">
+        🔊
+    </div>
+
+    <div class="tooltip" id="tooltip"></div>
+
     <div class="container">
         <div class="header">
             <h1>🚀 MISSION CONTROL - תיק קריפטו</h1>
@@ -453,10 +674,35 @@
             </div>
         </div>
 
+        <div class="chart-section">
+            <div class="chart-header">
+                <h2>📊 גרף התקדמות אינטראקטיבי</h2>
+                <p style="color: var(--text-secondary); margin-top: 10px;">העבר עכבר על הנקודות לפרטים 🎯</p>
+            </div>
+            <div class="chart-container">
+                <canvas id="portfolioChart"></canvas>
+            </div>
+
+            <div class="days-viz-container">
+                <div class="chart-header">
+                    <h2>📅 ויזואליזציה של 365 הימים</h2>
+                    <p style="color: var(--text-secondary); margin-top: 10px;">
+                        <span style="display: inline-block; width: 20px; height: 20px; background: linear-gradient(135deg, #52c234 0%, #061700 100%); border-radius: 4px; vertical-align: middle;"></span> ימים שעברו
+                        <span style="display: inline-block; width: 20px; height: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 4px; vertical-align: middle; margin-right: 15px;"></span> היום!
+                        <span style="display: inline-block; width: 20px; height: 20px; background: var(--table-even); border-radius: 4px; vertical-align: middle; margin-right: 15px;"></span> ימים עתידיים
+                        <span style="display: inline-block; width: 20px; height: 20px; border: 2px solid gold; border-radius: 4px; vertical-align: middle; margin-right: 15px;"></span> Milestones
+                    </p>
+                </div>
+                <div class="days-grid" id="daysGrid">
+                    <!-- JavaScript will populate this -->
+                </div>
+            </div>
+        </div>
+
         <div class="table-container">
             <div class="table-header">
-                <h2>📊 מסלול הטיסה - 365 ימים</h2>
-                <p style="color: #6c757d; margin-top: 10px;">גלול למטה לראות את כל המסע 🚀</p>
+                <h2>📋 מסלול הטיסה המלא - 365 ימים</h2>
+                <p style="color: var(--text-secondary); margin-top: 10px;">גלול למטה לראות את כל המסע 🚀</p>
             </div>
             <table id="portfolioTable">
                 <thead>
@@ -485,11 +731,117 @@
 
     <script>
         const INITIAL_AMOUNT = 2200;
-        const DAILY_GROWTH = 1.02; // 2% growth
+        const DAILY_GROWTH = 1.02;
         const DAYS = 365;
-        const CURRENT_DAY = 13; // היום אנחנו כאן!
-        const START_DATE = new Date('2026-03-23'); // היום!
+        const CURRENT_DAY = 13;
+        const START_DATE = new Date('2026-03-23');
 
+        let soundEnabled = true;
+        let chartInstance = null;
+
+        // Sound Effects
+        const sounds = {
+            click: () => playTone(440, 50),
+            milestone: () => playTone(880, 200),
+            hover: () => playTone(330, 30)
+        };
+
+        function playTone(frequency, duration) {
+            if (!soundEnabled) return;
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = frequency;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration/1000);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + duration/1000);
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            document.getElementById('soundToggle').textContent = soundEnabled ? '🔊' : '🔇';
+            sounds.click();
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            document.getElementById('themeIcon').textContent = newTheme === 'light' ? '🌙' : '☀️';
+            document.getElementById('themeText').textContent = newTheme === 'light' ? 'Dark Mode' : 'Light Mode';
+            
+            localStorage.setItem('theme', newTheme);
+            sounds.click();
+            
+            // Update chart colors
+            if (chartInstance) {
+                updateChartTheme();
+            }
+        }
+
+        // Load saved theme
+        window.addEventListener('load', () => {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                toggleTheme();
+            }
+        });
+
+        // Particles Animation
+        function initParticles() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const particles = [];
+            const particleCount = 100;
+            
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    radius: Math.random() * 2
+                });
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = 'white';
+                
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    
+                    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                    
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+        }
+
+        // Format Functions
         function formatCurrency(amount) {
             return '$' + amount.toLocaleString('en-US', {
                 minimumFractionDigits: 0,
@@ -511,7 +863,7 @@
             return `${day}/${month}/${year}`;
         }
 
-        // אנימציה למונים
+        // Animate Counter
         function animateValue(element, start, end, duration) {
             let startTimestamp = null;
             const step = (timestamp) => {
@@ -521,16 +873,178 @@
                 element.textContent = formatCurrency(current);
                 if (progress < 1) {
                     window.requestAnimationFrame(step);
+                } else {
+                    if (end > 10000) {
+                        triggerConfetti();
+                    }
                 }
             };
             window.requestAnimationFrame(step);
         }
 
+        // Confetti
+        function triggerConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+            sounds.milestone();
+        }
+
+        // Create Chart
+        function createChart() {
+            const ctx = document.getElementById('portfolioChart').getContext('2d');
+            
+            const data = [];
+            const labels = [];
+            let amount = INITIAL_AMOUNT;
+            
+            for (let day = 0; day <= DAYS; day++) {
+                if (day % 5 === 0 || day === CURRENT_DAY || day === DAYS) {
+                    labels.push(`Day ${day}`);
+                    data.push(amount);
+                }
+                amount *= DAILY_GROWTH;
+            }
+            
+            const theme = document.body.getAttribute('data-theme');
+            const textColor = theme === 'dark' ? '#e9ecef' : '#212529';
+            const gridColor = theme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+            
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Portfolio Value',
+                        data: data,
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 5,
+                        pointHoverRadius: 8,
+                        pointBackgroundColor: '#667eea',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return formatCurrency(context.parsed.y);
+                                }
+                            },
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            padding: 12,
+                            displayColors: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + (value/1000).toFixed(0) + 'K';
+                                },
+                                color: textColor
+                            },
+                            grid: {
+                                color: gridColor
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: textColor
+                            },
+                            grid: {
+                                color: gridColor
+                            }
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    }
+                }
+            });
+        }
+
+        function updateChartTheme() {
+            const theme = document.body.getAttribute('data-theme');
+            const textColor = theme === 'dark' ? '#e9ecef' : '#212529';
+            const gridColor = theme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+            
+            chartInstance.options.scales.y.ticks.color = textColor;
+            chartInstance.options.scales.x.ticks.color = textColor;
+            chartInstance.options.scales.y.grid.color = gridColor;
+            chartInstance.options.scales.x.grid.color = gridColor;
+            chartInstance.update();
+        }
+
+        // Days Visualization
+        function createDaysVisualization() {
+            const grid = document.getElementById('daysGrid');
+            let amount = INITIAL_AMOUNT;
+            
+            for (let day = 0; day <= DAYS; day++) {
+                const cell = document.createElement('div');
+                cell.className = 'day-cell-viz';
+                
+                if (day < CURRENT_DAY) {
+                    cell.classList.add('past');
+                } else if (day === CURRENT_DAY) {
+                    cell.classList.add('current');
+                } else {
+                    cell.classList.add('future');
+                }
+                
+                if (day % 30 === 0 || day === DAYS) {
+                    cell.classList.add('milestone');
+                }
+                
+                cell.addEventListener('mouseenter', (e) => {
+                    const value = INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, day);
+                    showTooltip(e, `Day ${day}: ${formatCurrency(value)}`);
+                    sounds.hover();
+                });
+                
+                cell.addEventListener('mouseleave', hideTooltip);
+                
+                grid.appendChild(cell);
+                amount *= DAILY_GROWTH;
+            }
+        }
+
+        // Tooltip
+        function showTooltip(e, text) {
+            const tooltip = document.getElementById('tooltip');
+            tooltip.textContent = text;
+            tooltip.style.display = 'block';
+            tooltip.style.left = e.pageX + 10 + 'px';
+            tooltip.style.top = e.pageY + 10 + 'px';
+        }
+
+        function hideTooltip() {
+            document.getElementById('tooltip').style.display = 'none';
+        }
+
+        // Generate Table
         function generateTable() {
             const tbody = document.getElementById('tableBody');
             let currentAmount = INITIAL_AMOUNT;
             
-            // יום 0 - התחלה
+            // Day 0
             let row = `
                 <tr class="milestone">
                     <td class="day-cell">0</td>
@@ -543,7 +1057,7 @@
             `;
             tbody.innerHTML += row;
 
-            // ימים 1-365
+            // Days 1-365
             for (let day = 1; day <= DAYS; day++) {
                 const previousAmount = currentAmount;
                 currentAmount = currentAmount * DAILY_GROWTH;
@@ -554,7 +1068,6 @@
                 const currentDate = new Date(START_DATE);
                 currentDate.setDate(START_DATE.getDate() + day);
 
-                // הדגשת ימים מיוחדים
                 const isMilestone = day % 30 === 0 || day === 365;
                 const isCurrentDay = day === CURRENT_DAY;
                 let rowClass = '';
@@ -580,30 +1093,46 @@
             }
         }
 
-        // טעינה ואנימציות
+        // Initialize Everything
         window.addEventListener('load', () => {
-            // ייצור הטבלה
+            initParticles();
             generateTable();
+            createChart();
+            createDaysVisualization();
 
-            // אנימציה למונים
+            // Animate counters
             document.querySelectorAll('.stat-card .value[data-target]').forEach(element => {
                 const target = parseInt(element.getAttribute('data-target'));
                 animateValue(element, 0, target, 2000);
             });
 
-            // אנימציה ל-progress bar
+            // Progress bar animation
             setTimeout(() => {
                 const progressPercent = (CURRENT_DAY / DAYS) * 100;
                 document.getElementById('progressBar').style.width = progressPercent + '%';
             }, 500);
 
-            // גלילה ליום הנוכחי
+            // Scroll to current day
             setTimeout(() => {
                 const currentRow = document.getElementById('day-' + CURRENT_DAY);
                 if (currentRow) {
                     currentRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
+            }, 3000);
+
+            // Confetti on milestones
+            setTimeout(() => {
+                if (CURRENT_DAY % 10 === 0) {
+                    triggerConfetti();
+                }
             }, 2500);
+        });
+
+        // Add click sounds to stat cards
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.stat-card').forEach(card => {
+                card.addEventListener('click', () => sounds.click());
+            });
         });
     </script>
 </body>
