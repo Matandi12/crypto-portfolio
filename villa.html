@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏗️ VILLA BUILDER - בונה את הווילה שלך</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .main-title {
+            font-size: 3em;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            animation: fadeIn 1s;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        /* Card Base */
+        .card {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Villa Display */
+        .villa-container {
+            position: relative;
+            height: 400px;
+            background: linear-gradient(180deg, #87CEEB 0%, #E0F6FF 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 5px solid #667eea;
+        }
+
+        .ground {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(180deg, #8B7355 0%, #654321 100%);
+            z-index: 1;
+        }
+
+        .grass {
+            position: absolute;
+            bottom: 80px;
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(180deg, #90EE90 0%, #228B22 100%);
+            z-index: 2;
+        }
+
+        /* Building Stages */
+        .building {
+            position: absolute;
+            bottom: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 280px;
+            height: 250px;
+            transition: all 1s ease;
+        }
+
+        /* Foundation (0-5%) */
+        .foundation {
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            width: 80%;
+            height: 20px;
+            background: #8B8B8B;
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        /* Walls (5-15%) */
+        .walls {
+            position: absolute;
+            bottom: 20px;
+            left: 10%;
+            width: 80%;
+            height: 150px;
+            background: linear-gradient(135deg, #DEB887 0%, #D2691E 100%);
+            border: 3px solid #8B4513;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        /* Roof (15-30%) */
+        .roof {
+            position: absolute;
+            bottom: 170px;
+            left: 5%;
+            width: 0;
+            height: 0;
+            border-left: 140px solid transparent;
+            border-right: 140px solid transparent;
+            border-bottom: 80px solid #8B0000;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        /* Windows (30-50%) */
+        .window {
+            position: absolute;
+            width: 40px;
+            height: 50px;
+            background: linear-gradient(135deg, #87CEEB 0%, #4682B4 100%);
+            border: 3px solid #2F4F4F;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        .window:nth-child(1) { top: 50px; left: 30px; }
+        .window:nth-child(2) { top: 50px; right: 30px; }
+
+        /* Door (30-50%) */
+        .door {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 80px;
+            background: linear-gradient(135deg, #8B4513 0%, #654321 100%);
+            border: 3px solid #4A2511;
+            border-radius: 5px 5px 0 0;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        /* Garden (50-75%) */
+        .tree {
+            position: absolute;
+            bottom: 110px;
+            font-size: 3em;
+            opacity: 0;
+            transition: all 1s;
+            animation: sway 3s infinite;
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        .tree:nth-child(1) { left: 5%; }
+        .tree:nth-child(2) { right: 5%; }
+
+        /* Pool (50-75%) */
+        .pool {
+            position: absolute;
+            bottom: 110px;
+            left: 5%;
+            width: 100px;
+            height: 60px;
+            background: linear-gradient(135deg, #00CED1 0%, #1E90FF 100%);
+            border-radius: 50%;
+            border: 4px solid #4682B4;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        /* Luxury Features (75-100%) */
+        .fence {
+            position: absolute;
+            bottom: 108px;
+            width: 100%;
+            height: 5px;
+            background: repeating-linear-gradient(
+                90deg,
+                #8B4513 0px,
+                #8B4513 10px,
+                transparent 10px,
+                transparent 15px
+            );
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        .lights {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 20%, rgba(255, 223, 0, 0.3) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        /* Progress Info */
+        .progress-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .info-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .info-label {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .info-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        /* Progress Bar */
+        .progress-section {
+            margin-bottom: 30px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .progress-bar-container {
+            height: 40px;
+            background: #e0e0e0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            transition: width 2s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Stage Info */
+        .stage-info {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 3px solid #f39c12;
+        }
+
+        .stage-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+
+        .stage-desc {
+            font-size: 1em;
+            color: #34495e;
+        }
+
+        /* Milestones */
+        .milestones-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .milestone-item {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+        }
+
+        .milestone-item.completed {
+            background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+            border-color: #2ecc71;
+            animation: complete 0.5s;
+        }
+
+        @keyframes complete {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        .milestone-icon {
+            font-size: 2.5em;
+            margin-bottom: 8px;
+            filter: grayscale(100%);
+        }
+
+        .milestone-item.completed .milestone-icon {
+            filter: grayscale(0%);
+            animation: bounce 0.5s;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .milestone-text {
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .milestone-value {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+
+        /* Action Button */
+        .action-button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-size: 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .action-button:active {
+            transform: translateY(0);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 15px;
+            border-radius: 15px;
+        }
+
+        .stat-label {
+            font-size: 0.85em;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .milestones-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 568px) {
+            .main-title {
+                font-size: 2em;
+            }
+
+            .info-box {
+                padding: 15px;
+            }
+
+            .info-value {
+                font-size: 1.4em;
+            }
+
+            .milestones-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="main-title">🏗️ VILLA BUILDER</h1>
+            <p class="subtitle">בונה את הווילה של החלומות שלך - $2,200 → $3,925,613</p>
+        </div>
+
+        <div class="main-grid">
+            <!-- Left: Villa Display -->
+            <div class="card">
+                <h2 class="card-title">🏠 הווילה שלך</h2>
+                
+                <div class="villa-container" id="villaContainer">
+                    <!-- Sky background -->
+                    
+                    <!-- Building -->
+                    <div class="building">
+                        <div class="foundation" id="foundation"></div>
+                        <div class="walls" id="walls">
+                            <div class="window"></div>
+                            <div class="window"></div>
+                            <div class="door" id="door"></div>
+                        </div>
+                        <div class="roof" id="roof"></div>
+                        <div class="lights" id="lights"></div>
+                    </div>
+                    
+                    <!-- Garden -->
+                    <div class="tree" id="tree1">🌳</div>
+                    <div class="tree" id="tree2">🌳</div>
+                    <div class="pool" id="pool"></div>
+                    <div class="fence" id="fence"></div>
+                    
+                    <!-- Ground -->
+                    <div class="grass"></div>
+                    <div class="ground"></div>
+                </div>
+
+                <div class="stage-info" id="stageInfo">
+                    <div class="stage-title">🏗️ שלב תשתית</div>
+                    <div class="stage-desc">בונה את היסודות של הווילה</div>
+                </div>
+
+                <div class="progress-section">
+                    <div class="progress-label">
+                        <span>התקדמות בניה</span>
+                        <span id="progressPercent">3.6%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar" style="width: 0%;">
+                            <span id="progressText">יום 13/365</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box" style="grid-column: span 2; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                    <div class="info-label" style="color: rgba(255,255,255,0.9);">ערך נוכחי</div>
+                    <div class="info-value" style="color: white;" id="currentValue">$2,850</div>
+                </div>
+            </div>
+
+            <!-- Right: Stats & Milestones -->
+            <div class="card">
+                <h2 class="card-title">📊 סטטיסטיקות</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-label">💰 השקעה</div>
+                        <div class="stat-value">$2,200</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">🎯 יעד</div>
+                        <div class="stat-value">$3.9M</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">📈 רווח</div>
+                        <div class="stat-value" id="profitValue">$650</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">📅 ימים</div>
+                        <div class="stat-value" id="daysValue">13/365</div>
+                    </div>
+                </div>
+
+                <h2 class="card-title" style="margin-top: 30px;">🏆 Milestones</h2>
+                
+                <div class="milestones-grid" id="milestonesGrid">
+                    <!-- Milestones will be added here -->
+                </div>
+
+                <button class="action-button" onclick="completeDay()" style="margin-top: 30px;">
+                    ✅ סיימתי יום נוסף!
+                </button>
+
+                <button class="action-button" onclick="window.location.href='index.html'" style="margin-top: 15px; background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);">
+                    📊 חזור ל-Dashboard
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const INITIAL_AMOUNT = 2200;
+        const DAILY_GROWTH = 1.02;
+        const TOTAL_DAYS = 365;
+        const CURRENT_DAY = 13;
+
+        // Building stages
+        const stages = [
+            { min: 0, max: 5, name: '🏗️ שלב תשתית', desc: 'בונה את היסודות של הווילה', elements: ['foundation'] },
+            { min: 5, max: 15, name: '🧱 שלב קירות', desc: 'בונה את הקירות והמבנה', elements: ['foundation', 'walls'] },
+            { min: 15, max: 30, name: '🏠 שלב גג', desc: 'מוסיף גג, דלתות וחלונות', elements: ['foundation', 'walls', 'roof', 'door'] },
+            { min: 30, max: 50, name: '🏡 שלב גימורים', desc: 'גימורים פנימיים וצביעה', elements: ['foundation', 'walls', 'roof', 'door'] },
+            { min: 50, max: 75, name: '🏘️ שלב גינה', desc: 'מוסיף גינה, עצים ובריכה', elements: ['foundation', 'walls', 'roof', 'door', 'tree1', 'tree2', 'pool'] },
+            { min: 75, max: 100, name: '🏰 וילה מפוארת!', desc: 'תאורה, גדר וכל הפינוקים!', elements: ['foundation', 'walls', 'roof', 'door', 'tree1', 'tree2', 'pool', 'fence', 'lights'] }
+        ];
+
+        // Milestones
+        const milestones = [
+            { day: 7, icon: '🌟', text: 'שבוע ראשון', value: '$2,613' },
+            { day: 30, icon: '📅', text: 'חודש ראשון', value: '$3,987' },
+            { day: 60, icon: '💰', text: 'חודשיים', value: '$7,224' },
+            { day: 90, icon: '🏆', text: '3 חודשים', value: '$13,078' },
+            { day: 180, icon: '💎', text: 'חצי שנה', value: '$340,318' },
+            { day: 365, icon: '🏰', text: 'שנה שלמה!', value: '$3.9M' }
+        ];
+
+        let gameState = {
+            day: CURRENT_DAY,
+            currentValue: INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, CURRENT_DAY)
+        };
+
+        function loadGame() {
+            const saved = localStorage.getItem('villaSave');
+            if (saved) {
+                gameState = JSON.parse(saved);
+            }
+        }
+
+        function saveGame() {
+            localStorage.setItem('villaSave', JSON.stringify(gameState));
+        }
+
+        function formatCurrency(amount) {
+            if (amount >= 1000000) {
+                return '$' + (amount / 1000000).toFixed(1) + 'M';
+            }
+            return '$' + amount.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        }
+
+        function getProgressPercent() {
+            return (gameState.day / TOTAL_DAYS) * 100;
+        }
+
+        function getCurrentStage() {
+            const progress = getProgressPercent();
+            for (let stage of stages) {
+                if (progress >= stage.min && progress < stage.max) {
+                    return stage;
+                }
+            }
+            return stages[stages.length - 1];
+        }
+
+        function updateVilla() {
+            const stage = getCurrentStage();
+            
+            // Hide all elements first
+            ['foundation', 'walls', 'roof', 'door', 'tree1', 'tree2', 'pool', 'fence', 'lights'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.opacity = '0';
+            });
+
+            // Show current stage elements
+            stage.elements.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.opacity = '1';
+            });
+
+            // Update stage info
+            document.getElementById('stageInfo').innerHTML = `
+                <div class="stage-title">${stage.name}</div>
+                <div class="stage-desc">${stage.desc}</div>
+            `;
+        }
+
+        function updateUI() {
+            const progress = getProgressPercent();
+            const profit = gameState.currentValue - INITIAL_AMOUNT;
+
+            // Update progress
+            document.getElementById('progressPercent').textContent = progress.toFixed(1) + '%';
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `יום ${gameState.day}/${TOTAL_DAYS}`;
+
+            // Update values
+            document.getElementById('currentValue').textContent = formatCurrency(gameState.currentValue);
+            document.getElementById('profitValue').textContent = formatCurrency(profit);
+            document.getElementById('daysValue').textContent = `${gameState.day}/${TOTAL_DAYS}`;
+
+            // Update villa
+            updateVilla();
+
+            // Update milestones
+            updateMilestones();
+        }
+
+        function updateMilestones() {
+            const grid = document.getElementById('milestonesGrid');
+            grid.innerHTML = '';
+
+            milestones.forEach(milestone => {
+                const completed = gameState.day >= milestone.day;
+                const div = document.createElement('div');
+                div.className = 'milestone-item' + (completed ? ' completed' : '');
+                div.innerHTML = `
+                    <div class="milestone-icon">${milestone.icon}</div>
+                    <div class="milestone-text">${milestone.text}</div>
+                    <div class="milestone-value">יום ${milestone.day}</div>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        function completeDay() {
+            gameState.day++;
+            gameState.currentValue = INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, gameState.day);
+            
+            saveGame();
+            updateUI();
+
+            // Check if milestone reached
+            const milestone = milestones.find(m => m.day === gameState.day);
+            if (milestone) {
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+                playSound(880, 300);
+            } else {
+                playSound(440, 100);
+            }
+        }
+
+        function playSound(frequency, duration) {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = frequency;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration/1000);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + duration/1000);
+            } catch (e) {}
+        }
+
+        // Initialize
+        loadGame();
+        updateUI();
+
+        // Animate progress bar
+        setTimeout(() => {
+            const progress = getProgressPercent();
+            document.getElementById('progressBar').style.width = progress + '%';
+        }, 500);
+    </script>
+</body>
+</html>
