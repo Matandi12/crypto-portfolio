@@ -182,13 +182,19 @@
     <div class="container">
         <div class="header">
             <h1>🚀 תיק קריפטו - מסע ל-365 ימים</h1>
-            <p>גידול של 2% ליום | השקעה ראשונית: $2,850</p>
+            <p>גידול של 2% ליום | השקעה ראשונית: $2,200</p>
+            <p style="margin-top: 10px;"><span class="highlight">📍 אנחנו היום ביום 13 - $2,850!</span></p>
         </div>
 
         <div class="stats">
             <div class="stat-card">
                 <h3>השקעה ראשונית</h3>
-                <div class="value">$2,850</div>
+                <div class="value">$2,200</div>
+            </div>
+            <div class="stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
+                <h3 style="color: white;">🔥 איפה אנחנו עכשיו</h3>
+                <div class="value" style="color: white; -webkit-text-fill-color: white;">$2,850</div>
+                <p style="margin-top: 5px; font-size: 0.9em;">יום 13 | רווח: $650</p>
             </div>
             <div class="stat-card">
                 <h3>גידול יומי</h3>
@@ -197,10 +203,6 @@
             <div class="stat-card">
                 <h3>ערך סופי (365 ימים)</h3>
                 <div class="value" id="finalValue">$3,030,286</div>
-            </div>
-            <div class="stat-card">
-                <h3>סך רווח</h3>
-                <div class="value" id="totalProfit">$3,028,086</div>
             </div>
         </div>
 
@@ -229,7 +231,8 @@
     </div>
 
     <script>
-        const INITIAL_AMOUNT = 2850;
+        const INITIAL_AMOUNT = 2200;
+        const CURRENT_DAY = 13; // היום אנחנו כאן!
         const DAILY_GROWTH = 1.02; // 2% growth
         const DAYS = 365;
         const START_DATE = new Date('2026-03-23'); // היום!
@@ -285,11 +288,19 @@
 
                 // הדגשת ימים מיוחדים
                 const isMilestone = day % 30 === 0 || day === 365;
-                const rowClass = isMilestone ? 'class="milestone"' : '';
+                const isCurrentDay = day === CURRENT_DAY;
+                let rowClass = '';
+                if (isCurrentDay) {
+                    rowClass = 'style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; font-weight: bold; box-shadow: 0 0 20px rgba(240, 147, 251, 0.5);"';
+                } else if (isMilestone) {
+                    rowClass = 'class="milestone"';
+                }
 
+                const currentDayMarker = isCurrentDay ? ' 👈 אנחנו כאן!' : '';
+                
                 row = `
                     <tr ${rowClass}>
-                        <td class="day-cell">${day}</td>
+                        <td class="day-cell">${day}${currentDayMarker}</td>
                         <td>${formatDate(currentDate)}</td>
                         <td class="amount-cell">${formatCurrency(currentAmount)}</td>
                         <td class="profit-cell">+${formatCurrency(dailyProfit)}</td>
@@ -309,7 +320,16 @@
         }
 
         // טעינת הטבלה כשהדף נטען
-        window.addEventListener('load', generateTable);
+        window.addEventListener('load', () => {
+            generateTable();
+            // גלילה ליום הנוכחי אחרי טעינה
+            setTimeout(() => {
+                const currentRow = document.querySelector('tr[style*="linear-gradient"]');
+                if (currentRow) {
+                    currentRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 500);
+        });
     </script>
 </body>
 </html>
