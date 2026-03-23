@@ -33,9 +33,9 @@
             color: var(--text-primary);
             min-height: 100vh;
             overflow-x: hidden;
-            position: relative;
         }
 
+        /* Animated Background - ENHANCED */
         .bg-animation {
             position: fixed;
             top: 0;
@@ -43,7 +43,7 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            opacity: 0.15;
+            background: radial-gradient(ellipse at center, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
         }
 
         .star {
@@ -53,11 +53,34 @@
             background: white;
             border-radius: 50%;
             animation: twinkle 3s infinite;
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
         }
 
         @keyframes twinkle {
             0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.5); }
+            50% { opacity: 1; transform: scale(1.8); }
+        }
+
+        /* Shooting Stars */
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+            animation: shoot 3s linear infinite;
+        }
+
+        @keyframes shoot {
+            0% { 
+                transform: translateX(0) translateY(0);
+                opacity: 1;
+            }
+            100% { 
+                transform: translateX(-300px) translateY(300px);
+                opacity: 0;
+            }
         }
 
         .container {
@@ -80,7 +103,7 @@
         }
 
         .header-title {
-            font-size: 4em;
+            font-size: 4.5em;
             font-weight: 900;
             background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 50%, var(--accent-gold) 100%);
             -webkit-background-clip: text;
@@ -90,6 +113,7 @@
             letter-spacing: -2px;
             animation: gradientShift 3s ease infinite;
             background-size: 200% 200%;
+            text-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
         }
 
         @keyframes gradientShift {
@@ -98,9 +122,10 @@
         }
 
         .header-subtitle {
-            font-size: 1.3em;
+            font-size: 1.4em;
             color: var(--text-secondary);
             font-weight: 400;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .main-grid {
@@ -111,12 +136,12 @@
         }
 
         .glass-card {
-            background: rgba(26, 31, 58, 0.8);
-            backdrop-filter: blur(20px);
+            background: rgba(26, 31, 58, 0.85);
+            backdrop-filter: blur(25px);
             border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 35px;
-            box-shadow: 0 20px 60px var(--shadow);
+            box-shadow: 0 25px 70px var(--shadow);
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             animation: fadeInUp 1s ease-out;
         }
@@ -127,13 +152,13 @@
         }
 
         .glass-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 30px 80px var(--shadow);
-            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-10px);
+            box-shadow: 0 35px 90px var(--shadow);
+            border-color: rgba(255, 255, 255, 0.25);
         }
 
         .card-title {
-            font-size: 1.8em;
+            font-size: 1.9em;
             font-weight: 700;
             margin-bottom: 30px;
             display: flex;
@@ -141,54 +166,136 @@
             gap: 12px;
         }
 
-        /* Villa Scene - ENHANCED */
+        /* Villa Scene - ULTRA ENHANCED */
         .villa-scene {
             position: relative;
-            height: 600px;
-            background: linear-gradient(180deg, #1e3a8a 0%, #3b82f6 40%, #93c5fd 70%, #e0f2fe 100%);
-            border-radius: 25px;
+            height: 650px;
+            background: linear-gradient(180deg, #1e3a8a 0%, #3b82f6 35%, #60a5fa 60%, #93c5fd 80%, #e0f2fe 100%);
+            border-radius: 30px;
             overflow: hidden;
             margin-bottom: 30px;
-            box-shadow: inset 0 -50px 100px rgba(0, 0, 0, 0.3);
+            box-shadow: inset 0 -80px 120px rgba(0, 0, 0, 0.4),
+                        0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.1);
         }
 
+        /* Sun with rays */
         .celestial {
             position: absolute;
-            top: 50px;
-            right: 50px;
-            width: 80px;
-            height: 80px;
+            top: 60px;
+            right: 60px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            background: radial-gradient(circle, #ffd700 0%, #ff8c00 100%);
-            box-shadow: 0 0 60px rgba(255, 215, 0, 0.8);
-            animation: celestialMove 20s infinite;
+            background: radial-gradient(circle, #ffd700 0%, #ffed4e 50%, #ff8c00 100%);
+            box-shadow: 0 0 80px rgba(255, 215, 0, 0.9),
+                        0 0 120px rgba(255, 165, 0, 0.6);
+            animation: celestialPulse 4s ease-in-out infinite;
         }
 
-        @keyframes celestialMove {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+        @keyframes celestialPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 80px rgba(255, 215, 0, 0.9); }
+            50% { transform: scale(1.05); box-shadow: 0 0 120px rgba(255, 215, 0, 1); }
         }
 
+        .celestial::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
+            animation: rays 8s linear infinite;
+        }
+
+        @keyframes rays {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Enhanced Clouds */
         .cloud {
             position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 100px;
+            animation: cloudFloat 30s linear infinite;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .cloud::before, .cloud::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+        }
+
+        .cloud:nth-child(1) { 
+            top: 70px; 
+            width: 120px; 
+            height: 45px;
+            animation-duration: 28s; 
+        }
+
+        .cloud:nth-child(1)::before {
+            width: 60px;
+            height: 60px;
+            top: -30px;
+            left: 15px;
+        }
+
+        .cloud:nth-child(1)::after {
+            width: 80px;
+            height: 80px;
+            top: -40px;
+            right: 15px;
+        }
+
+        .cloud:nth-child(2) { 
+            top: 130px; 
             width: 100px;
             height: 40px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50px;
-            animation: cloudFloat 30s linear infinite;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            animation-duration: 38s; 
+            animation-delay: -12s; 
         }
 
-        .cloud:nth-child(1) { top: 60px; animation-duration: 25s; }
-        .cloud:nth-child(2) { top: 120px; animation-duration: 35s; animation-delay: -10s; }
-        .cloud:nth-child(3) { top: 90px; animation-duration: 40s; animation-delay: -20s; }
+        .cloud:nth-child(2)::before {
+            width: 50px;
+            height: 50px;
+            top: -25px;
+            left: 12px;
+        }
+
+        .cloud:nth-child(2)::after {
+            width: 70px;
+            height: 70px;
+            top: -35px;
+            right: 12px;
+        }
 
         @keyframes cloudFloat {
-            0% { left: -120px; }
-            100% { left: calc(100% + 120px); }
+            0% { left: -150px; }
+            100% { left: calc(100% + 150px); }
         }
 
-        /* Ground */
+        /* Birds */
+        .bird {
+            position: absolute;
+            font-size: 1.5em;
+            animation: birdFly 20s linear infinite;
+        }
+
+        .bird:nth-child(1) { top: 100px; animation-delay: 0s; }
+        .bird:nth-child(2) { top: 120px; animation-delay: -7s; }
+        .bird:nth-child(3) { top: 90px; animation-delay: -14s; }
+
+        @keyframes birdFly {
+            0% { left: -50px; transform: scale(0.8); }
+            50% { transform: scale(1); }
+            100% { left: calc(100% + 50px); transform: scale(0.8); }
+        }
+
+        /* Ground with flowers */
         .ground-layer {
             position: absolute;
             bottom: 0;
@@ -197,37 +304,54 @@
         }
 
         .grass {
-            height: 80px;
-            background: linear-gradient(180deg, #22c55e 0%, #15803d 100%);
-            box-shadow: inset 0 10px 20px rgba(0, 0, 0, 0.2);
+            height: 90px;
+            background: linear-gradient(180deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+            box-shadow: inset 0 15px 30px rgba(0, 0, 0, 0.25);
+            position: relative;
+        }
+
+        .grass::before {
+            content: '🌺 🌸 🌼 🌻 🌺 🌸 🌼 🌻 🌺 🌸';
+            position: absolute;
+            top: 5px;
+            left: 0;
+            width: 100%;
+            font-size: 1.2em;
+            display: flex;
+            justify-content: space-around;
+            animation: flowerSway 3s ease-in-out infinite;
+        }
+
+        @keyframes flowerSway {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-3px) rotate(2deg); }
         }
 
         .soil {
-            height: 60px;
-            background: linear-gradient(180deg, #92400e 0%, #78350f 100%);
+            height: 70px;
+            background: linear-gradient(180deg, #92400e 0%, #78350f 50%, #451a03 100%);
         }
 
-        /* Villa Structure - MEGA ENHANCED */
+        /* Villa Structure */
         .villa-structure {
             position: absolute;
-            bottom: 140px;
+            bottom: 160px;
             left: 50%;
             transform: translateX(-50%);
-            width: 500px;
-            height: 400px;
-            transform-style: preserve-3d;
+            width: 520px;
+            height: 420px;
         }
 
         /* Foundation */
         .foundation {
             position: absolute;
             bottom: 0;
-            left: 5%;
-            width: 90%;
-            height: 30px;
+            left: 3%;
+            width: 94%;
+            height: 35px;
             background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
-            border-radius: 10px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
             opacity: 0;
             transform: translateY(30px);
             transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -241,17 +365,18 @@
         /* Main Building */
         .building-main {
             position: absolute;
-            bottom: 30px;
-            left: 10%;
-            width: 80%;
-            height: 220px;
-            background: linear-gradient(135deg, #f5deb3 0%, #daa520 100%);
-            border: 5px solid #8b7355;
-            border-radius: 15px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+            bottom: 35px;
+            left: 8%;
+            width: 84%;
+            height: 230px;
+            background: linear-gradient(135deg, #f5deb3 0%, #daa520 50%, #cd853f 100%);
+            border: 6px solid #8b7355;
+            border-radius: 18px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6),
+                        inset 0 2px 10px rgba(255, 255, 255, 0.3);
             opacity: 0;
             transform: scale(0.8);
-            transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
         .building-main.visible {
@@ -259,20 +384,20 @@
             transform: scale(1);
         }
 
-        /* Roof - Detailed */
+        /* Roof */
         .roof {
             position: absolute;
-            bottom: 250px;
-            left: 5%;
+            bottom: 265px;
+            left: 3%;
             width: 0;
             height: 0;
-            border-left: 225px solid transparent;
-            border-right: 225px solid transparent;
-            border-bottom: 110px solid #dc2626;
-            filter: drop-shadow(0 15px 40px rgba(0, 0, 0, 0.6));
+            border-left: 240px solid transparent;
+            border-right: 240px solid transparent;
+            border-bottom: 120px solid #dc2626;
+            filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.7));
             opacity: 0;
-            transform: translateY(-40px);
-            transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transform: translateY(-50px);
+            transition: all 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
         .roof.visible {
@@ -283,26 +408,27 @@
         .roof::after {
             content: '';
             position: absolute;
-            top: -110px;
-            left: -225px;
-            width: 450px;
-            height: 10px;
+            top: -120px;
+            left: -240px;
+            width: 480px;
+            height: 12px;
             background: #991b1b;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+            border-radius: 5px;
         }
 
-        /* Chimney */
+        /* Chimney with smoke */
         .chimney {
             position: absolute;
-            bottom: 310px;
-            right: 120px;
-            width: 30px;
-            height: 60px;
+            bottom: 330px;
+            right: 130px;
+            width: 35px;
+            height: 70px;
             background: linear-gradient(135deg, #7c2d12 0%, #991b1b 100%);
-            border: 3px solid #450a0a;
-            border-radius: 5px;
+            border: 4px solid #450a0a;
+            border-radius: 6px;
             opacity: 0;
-            transition: all 0.8s ease-out;
+            transition: all 1s ease-out;
         }
 
         .chimney.visible {
@@ -312,33 +438,39 @@
         .chimney::after {
             content: '💨';
             position: absolute;
-            top: -20px;
-            left: 5px;
-            font-size: 1.2em;
-            animation: smoke 2s infinite;
+            top: -25px;
+            left: 7px;
+            font-size: 1.5em;
+            animation: smoke 3s infinite;
         }
 
         @keyframes smoke {
-            0% { opacity: 0.8; transform: translateY(0); }
-            100% { opacity: 0; transform: translateY(-30px); }
+            0% { opacity: 0.9; transform: translateY(0) scale(0.8); }
+            100% { opacity: 0; transform: translateY(-40px) scale(1.5); }
         }
 
-        /* Windows - Multiple Floors */
+        /* Windows - Enhanced */
         .window {
             position: absolute;
-            width: 55px;
-            height: 70px;
-            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+            width: 58px;
+            height: 75px;
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
             border: 5px solid #1e3a8a;
-            border-radius: 10px;
-            box-shadow: inset 0 3px 15px rgba(255, 255, 255, 0.4),
-                        0 8px 25px rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            box-shadow: inset 0 4px 20px rgba(255, 255, 255, 0.5),
+                        0 10px 30px rgba(0, 0, 0, 0.5);
             opacity: 0;
-            transition: all 0.8s ease-out;
+            transition: all 0.9s ease-out;
         }
 
         .window.visible {
             opacity: 1;
+            animation: windowGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes windowGlow {
+            0%, 100% { box-shadow: inset 0 4px 20px rgba(255, 255, 255, 0.5), 0 10px 30px rgba(0, 0, 0, 0.5); }
+            50% { box-shadow: inset 0 4px 30px rgba(255, 255, 255, 0.8), 0 10px 30px rgba(59, 130, 246, 0.6); }
         }
 
         .window::before {
@@ -347,7 +479,7 @@
             top: 50%;
             left: 0;
             width: 100%;
-            height: 3px;
+            height: 4px;
             background: #1e3a8a;
         }
 
@@ -356,36 +488,36 @@
             position: absolute;
             left: 50%;
             top: 0;
-            width: 3px;
+            width: 4px;
             height: 100%;
             background: #1e3a8a;
         }
 
         /* Ground Floor Windows */
-        .window-g1 { bottom: 60px; left: 60px; }
-        .window-g2 { bottom: 60px; left: 150px; }
-        .window-g3 { bottom: 60px; right: 150px; }
-        .window-g4 { bottom: 60px; right: 60px; }
+        .window-g1 { bottom: 65px; left: 65px; }
+        .window-g2 { bottom: 65px; left: 160px; }
+        .window-g3 { bottom: 65px; right: 160px; }
+        .window-g4 { bottom: 65px; right: 65px; }
 
         /* First Floor Windows */
-        .window-f1 { bottom: 150px; left: 60px; }
-        .window-f2 { bottom: 150px; left: 150px; }
-        .window-f3 { bottom: 150px; right: 150px; }
-        .window-f4 { bottom: 150px; right: 60px; }
+        .window-f1 { bottom: 160px; left: 65px; }
+        .window-f2 { bottom: 160px; left: 160px; }
+        .window-f3 { bottom: 160px; right: 160px; }
+        .window-f4 { bottom: 160px; right: 65px; }
 
         /* Balcony */
         .balcony {
             position: absolute;
-            bottom: 140px;
+            bottom: 150px;
             left: 50%;
             transform: translateX(-50%);
-            width: 120px;
-            height: 50px;
+            width: 130px;
+            height: 55px;
             background: linear-gradient(135deg, #f5deb3 0%, #daa520 100%);
-            border: 4px solid #8b7355;
-            border-radius: 10px;
+            border: 5px solid #8b7355;
+            border-radius: 12px;
             opacity: 0;
-            transition: all 0.8s ease-out;
+            transition: all 0.9s ease-out;
         }
 
         .balcony.visible {
@@ -398,34 +530,35 @@
             left: 0;
             width: 100%;
             height: 100%;
-            border-top: 3px solid #8b7355;
+            border-top: 4px solid #8b7355;
             display: flex;
             justify-content: space-around;
             align-items: flex-start;
-            padding-top: 5px;
+            padding-top: 6px;
         }
 
         .rail-bar {
-            width: 3px;
-            height: 40px;
+            width: 4px;
+            height: 44px;
             background: #8b7355;
+            border-radius: 2px;
         }
 
-        /* Door - Grand Entrance */
+        /* Door */
         .door {
             position: absolute;
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 75px;
-            height: 120px;
-            background: linear-gradient(135deg, #92400e 0%, #78350f 100%);
-            border: 5px solid #451a03;
-            border-radius: 15px 15px 0 0;
-            box-shadow: inset 0 3px 15px rgba(0, 0, 0, 0.6),
-                        0 10px 30px rgba(0, 0, 0, 0.5);
+            width: 80px;
+            height: 130px;
+            background: linear-gradient(135deg, #92400e 0%, #78350f 50%, #451a03 100%);
+            border: 6px solid #451a03;
+            border-radius: 18px 18px 0 0;
+            box-shadow: inset 0 4px 20px rgba(0, 0, 0, 0.7),
+                        0 15px 40px rgba(0, 0, 0, 0.6);
             opacity: 0;
-            transition: all 0.8s ease-out;
+            transition: all 0.9s ease-out;
         }
 
         .door.visible {
@@ -434,133 +567,460 @@
 
         .door-knob {
             position: absolute;
-            right: 15px;
+            right: 18px;
             top: 55%;
-            width: 10px;
-            height: 10px;
-            background: gold;
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, gold 0%, #b8860b 100%);
             border-radius: 50%;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7),
+                        0 0 15px rgba(255, 215, 0, 0.6);
         }
 
         .door-glass {
             position: absolute;
-            top: 20px;
+            top: 25px;
             left: 50%;
             transform: translateX(-50%);
-            width: 40px;
-            height: 50px;
+            width: 45px;
+            height: 55px;
             background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
-            border: 3px solid #1e3a8a;
-            border-radius: 20px 20px 0 0;
+            border: 4px solid #1e3a8a;
+            border-radius: 22px 22px 0 0;
         }
 
-        /* Garden Elements */
+        /* Garden - Enhanced Trees */
         .tree {
             position: absolute;
-            bottom: 140px;
-            font-size: 5em;
+            bottom: 160px;
+            width: 80px;
+            height: 100px;
             opacity: 0;
-            transition: all 1s ease-out;
-            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4));
-            animation: treeSway 4s ease-in-out infinite;
-        }
-
-        @keyframes treeSway {
-            0%, 100% { transform: rotate(-3deg); }
-            50% { transform: rotate(3deg); }
+            transition: all 1.2s ease-out;
         }
 
         .tree.visible {
             opacity: 1;
         }
 
-        .tree-left { left: 10px; }
-        .tree-right { right: 10px; }
+        .tree-trunk {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 40px;
+            background: linear-gradient(135deg, #92400e 0%, #78350f 100%);
+            border-radius: 3px;
+        }
 
-        /* Luxury Pool */
+        .tree-leaves {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle, #22c55e 0%, #16a34a 100%);
+            border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+            animation: treeSway 4s ease-in-out infinite;
+        }
+
+        @keyframes treeSway {
+            0%, 100% { transform: translateX(-50%) rotate(-4deg); }
+            50% { transform: translateX(-50%) rotate(4deg); }
+        }
+
+        .tree-left { left: 15px; }
+        .tree-right { right: 15px; }
+
+        /* Pool - Ultra Enhanced */
         .pool {
             position: absolute;
-            bottom: 140px;
-            left: 40px;
-            width: 140px;
-            height: 85px;
-            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            bottom: 160px;
+            left: 50px;
+            width: 150px;
+            height: 95px;
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 50%, #0e7490 100%);
             border-radius: 50%;
-            border: 6px solid #0e7490;
-            box-shadow: inset 0 8px 25px rgba(255, 255, 255, 0.4),
-                        0 15px 40px rgba(0, 0, 0, 0.5);
+            border: 7px solid #0e7490;
+            box-shadow: inset 0 10px 30px rgba(255, 255, 255, 0.5),
+                        0 20px 50px rgba(0, 0, 0, 0.6);
             opacity: 0;
-            transition: all 1s ease-out;
+            transition: all 1.2s ease-out;
         }
 
         .pool.visible {
             opacity: 1;
-            animation: waterRipple 3s ease-in-out infinite;
+            animation: waterRipple 4s ease-in-out infinite;
         }
 
         @keyframes waterRipple {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
+            0%, 100% { transform: scale(1); box-shadow: inset 0 10px 30px rgba(255, 255, 255, 0.5), 0 20px 50px rgba(0, 0, 0, 0.6); }
+            50% { transform: scale(1.04); box-shadow: inset 0 10px 40px rgba(255, 255, 255, 0.7), 0 20px 50px rgba(6, 182, 212, 0.4); }
         }
 
-        /* Family Members */
-        .family {
+        /* Family Members - CSS ART */
+        .family-member {
             position: absolute;
-            font-size: 2.5em;
+            width: 50px;
+            height: 80px;
             opacity: 0;
-            transition: all 1s ease-out;
-            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+            transition: all 1.2s ease-out;
         }
 
-        .family.visible {
+        .family-member.visible {
             opacity: 1;
-            animation: familyWave 3s ease-in-out infinite;
+            animation: familyWave 4s ease-in-out infinite;
         }
 
         @keyframes familyWave {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-8px); }
         }
 
-        .dad { bottom: 145px; left: 180px; }
-        .mom { bottom: 145px; left: 230px; }
-        .kid1 { bottom: 145px; left: 280px; }
-        .kid2 { bottom: 145px; left: 320px; }
+        /* Dad */
+        .dad {
+            bottom: 165px;
+            left: 200px;
+        }
 
-        /* Luxury Cars */
-        .car {
+        .dad .head {
             position: absolute;
-            font-size: 3em;
-            opacity: 0;
-            transition: all 1s ease-out;
-            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4));
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background: #fde68a;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        .car.visible {
+        .dad .head::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 8px;
+            width: 4px;
+            height: 4px;
+            background: #1e3a8a;
+            border-radius: 50%;
+            box-shadow: 10px 0 0 #1e3a8a;
+        }
+
+        .dad .head::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 10px;
+            width: 10px;
+            height: 3px;
+            background: #dc2626;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .dad .body {
+            position: absolute;
+            top: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 35px;
+            height: 30px;
+            background: #3b82f6;
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .dad .legs {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 25px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .dad .leg {
+            width: 10px;
+            height: 100%;
+            background: #1e3a8a;
+            border-radius: 5px;
+        }
+
+        /* Mom */
+        .mom {
+            bottom: 165px;
+            left: 260px;
+        }
+
+        .mom .head {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 28px;
+            height: 28px;
+            background: #fde68a;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .mom .head::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 7px;
+            width: 4px;
+            height: 4px;
+            background: #7c2d12;
+            border-radius: 50%;
+            box-shadow: 10px 0 0 #7c2d12;
+        }
+
+        .mom .head::after {
+            content: '';
+            position: absolute;
+            top: 14px;
+            left: 9px;
+            width: 10px;
+            height: 3px;
+            background: #f97316;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .mom .hair {
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 32px;
+            height: 18px;
+            background: #7c2d12;
+            border-radius: 50% 50% 0 0;
+        }
+
+        .mom .body {
+            position: absolute;
+            top: 26px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 36px;
+            height: 32px;
+            background: #f472b6;
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mom .legs {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 28px;
+            height: 24px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .mom .leg {
+            width: 10px;
+            height: 100%;
+            background: #7c2d12;
+            border-radius: 5px;
+        }
+
+        /* Kids */
+        .kid1 {
+            bottom: 165px;
+            left: 310px;
+        }
+
+        .kid2 {
+            bottom: 165px;
+            left: 355px;
+        }
+
+        .kid1 .head, .kid2 .head {
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 22px;
+            height: 22px;
+            background: #fde68a;
+            border-radius: 50%;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .kid1 .head::before, .kid2 .head::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 5px;
+            width: 3px;
+            height: 3px;
+            background: #1e3a8a;
+            border-radius: 50%;
+            box-shadow: 9px 0 0 #1e3a8a;
+        }
+
+        .kid1 .head::after, .kid2 .head::after {
+            content: '😊';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.5em;
+        }
+
+        .kid1 .body, .kid2 .body {
+            position: absolute;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 28px;
+            height: 26px;
+            background: #22c55e;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .kid1 .legs, .kid2 .legs {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 22px;
+            height: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .kid1 .leg, .kid2 .leg {
+            width: 8px;
+            height: 100%;
+            background: #1e3a8a;
+            border-radius: 4px;
+        }
+
+        /* Luxury Cars - CSS ART */
+        .car-luxury {
+            position: absolute;
+            width: 90px;
+            height: 50px;
+            opacity: 0;
+            transition: all 1.2s ease-out;
+        }
+
+        .car-luxury.visible {
             opacity: 1;
-            animation: carShine 2s ease-in-out infinite;
+            animation: carShine 3s ease-in-out infinite;
         }
 
         @keyframes carShine {
-            0%, 100% { filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4)); }
-            50% { filter: drop-shadow(0 8px 20px rgba(255, 215, 0, 0.6)); }
+            0%, 100% { filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.5)); }
+            50% { filter: drop-shadow(0 10px 35px rgba(255, 215, 0, 0.8)); }
         }
 
-        .car-1 { bottom: 145px; right: 180px; }
-        .car-2 { bottom: 145px; right: 250px; }
+        .car-1 {
+            bottom: 165px;
+            right: 200px;
+        }
 
-        /* Fence - Elegant */
-        .fence {
+        .car-1 .car-body {
             position: absolute;
-            bottom: 140px;
+            bottom: 0;
             left: 0;
             width: 100%;
-            height: 60px;
+            height: 30px;
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .car-1 .car-top {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 50px;
+            height: 25px;
+            background: linear-gradient(135deg, #dc2626 0%, #7f1d1d 100%);
+            border-radius: 12px 12px 0 0;
+            box-shadow: inset 0 2px 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .car-1 .wheel {
+            position: absolute;
+            bottom: -8px;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #1f2937 0%, #111827 60%, #000 100%);
+            border-radius: 50%;
+            border: 3px solid #6b7280;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+        }
+
+        .car-1 .wheel-front { left: 10px; }
+        .car-1 .wheel-back { right: 10px; }
+
+        .car-2 {
+            bottom: 165px;
+            right: 300px;
+        }
+
+        .car-2 .car-body {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 32px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5),
+                        0 0 30px rgba(251, 191, 36, 0.4);
+        }
+
+        .car-2 .car-top {
+            position: absolute;
+            bottom: 22px;
+            left: 22px;
+            width: 52px;
+            height: 28px;
+            background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+            border-radius: 14px 14px 0 0;
+            box-shadow: inset 0 3px 12px rgba(255, 255, 255, 0.4);
+        }
+
+        .car-2 .wheel {
+            position: absolute;
+            bottom: -9px;
+            width: 22px;
+            height: 22px;
+            background: radial-gradient(circle, #1f2937 0%, #111827 50%, gold 100%);
+            border-radius: 50%;
+            border: 3px solid gold;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6),
+                        0 0 15px rgba(251, 191, 36, 0.6);
+        }
+
+        .car-2 .wheel-front { left: 12px; }
+        .car-2 .wheel-back { right: 12px; }
+
+        /* Fence */
+        .fence {
+            position: absolute;
+            bottom: 160px;
+            left: 0;
+            width: 100%;
+            height: 65px;
             display: flex;
             justify-content: space-around;
             opacity: 0;
-            transition: all 1s ease-out;
+            transition: all 1.2s ease-out;
         }
 
         .fence.visible {
@@ -568,11 +1028,11 @@
         }
 
         .fence-post {
-            width: 10px;
+            width: 12px;
             height: 100%;
             background: linear-gradient(135deg, #92400e 0%, #78350f 100%);
-            border-radius: 5px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            border-radius: 6px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
         }
 
         /* Lights */
@@ -582,47 +1042,49 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 50% 35%, rgba(255, 215, 0, 0.25) 0%, transparent 65%);
+            background: radial-gradient(ellipse at 50% 40%, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
             opacity: 0;
-            transition: all 1s ease-out;
+            transition: all 1.2s ease-out;
             pointer-events: none;
         }
 
         .lights.visible {
             opacity: 1;
-            animation: lightPulse 3s ease-in-out infinite;
+            animation: lightPulse 4s ease-in-out infinite;
         }
 
         @keyframes lightPulse {
-            0%, 100% { opacity: 0.7; }
+            0%, 100% { opacity: 0.8; }
             50% { opacity: 1; }
         }
 
         /* Stage Banner */
         .stage-banner {
             background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
-            padding: 25px 35px;
+            padding: 28px 40px;
             border-radius: 25px;
             text-align: center;
             margin-bottom: 30px;
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+            box-shadow: 0 18px 45px rgba(102, 126, 234, 0.6);
             transition: all 0.4s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
 
         .stage-banner:hover {
-            transform: scale(1.03);
-            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.7);
+            transform: scale(1.04);
+            box-shadow: 0 25px 60px rgba(102, 126, 234, 0.8);
         }
 
         .stage-name {
-            font-size: 1.8em;
-            font-weight: 800;
-            margin-bottom: 10px;
+            font-size: 2em;
+            font-weight: 900;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .stage-desc {
-            font-size: 1.1em;
-            opacity: 0.95;
+            font-size: 1.15em;
+            opacity: 0.97;
         }
 
         /* Progress */
@@ -633,12 +1095,13 @@
         .progress-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             font-weight: 600;
+            font-size: 1.05em;
         }
 
         .progress-percent {
-            font-size: 2em;
+            font-size: 2.2em;
             font-weight: 900;
             background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-gold) 100%);
             -webkit-background-clip: text;
@@ -646,11 +1109,12 @@
         }
 
         .progress-track {
-            height: 55px;
+            height: 60px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 30px;
             overflow: hidden;
-            box-shadow: inset 0 3px 12px rgba(0, 0, 0, 0.4);
+            box-shadow: inset 0 4px 15px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .progress-fill {
@@ -662,9 +1126,10 @@
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            font-size: 1.2em;
+            font-size: 1.25em;
             transition: width 2.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             animation: progressGradient 3s linear infinite;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.5);
         }
 
         @keyframes progressGradient {
@@ -676,32 +1141,34 @@
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: 22px;
+            margin-bottom: 32px;
         }
 
         .stat-box {
             background: rgba(255, 255, 255, 0.05);
-            padding: 25px;
-            border-radius: 20px;
+            padding: 28px;
+            border-radius: 22px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .stat-box:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.09);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
         }
 
         .stat-label {
-            font-size: 0.95em;
+            font-size: 1em;
             color: var(--text-secondary);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .stat-value {
-            font-size: 2em;
-            font-weight: 800;
+            font-size: 2.2em;
+            font-weight: 900;
             background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-gold) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -710,113 +1177,118 @@
         /* Buttons */
         .action-buttons {
             display: grid;
-            gap: 15px;
+            gap: 18px;
         }
 
         .btn {
-            padding: 22px;
+            padding: 24px;
             border: none;
-            border-radius: 18px;
-            font-size: 1.15em;
-            font-weight: 700;
+            border-radius: 20px;
+            font-size: 1.2em;
+            font-weight: 800;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             position: relative;
             overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .btn-primary {
             background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
             color: white;
-            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
         }
 
         .btn-primary:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 18px 45px rgba(102, 126, 234, 0.7);
+            transform: translateY(-8px);
+            box-shadow: 0 22px 55px rgba(102, 126, 234, 0.7);
         }
 
         .btn-danger {
             background: linear-gradient(135deg, var(--danger) 0%, #c0392b 100%);
             color: white;
-            box-shadow: 0 12px 35px rgba(231, 76, 60, 0.5);
+            box-shadow: 0 15px 40px rgba(231, 76, 60, 0.5);
         }
 
         .btn-danger:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 18px 45px rgba(231, 76, 60, 0.7);
+            transform: translateY(-8px);
+            box-shadow: 0 22px 55px rgba(231, 76, 60, 0.7);
         }
 
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.06);
             color: var(--text-primary);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-5px);
         }
 
         /* Timeline */
         .timeline {
             position: relative;
-            padding: 20px 0;
+            padding: 25px 0;
         }
 
         .timeline-line {
             position: absolute;
-            left: 30px;
+            left: 32px;
             top: 0;
             bottom: 0;
-            width: 4px;
+            width: 5px;
             background: linear-gradient(180deg, var(--accent-primary) 0%, var(--accent-gold) 100%);
-            border-radius: 2px;
+            border-radius: 3px;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
         }
 
         .milestone {
             position: relative;
-            padding-left: 80px;
-            margin-bottom: 35px;
-            transition: all 0.3s ease;
+            padding-left: 85px;
+            margin-bottom: 38px;
+            transition: all 0.4s ease;
         }
 
         .milestone:hover {
-            transform: translateX(12px);
+            transform: translateX(15px);
         }
 
         .milestone-dot {
             position: absolute;
             left: 20px;
-            top: 12px;
-            width: 24px;
-            height: 24px;
+            top: 14px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
-            border: 4px solid var(--accent-primary);
-            transition: all 0.4s ease;
+            border: 5px solid var(--accent-primary);
+            transition: all 0.5s ease;
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.4);
         }
 
         .milestone.completed .milestone-dot {
             background: var(--accent-primary);
-            box-shadow: 0 0 25px var(--accent-primary);
-            animation: dotPulse 2s infinite;
+            box-shadow: 0 0 30px var(--accent-primary);
+            animation: dotPulse 2.5s infinite;
         }
 
         @keyframes dotPulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.25); }
+            50% { transform: scale(1.3); }
         }
 
         .milestone-content {
             background: rgba(255, 255, 255, 0.05);
-            padding: 25px;
-            border-radius: 18px;
+            padding: 28px;
+            border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
         }
 
         .milestone.completed .milestone-content {
-            background: rgba(102, 126, 234, 0.25);
+            background: rgba(102, 126, 234, 0.3);
             border-color: var(--accent-primary);
         }
 
@@ -824,33 +1296,33 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .milestone-icon {
-            font-size: 2em;
+            font-size: 2.2em;
             filter: grayscale(100%);
         }
 
         .milestone.completed .milestone-icon {
             filter: grayscale(0%);
-            animation: iconBounce 0.6s;
+            animation: iconBounce 0.7s;
         }
 
         @keyframes iconBounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
+            50% { transform: translateY(-15px); }
         }
 
         .milestone-title {
-            font-weight: 700;
-            font-size: 1.15em;
+            font-weight: 800;
+            font-size: 1.2em;
         }
 
         .milestone-value {
             color: var(--accent-gold);
-            font-weight: 700;
-            font-size: 1.1em;
+            font-weight: 800;
+            font-size: 1.15em;
         }
 
         /* Responsive */
@@ -858,26 +1330,15 @@
             .main-grid {
                 grid-template-columns: 1fr;
             }
-
-            .villa-structure {
-                width: 450px;
-                height: 380px;
-            }
         }
 
         @media (max-width: 768px) {
             .header-title {
-                font-size: 2.5em;
+                font-size: 2.8em;
             }
 
             .villa-scene {
-                height: 500px;
-            }
-
-            .villa-structure {
-                width: 350px;
-                height: 300px;
-                bottom: 140px;
+                height: 550px;
             }
 
             .stats-grid {
@@ -952,7 +1413,9 @@
                     <div class="celestial"></div>
                     <div class="cloud"></div>
                     <div class="cloud"></div>
-                    <div class="cloud"></div>
+                    <div class="bird">🕊️</div>
+                    <div class="bird">🕊️</div>
+                    <div class="bird">🕊️</div>
 
                     <div class="villa-structure">
                         <!-- Building -->
@@ -986,20 +1449,69 @@
                         </div>
                     </div>
 
-                    <!-- Garden & Luxury -->
-                    <div class="tree tree-left" id="treeLeft">🌳</div>
-                    <div class="tree tree-right" id="treeRight">🌳</div>
+                    <!-- Garden -->
+                    <div class="tree tree-left" id="treeLeft">
+                        <div class="tree-trunk"></div>
+                        <div class="tree-leaves"></div>
+                    </div>
+                    <div class="tree tree-right" id="treeRight">
+                        <div class="tree-trunk"></div>
+                        <div class="tree-leaves"></div>
+                    </div>
                     <div class="pool" id="pool"></div>
                     
-                    <!-- Family -->
-                    <div class="family dad" id="dad">👨</div>
-                    <div class="family mom" id="mom">👩</div>
-                    <div class="family kid1" id="kid1">👦</div>
-                    <div class="family kid2" id="kid2">👧</div>
+                    <!-- Family - CSS Art -->
+                    <div class="family-member dad" id="dad">
+                        <div class="head"></div>
+                        <div class="body"></div>
+                        <div class="legs">
+                            <div class="leg"></div>
+                            <div class="leg"></div>
+                        </div>
+                    </div>
                     
-                    <!-- Cars -->
-                    <div class="car car-1" id="car1">🚗</div>
-                    <div class="car car-2" id="car2">💎</div>
+                    <div class="family-member mom" id="mom">
+                        <div class="hair"></div>
+                        <div class="head"></div>
+                        <div class="body"></div>
+                        <div class="legs">
+                            <div class="leg"></div>
+                            <div class="leg"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="family-member kid1" id="kid1">
+                        <div class="head"></div>
+                        <div class="body"></div>
+                        <div class="legs">
+                            <div class="leg"></div>
+                            <div class="leg"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="family-member kid2" id="kid2">
+                        <div class="head"></div>
+                        <div class="body"></div>
+                        <div class="legs">
+                            <div class="leg"></div>
+                            <div class="leg"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Luxury Cars - CSS Art -->
+                    <div class="car-luxury car-1" id="car1">
+                        <div class="car-body"></div>
+                        <div class="car-top"></div>
+                        <div class="wheel wheel-front"></div>
+                        <div class="wheel wheel-back"></div>
+                    </div>
+                    
+                    <div class="car-luxury car-2" id="car2">
+                        <div class="car-body"></div>
+                        <div class="car-top"></div>
+                        <div class="wheel wheel-front"></div>
+                        <div class="wheel wheel-back"></div>
+                    </div>
                     
                     <div class="fence" id="fence">
                         <div class="fence-post"></div>
@@ -1087,8 +1599,8 @@
                 saveGame();
                 updateUI();
                 confetti({
-                    particleCount: 100,
-                    spread: 70,
+                    particleCount: 150,
+                    spread: 80,
                     origin: { y: 0.6 }
                 });
             }
@@ -1127,7 +1639,7 @@
                     setTimeout(() => {
                         const el = document.getElementById(id);
                         if (el) el.classList.add('visible');
-                    }, index * 150);
+                    }, index * 120);
                 });
             }, 300);
 
@@ -1185,8 +1697,8 @@
             const milestone = milestones.find(m => m.day === gameState.day);
             if (milestone) {
                 confetti({
-                    particleCount: 200,
-                    spread: 90,
+                    particleCount: 250,
+                    spread: 100,
                     origin: { y: 0.6 }
                 });
             }
@@ -1194,13 +1706,23 @@
 
         function generateStars() {
             const bg = document.getElementById('bgAnimation');
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 120; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
                 star.style.animationDelay = Math.random() * 3 + 's';
                 bg.appendChild(star);
+            }
+            
+            // Shooting stars
+            for (let i = 0; i < 3; i++) {
+                const shootingStar = document.createElement('div');
+                shootingStar.className = 'shooting-star';
+                shootingStar.style.left = 30 + (Math.random() * 40) + '%';
+                shootingStar.style.top = 10 + (Math.random() * 30) + '%';
+                shootingStar.style.animationDelay = Math.random() * 5 + 's';
+                bg.appendChild(shootingStar);
             }
         }
 
