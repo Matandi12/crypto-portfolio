@@ -6,1656 +6,768 @@
     <meta name="theme-color" content="#667eea">
     <title>🚀 Mission Control - תיק קריפטו</title>
     
-    <!-- PWA -->
     <link rel="manifest" href="manifest.json">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    
-    <!-- Confetti -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    
     <style>
+        :root {
+            --bg-dark: #0a0e27;
+            --bg-card: #1a1f3a;
+            --accent-primary: #667eea;
+            --accent-secondary: #764ba2;
+            --accent-gold: #f39c12;
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --success: #48bb78;
+            --danger: #e74c3c;
+            --shadow: rgba(0, 0, 0, 0.5);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --bg-primary: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            --bg-secondary: rgba(255, 255, 255, 0.98);
-            --text-primary: #212529;
-            --text-secondary: #6c757d;
-            --accent-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --accent-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --card-bg: white;
-            --table-even: #f8f9fa;
-            --table-hover: #e7f3ff;
-            --shadow-color: rgba(0,0,0,0.1);
-        }
-
-        [data-theme="dark"] {
-            --bg-primary: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #1a1a1a 100%);
-            --bg-secondary: rgba(20, 20, 20, 0.98);
-            --text-primary: #e9ecef;
-            --text-secondary: #adb5bd;
-            --accent-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --accent-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --card-bg: rgba(30, 30, 30, 0.95);
-            --table-even: rgba(40, 40, 40, 0.5);
-            --table-hover: rgba(102, 126, 234, 0.2);
-            --shadow-color: rgba(0,0,0,0.5);
-        }
-
         body {
-            font-family: 'Roboto', sans-serif;
-            background: var(--bg-primary);
-            padding: 20px;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
             min-height: 100vh;
-            position: relative;
             overflow-x: hidden;
-            transition: all 0.5s ease;
         }
 
-        /* Particles Background */
-        #particles-canvas {
+        /* Background Stars */
+        .bg-animation {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 0;
-            opacity: 0.3;
+            background: radial-gradient(ellipse at center, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
         }
 
-        /* Theme Toggle */
-        .theme-toggle {
-            position: fixed;
-            top: 30px;
-            left: 30px;
-            z-index: 1000;
-            background: var(--card-bg);
-            border-radius: 50px;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 8px 32px var(--shadow-color);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 40px var(--shadow-color);
-        }
-
-        .theme-icon {
-            font-size: 1.5em;
-            transition: transform 0.5s ease;
-        }
-
-        .theme-toggle:hover .theme-icon {
-            transform: rotate(180deg);
-        }
-
-        /* Sound Toggle */
-        .sound-toggle {
-            position: fixed;
-            top: 30px;
-            left: 150px;
-            z-index: 1000;
-            background: var(--card-bg);
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 32px var(--shadow-color);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            font-size: 1.5em;
+            animation: twinkle 3s infinite;
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
         }
 
-        .sound-toggle:hover {
-            transform: scale(1.1) rotate(15deg);
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.8); }
         }
 
         .container {
-            max-width: 1600px;
-            margin: 0 auto;
-            background: var(--bg-secondary);
-            border-radius: 30px;
-            box-shadow: 0 30px 90px var(--shadow-color);
-            overflow: hidden;
             position: relative;
             z-index: 1;
-            transition: all 0.5s ease;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 40px 20px;
         }
 
-        /* Glass Morphism Header */
+        /* Header */
         .header {
-            background: var(--accent-primary);
-            color: white;
-            padding: 50px 40px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease-out;
         }
 
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent,
-                rgba(255,255,255,0.1),
-                transparent
-            );
-            animation: shine 3s infinite;
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-
-        .header h1 {
-            font-family: 'Orbitron', sans-serif;
+        .header-title {
             font-size: 3em;
-            margin-bottom: 15px;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
-            letter-spacing: 2px;
-            animation: glow 2s ease-in-out infinite alternate;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f39c12 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
         }
 
-        @keyframes glow {
-            from { text-shadow: 3px 3px 6px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.3); }
-            to { text-shadow: 3px 3px 6px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.6); }
-        }
-
-        .header p {
+        .header-subtitle {
             font-size: 1.3em;
-            opacity: 0.95;
-            margin: 5px 0;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
         }
 
-        .highlight {
-            background: rgba(255,255,255,0.2);
-            padding: 8px 15px;
-            border-radius: 10px;
-            font-weight: bold;
+        .header-highlight {
             display: inline-block;
-            margin-top: 10px;
+            background: rgba(102, 126, 234, 0.15);
+            border: 2px solid var(--accent-primary);
+            padding: 15px 30px;
+            border-radius: 15px;
+            font-size: 1.1em;
+            font-weight: 700;
             backdrop-filter: blur(10px);
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(102, 126, 234, 0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(102, 126, 234, 0.6); }
         }
 
-        /* Progress Bar */
-        .mission-progress {
-            background: var(--card-bg);
-            padding: 30px 40px;
-            border-bottom: 2px solid var(--table-even);
-            transition: all 0.5s ease;
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
         }
 
-        .progress-label {
+        .tab-btn {
+            background: rgba(26, 31, 58, 0.85);
+            backdrop-filter: blur(25px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            padding: 15px 35px;
+            border-radius: 15px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            border-color: transparent;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
+        }
+
+        /* Main Views */
+        .view {
+            display: none;
+        }
+
+        .view.active {
+            display: block;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Glass Card */
+        .glass-card {
+            background: rgba(26, 31, 58, 0.85);
+            backdrop-filter: blur(25px);
+            border-radius: 25px;
+            padding: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+        }
+
+        .card-title {
+            font-size: 1.8em;
+            font-weight: 800;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Progress Section */
+        .progress-section {
+            margin: 30px 0;
+        }
+
+        .progress-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
-            font-weight: bold;
-            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-weight: 700;
+            font-size: 1.1em;
         }
 
-        .progress-bar-container {
-            height: 40px;
-            background: var(--table-even);
-            border-radius: 20px;
+        .progress-percent {
+            color: var(--accent-gold);
+        }
+
+        .progress-track {
+            height: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 25px;
             overflow: hidden;
             position: relative;
-            box-shadow: inset 0 2px 4px var(--shadow-color);
+            border: 2px solid rgba(255, 255, 255, 0.1);
         }
 
-        .progress-bar {
+        .progress-fill {
             height: 100%;
-            background: var(--accent-primary);
-            border-radius: 20px;
+            background: linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-secondary) 50%, var(--accent-gold) 100%);
+            border-radius: 25px;
             transition: width 2s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.1em;
             position: relative;
             overflow: hidden;
         }
 
-        .progress-bar::after {
+        .progress-fill::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255,255,255,0.3),
-                transparent
-            );
-            animation: progress-shine 1.5s infinite;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 1.5s infinite;
         }
 
-        @keyframes progress-shine {
+        @keyframes shine {
             0% { transform: translateX(-100%); }
             100% { transform: translateX(100%); }
         }
 
-        .progress-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-family: 'Orbitron', sans-serif;
-            font-weight: bold;
-            color: white;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-            font-size: 1.1em;
+        /* Calendar View */
+        .calendar-view {
+            animation: fadeIn 0.6s ease-out;
         }
 
-        /* Stats Cards */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            padding: 40px;
-            background: var(--card-bg);
-            transition: all 0.5s ease;
-        }
-
-        .stat-card {
-            background: var(--card-bg);
-            padding: 30px 20px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px var(--shadow-color);
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .stat-card:hover::before {
-            left: 100%;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
-            border-color: #667eea;
-        }
-
-        .stat-card h3 {
-            color: var(--text-secondary);
-            font-size: 0.85em;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-
-        .stat-card .value {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8em;
-            font-weight: 900;
-            background: var(--accent-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.3;
-            word-break: break-word;
-            min-height: 60px;
+        .calendar-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .calendar-title {
+            font-size: 2em;
+            font-weight: 800;
+            color: var(--accent-gold);
+            flex: 1;
+            text-align: center;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 15px;
+            width: 100%;
             justify-content: center;
         }
 
-        .stat-card.current {
-            background: var(--accent-primary);
-            color: white;
-            border: none;
-            animation: current-glow 2s infinite;
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-primary);
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 60px;
         }
 
-        @keyframes current-glow {
-            0%, 100% { box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4); }
-            50% { box-shadow: 0 8px 30px rgba(102, 126, 234, 0.7), 0 0 40px rgba(102, 126, 234, 0.3); }
+        .nav-btn:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-3px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
 
-        .stat-card.current h3 {
-            color: rgba(255,255,255,0.95);
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
         }
 
-        .stat-card.current .value {
-            color: white;
-            -webkit-text-fill-color: white;
-            font-size: 2.2em;
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
         }
 
-        .stat-card.current p {
-            margin-top: 8px;
-            font-size: 0.95em;
+        .calendar-day {
+            aspect-ratio: 1;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .calendar-day:hover {
+            transform: scale(1.1);
+            z-index: 10;
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+        }
+
+        .calendar-day.completed {
+            background: linear-gradient(135deg, var(--success) 0%, #2d8659 100%);
+            border-color: var(--success);
+        }
+
+        .calendar-day.current {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            border-color: var(--accent-gold);
+            transform: scale(1.05);
+            animation: currentPulse 2s infinite;
+        }
+
+        @keyframes currentPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.6); }
+            50% { box-shadow: 0 0 40px rgba(102, 126, 234, 0.9); }
+        }
+
+        .day-num {
+            font-size: 1.2em;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .day-value {
+            font-size: 0.85em;
+            font-weight: 600;
             opacity: 0.9;
         }
 
-        /* Chart Container */
-        .chart-section {
-            padding: 40px;
-            background: var(--card-bg);
-            transition: all 0.5s ease;
-        }
-
-        .chart-header {
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        .chart-header h2 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--text-primary);
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
-        .chart-container {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px var(--shadow-color);
-            margin-bottom: 30px;
-            position: relative;
-            height: 400px;
-        }
-
-        /* Days Visualization */
-        .days-viz-container {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px var(--shadow-color);
-            margin-top: 30px;
-        }
-
-        .days-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(25px, 1fr));
-            gap: 5px;
-            margin-top: 20px;
-        }
-
-        .day-cell-viz {
-            aspect-ratio: 1;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .day-cell-viz:hover {
-            transform: scale(1.3);
-            z-index: 10;
-            box-shadow: 0 4px 12px var(--shadow-color);
-        }
-
-        .day-cell-viz.past {
-            background: linear-gradient(135deg, #52c234 0%, #061700 100%);
-        }
-
-        .day-cell-viz.current {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            animation: current-day-pulse 1.5s infinite;
-        }
-
-        @keyframes current-day-pulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(102, 126, 234, 0.5); }
-            50% { transform: scale(1.2); box-shadow: 0 0 20px rgba(102, 126, 234, 0.8); }
-        }
-
-        .day-cell-viz.future {
-            background: var(--table-even);
-        }
-
-        .day-cell-viz.milestone {
-            border: 2px solid gold;
-        }
-
-        /* Tooltip */
-        .tooltip {
-            position: absolute;
-            background: rgba(0,0,0,0.9);
+        /* Buttons */
+        .btn {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
             color: white;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 0.85em;
-            pointer-events: none;
-            z-index: 1000;
-            display: none;
-            white-space: nowrap;
-        }
-
-        /* Table */
-        .table-container {
-            padding: 40px;
-            overflow-x: auto;
-            background: var(--card-bg);
-            transition: all 0.5s ease;
-        }
-
-        .table-header {
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        .table-header h2 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--text-primary);
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            box-shadow: 0 8px 20px var(--shadow-color);
-            border-radius: 15px;
-            overflow: hidden;
-            background: var(--card-bg);
-        }
-
-        thead {
-            background: var(--accent-primary);
-            color: white;
-        }
-
-        th {
-            padding: 18px 15px;
-            text-align: center;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 12px;
+            font-size: 1.1em;
             font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.85em;
-            letter-spacing: 1px;
-        }
-
-        tbody tr {
-            transition: all 0.3s;
-        }
-
-        tbody tr:nth-child(even) {
-            background: var(--table-even);
-        }
-
-        tbody tr:hover {
-            background: var(--table-hover);
-            transform: scale(1.01);
-            box-shadow: 0 4px 8px var(--shadow-color);
-        }
-
-        td {
-            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
             text-align: center;
-            border-bottom: 1px solid var(--table-even);
-            color: var(--text-primary);
         }
 
-        .day-cell {
-            font-weight: bold;
-            color: #667eea;
-            font-family: 'Orbitron', sans-serif;
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.6);
         }
 
-        .amount-cell {
-            font-weight: bold;
-            color: #28a745;
-            font-size: 1.05em;
-            font-family: 'Orbitron', sans-serif;
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            border: 2px solid rgba(255, 255, 255, 0.15);
         }
 
-        .profit-cell {
-            color: #17a2b8;
-            font-weight: 500;
-        }
-
-        .milestone {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%) !important;
-            font-weight: bold;
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
         }
 
         /* Footer */
         .footer {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: white;
             text-align: center;
-            padding: 30px;
-            font-size: 0.95em;
-        }
-
-        .footer p {
-            margin: 8px 0;
+            padding: 40px;
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            margin-top: 60px;
         }
 
         .footer .rocket {
-            font-size: 2em;
-            animation: rocket-fly 2s infinite;
+            font-size: 3em;
+            animation: rocketFly 2s infinite;
+            display: inline-block;
         }
 
-        @keyframes rocket-fly {
+        @keyframes rocketFly {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-20px); }
         }
 
-        /* Enhanced Mobile Responsive */
-/* Enhanced Mobile Responsive for Dashboard */
-@media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-
-    .container {
-        border-radius: 20px;
-    }
-
-    .theme-toggle {
-        top: 10px;
-        left: 10px;
-        padding: 8px 12px;
-        font-size: 0.9em;
-    }
-
-    .sound-toggle {
-        top: 10px;
-        left: 110px;
-        width: 45px;
-        height: 45px;
-        font-size: 1.3em;
-    }
-
-    .header {
-        padding: 30px 20px;
-    }
-
-    .header h1 {
-        font-size: 2.2em;
-        letter-spacing: -1px;
-    }
-    
-    .header p {
-        font-size: 1em;
-    }
-
-    .header .highlight {
-        padding: 10px 15px;
-        font-size: 1.1em;
-    }
-
-    .header a {
-        padding: 16px 30px !important;
-        font-size: 1.1em !important;
-    }
-
-    /* Progress Section */
-    .mission-progress {
-        padding: 20px;
-    }
-
-    .progress-label {
-        font-size: 1.1em;
-        margin-bottom: 12px;
-    }
-
-    .progress-bar-container {
-        height: 50px;
-    }
-
-    .progress-text {
-        font-size: 1em;
-    }
-
-    /* Stats Grid - 2 columns */
-    .stats {
-        padding: 20px;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-    }
-
-    .stat-card {
-        padding: 20px 15px;
-    }
-
-    .stat-card h3 {
-        font-size: 0.75em;
-        margin-bottom: 10px;
-    }
-
-    .stat-card .value {
-        font-size: 1.8em !important;
-        min-height: 50px;
-    }
-
-    .stat-card.current .value {
-        font-size: 2em !important;
-    }
-
-    .stat-card.current p {
-        font-size: 0.85em;
-    }
-
-    /* Chart Section */
-    .chart-section {
-        padding: 20px;
-    }
-
-    .chart-header h2 {
-        font-size: 1.5em;
-    }
-
-    .chart-container {
-        height: 280px;
-        padding: 15px;
-    }
-
-    /* Days Visualization */
-    .days-viz-container {
-        padding: 20px;
-        margin-top: 20px;
-    }
-
-    .days-grid {
-        grid-template-columns: repeat(auto-fill, minmax(25px, 1fr));
-        gap: 4px;
-    }
-
-    /* Table */
-    .table-container {
-        padding: 20px;
-    }
-
-    .table-header h2 {
-        font-size: 1.5em;
-    }
-
-    table {
-        font-size: 0.8em;
-    }
-
-    th {
-        padding: 12px 8px;
-        font-size: 0.75em;
-    }
-
-    td {
-        padding: 10px 6px;
-    }
-
-    /* Footer */
-    .footer {
-        padding: 20px;
-    }
-}
-
-/* Small Mobile */
-@media (max-width: 480px) {
-    .header h1 {
-        font-size: 1.8em;
-    }
-
-    .header p {
-        font-size: 0.95em;
-    }
-
-    .stats {
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
-
-    .stat-card .value {
-        font-size: 2em !important;
-    }
-
-    .stat-card.current .value {
-        font-size: 2.2em !important;
-    }
-
-    .progress-bar-container {
-        height: 45px;
-    }
-
-    .days-grid {
-        grid-template-columns: repeat(7, 1fr);
-    }
-
-    table {
-        font-size: 0.75em;
-    }
-
-    th {
-        padding: 10px 5px;
-    }
-
-    td {
-        padding: 8px 4px;
-    }
-}
-
-/* Very Small Mobile */
-@media (max-width: 360px) {
-    .header h1 {
-        font-size: 1.5em;
-    }
-
-    .stat-card .value {
-        font-size: 1.7em !important;
-    }
-
-    .stat-card.current .value {
-        font-size: 1.9em !important;
-    }
-}
-
-
-            .sound-toggle {
-                top: 15px;
-                left: 120px;
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 10px;
             }
 
-            .header h1 {
+            .header-title {
                 font-size: 2em;
             }
-            
-            .stat-card .value {
-                font-size: 1.5em;
-            }
-            
-            .stat-card.current .value {
-                font-size: 1.8em;
-            }
-            
-            table {
-                font-size: 0.85em;
+
+            .header-subtitle {
+                font-size: 1em;
             }
 
-            .stats {
+            .tab-nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .tab-btn {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .stat-box {
+                padding: 20px 15px;
+            }
+
+            .stat-value {
+                font-size: 1.6em;
+            }
+
+            .calendar-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 12px;
+            }
+
+            .calendar-day {
+                padding: 10px;
+            }
+
+            .day-num {
+                font-size: 1em;
+            }
+
+            .day-value {
+                font-size: 0.75em;
+            }
+
+            .nav-btn {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-title {
+                font-size: 1.6em;
+            }
+
+            .stats-grid {
                 grid-template-columns: 1fr;
             }
 
-            .days-grid {
-                grid-template-columns: repeat(auto-fill, minmax(20px, 1fr));
+            .stat-value {
+                font-size: 2em;
             }
 
-            .chart-container {
-                height: 300px;
+            .calendar-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .calendar-day {
+                padding: 8px;
+            }
+
+            .day-num {
+                font-size: 0.9em;
+            }
+
+            .day-value {
+                font-size: 0.7em;
             }
         }
-    
-
-/* Mobile-First Complete Redesign */
-
-/* Hide complex elements on mobile */
-@media (max-width: 768px) {
-    /* Show only essential content */
-    .chart-section,
-    .days-viz-container,
-    .table-container {
-        display: none !important;
-    }
-
-    /* Mobile Tabs */
-    .mobile-tabs {
-        display: flex;
-        gap: 10px;
-        padding: 15px 20px;
-        background: var(--card-bg);
-        border-bottom: 2px solid var(--table-even);
-    }
-
-    .mobile-tab {
-        flex: 1;
-        padding: 12px;
-        background: rgba(102, 126, 234, 0.1);
-        border: 2px solid rgba(102, 126, 234, 0.3);
-        border-radius: 12px;
-        text-align: center;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all 0.3s;
-        color: var(--text-primary);
-    }
-
-    .mobile-tab.active {
-        background: var(--accent-primary);
-        border-color: transparent;
-        color: white;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-    }
-
-    /* Mobile Views */
-    .mobile-view {
-        display: none;
-        padding: 20px;
-        background: var(--card-bg);
-    }
-
-    .mobile-view.active {
-        display: block;
-    }
-
-    /* Simple Days List */
-    .mobile-days-list {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .mobile-day-item {
-        background: rgba(102, 126, 234, 0.05);
-        padding: 20px;
-        border-radius: 15px;
-        border: 2px solid rgba(102, 126, 234, 0.2);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        transition: all 0.3s;
-    }
-
-    .mobile-day-item.current {
-        background: var(--accent-primary);
-        color: white;
-        border-color: transparent;
-        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.5);
-    }
-
-    .mobile-day-item.milestone {
-        border-color: var(--accent-gold);
-    }
-
-    .day-info {
-        flex: 1;
-    }
-
-    .day-label {
-        font-size: 0.85em;
-        opacity: 0.8;
-        margin-bottom: 5px;
-    }
-
-    .day-number {
-        font-size: 1.8em;
-        font-weight: 900;
-        font-family: 'Orbitron', sans-serif;
-    }
-
-    .day-value-box {
-        text-align: right;
-    }
-
-    .day-amount {
-        font-size: 1.5em;
-        font-weight: 800;
-        font-family: 'Orbitron', sans-serif;
-    }
-
-    .day-profit {
-        font-size: 0.9em;
-        opacity: 0.8;
-        margin-top: 3px;
-    }
-
-    /* Compact Stats for Mobile */
-    body {
-        padding: 0 !important;
-    }
-
-    .container {
-        border-radius: 0 !important;
-        margin: 0 !important;
-        max-width: 100% !important;
-    }
-
-    .header {
-        padding: 25px 20px !important;
-    }
-
-    .header h1 {
-        font-size: 1.8em !important;
-    }
-
-    .header p {
-        font-size: 0.95em !important;
-    }
-
-    .header .highlight {
-        display: block;
-        margin-top: 12px;
-        padding: 12px !important;
-        font-size: 1em !important;
-    }
-
-    .header a {
-        display: block !important;
-        margin: 15px 0 0 0 !important;
-        padding: 15px 25px !important;
-        font-size: 1em !important;
-    }
-
-    .mission-progress {
-        padding: 20px !important;
-    }
-
-    .progress-bar-container {
-        height: 55px !important;
-    }
-
-    .progress-text {
-        font-size: 1.1em !important;
-    }
-
-    .stats {
-        padding: 20px !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 12px !important;
-    }
-
-    .stat-card {
-        padding: 18px 12px !important;
-    }
-
-    .stat-card h3 {
-        font-size: 0.7em !important;
-        margin-bottom: 8px !important;
-    }
-
-    .stat-card .value {
-        font-size: 1.6em !important;
-        min-height: 45px !important;
-    }
-
-    .stat-card.current {
-        grid-column: span 2;
-    }
-
-    .stat-card.current .value {
-        font-size: 2.2em !important;
-    }
-
-    .stat-card.current p {
-        font-size: 1em !important;
-    }
-
-    .theme-toggle,
-    .sound-toggle {
-        top: 8px !important;
-        transform: scale(0.85) !important;
-    }
-
-    .theme-toggle {
-        left: 8px !important;
-    }
-
-    .sound-toggle {
-        left: 100px !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .header h1 {
-        font-size: 1.6em !important;
-    }
-
-    .stats {
-        grid-template-columns: 1fr !important;
-    }
-
-    .stat-card.current {
-        grid-column: span 1;
-    }
-
-    .stat-card .value {
-        font-size: 2em !important;
-    }
-
-    .stat-card.current .value {
-        font-size: 2.5em !important;
-    }
-}
-
-@media (min-width: 769px) {
-    .mobile-tabs,
-    .mobile-view {
-        display: none !important;
-    }
-}
-
-</style>
+    </style>
 </head>
-<body data-theme="light">
-    <canvas id="particles-canvas"></canvas>
-    
-    <div class="theme-toggle" onclick="toggleTheme()">
-        <span class="theme-icon" id="themeIcon">🌙</span>
-        <span id="themeText">Dark Mode</span>
-    </div>
-
-    <div class="sound-toggle" onclick="toggleSound()" id="soundToggle">
-        🔊
-    </div>
-
-    <div class="tooltip" id="tooltip"></div>
+<body>
+    <div class="bg-animation" id="bgAnimation"></div>
 
     <div class="container">
         <div class="header">
-            <h1>🚀 MISSION CONTROL - תיק קריפטו</h1>
-            <p>גידול של 2% ליום | השקעה ראשונית: $2,200</p>
-            <p><span class="highlight">📍 יום 13 במשימה - $2,850 | רווח: $650</span></p>
-            <p style="margin-top: 20px;">
-                <a href="villa.html" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.2em; display: inline-block; transition: all 0.3s; box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);" onmouseover="this.style.transform='scale(1.1) translateY(-3px)'; this.style.boxShadow='0 12px 35px rgba(102, 126, 234, 0.7)'" onmouseout="this.style.transform='scale(1) translateY(0)'; this.style.boxShadow='0 8px 25px rgba(102, 126, 234, 0.5)'">
-                    🏗️ Build Your Villa! 🏠
-                </a>
-            </p>
+            <h1 class="header-title">🚀 MISSION CONTROL</h1>
+            <p class="header-subtitle">$2,200 → $3,925,613 | גידול של 2% ליום | 365 ימים</p>
+            <div class="header-highlight">📍 יום 13 במשימה | $2,850 | רווח: $650</div>
         </div>
 
-<!-- Mobile Tabs (Insert after .container div opens, before main content) -->
-<div class="mobile-tabs">
-    <button class="mobile-tab active" onclick="showMobileView('overview')">📊 סקירה</button>
-    <button class="mobile-tab" onclick="showMobileView('days')">📅 ימים</button>
-</div>
+        <!-- Navigation Tabs -->
+        <div class="tab-nav">
+            <button class="tab-btn active" onclick="showView('overview')">📊 סקירה</button>
+            <button class="tab-btn" onclick="showView('calendar')">📅 לוח 365 ימים</button>
+            <button class="tab-btn" onclick="window.location.href='villa.html'">🏗️ Villa Builder</button>
+        </div>
 
-<!-- Mobile Overview (wraps existing stats) -->
-<div class="mobile-view active" id="mobileOverview">
-    <!-- Stats will be here by default -->
-</div>
+        <!-- Overview View -->
+        <div class="view active" id="overviewView">
+            <div class="glass-card">
+                <h2 class="card-title">📊 התקדמות המשימה</h2>
 
-<!-- Mobile Days List -->
-<div class="mobile-view" id="mobileDays">
-    <div class="mobile-days-list" id="mobileDaysList">
-        <!-- Will be generated by JS -->
-    </div>
-</div>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-label">💰 השקעה ראשונית</div>
+                        <div class="stat-value">$2.2K</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">🎯 יעד סופי</div>
+                        <div class="stat-value">$3.9M</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">📈 ערך נוכחי</div>
+                        <div class="stat-value" id="currentValue">$2.8K</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">💵 רווח מצטבר</div>
+                        <div class="stat-value" id="profitValue">$650</div>
+                    </div>
+                </div>
 
-        <div class="mission-progress">
-            <div class="progress-label">
-                <span>🛸 התקדמות במשימה</span>
-                <span id="progressPercent">3.6% מתוך 365 ימים</span>
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <span>🛸 התקדמות כוללת</span>
+                        <span class="progress-percent" id="progressPercent">3.6%</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill" id="progressFill" style="width: 0%;">
+                            <span id="progressText">Day 13/365</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="villa.html" class="btn">🏗️ Build Your Villa!</a>
+                </div>
             </div>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="progressBar" style="width: 0%;">
-                    <span class="progress-text" id="progressText">יום 13 / 365</span>
+
+            <!-- Key Milestones -->
+            <div class="glass-card">
+                <h2 class="card-title">🏆 Milestones Ahead</h2>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-label">🌟 Week 1 (Day 7)</div>
+                        <div class="stat-value">$2.6K</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">📅 Month 1 (Day 30)</div>
+                        <div class="stat-value">$4.0K</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">💰 Month 2 (Day 60)</div>
+                        <div class="stat-value">$7.2K</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">💎 Half Year (Day 180)</div>
+                        <div class="stat-value">$340K</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">🏆 Month 3 (Day 90)</div>
+                        <div class="stat-value">$13K</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">🏰 Full Year (Day 365)</div>
+                        <div class="stat-value">$3.9M</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="stats">
-            <div class="stat-card">
-                <h3>🎯 השקעה ראשונית</h3>
-                <div class="value" data-target="2200">$0</div>
-            </div>
-            <div class="stat-card current">
-                <h3>🔥 איפה אנחנו עכשיו</h3>
-                <div class="value" data-target="2850">$0</div>
-                <p>יום 13 | רווח: $650</p>
-            </div>
-            <div class="stat-card">
-                <h3>📈 גידול יומי</h3>
-                <div class="value">2%</div>
-            </div>
-            <div class="stat-card">
-                <h3>🎖️ ערך סופי (365 ימים)</h3>
-                <div class="value" data-target="3925613">$0</div>
-            </div>
-        </div>
-
-        <div class="chart-section">
-            <div class="chart-header">
-                <h2>📊 גרף התקדמות אינטראקטיבי</h2>
-                <p style="color: var(--text-secondary); margin-top: 10px;">העבר עכבר על הנקודות לפרטים 🎯</p>
-            </div>
-            <div class="chart-container">
-                <canvas id="portfolioChart"></canvas>
-            </div>
-
-            <div class="days-viz-container">
-                <div class="chart-header">
-                    <h2>📅 ויזואליזציה של 365 הימים</h2>
-                    <p style="color: var(--text-secondary); margin-top: 10px;">
-                        <span style="display: inline-block; width: 20px; height: 20px; background: linear-gradient(135deg, #52c234 0%, #061700 100%); border-radius: 4px; vertical-align: middle;"></span> ימים שעברו
-                        <span style="display: inline-block; width: 20px; height: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 4px; vertical-align: middle; margin-right: 15px;"></span> היום!
-                        <span style="display: inline-block; width: 20px; height: 20px; background: var(--table-even); border-radius: 4px; vertical-align: middle; margin-right: 15px;"></span> ימים עתידיים
-                        <span style="display: inline-block; width: 20px; height: 20px; border: 2px solid gold; border-radius: 4px; vertical-align: middle; margin-right: 15px;"></span> Milestones
-                    </p>
+        <!-- Calendar View -->
+        <div class="view" id="calendarView">
+            <div class="glass-card">
+                <div class="calendar-header">
+                    <div style="width: 100%; text-align: center;">
+                        <h2 class="calendar-title" id="calendarTitle">Month 1 (Days 1–30)</h2>
+                    </div>
+                    <div class="calendar-nav">
+                        <button class="nav-btn" id="prevBtn" onclick="prevMonth()">←</button>
+                        <button class="nav-btn" id="nextBtn" onclick="nextMonth()">→</button>
+                    </div>
                 </div>
-                <div class="days-grid" id="daysGrid">
-                    <!-- JavaScript will populate this -->
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Days will be generated by JS -->
                 </div>
             </div>
         </div>
 
-        <div class="table-container">
-            <div class="table-header">
-                <h2>📋 מסלול הטיסה המלא - 365 ימים</h2>
-                <p style="color: var(--text-secondary); margin-top: 10px;">גלול למטה לראות את כל המסע 🚀</p>
-            </div>
-            <table id="portfolioTable">
-                <thead>
-                    <tr>
-                        <th>יום</th>
-                        <th>תאריך</th>
-                        <th>ערך התיק</th>
-                        <th>גידול יומי</th>
-                        <th>רווח מצטבר</th>
-                        <th>% רווח</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <!-- JavaScript will populate this -->
-                </tbody>
-            </table>
-        </div>
-
+        <!-- Footer -->
         <div class="footer">
-            <p class="rocket">🚀</p>
-            <p style="font-size: 1.2em; margin: 15px 0;">💎 הכוח של ריבית דריבית - 2% ליום משנה הכל! 💎</p>
-            <p style="opacity: 0.8; margin-top: 15px;">Mission Control Created for Matan Dimri</p>
-            <p style="opacity: 0.6; margin-top: 5px; font-size: 0.9em;">Powered by Innovation 🌟</p>
+            <div class="rocket">🚀</div>
+            <p style="font-size: 1.3em; margin: 20px 0; font-weight: 700;">
+                💎 הכוח של ריבית דריבית - 2% ליום משנה הכל! 💎
+            </p>
+            <p style="opacity: 0.8;">Mission Control Created for Matan Dimri</p>
+            <p style="opacity: 0.6; margin-top: 8px;">Powered by Innovation 🌟</p>
         </div>
     </div>
 
     <script>
         const INITIAL_AMOUNT = 2200;
         const DAILY_GROWTH = 1.02;
-        const DAYS = 365;
+        const TOTAL_DAYS = 365;
         const CURRENT_DAY = 13;
-        const START_DATE = new Date('2026-03-23');
 
-        let soundEnabled = true;
-        let chartInstance = null;
+        let currentMonth = Math.floor(CURRENT_DAY / 30);
 
-        // Sound Effects
-        const sounds = {
-            click: () => playTone(440, 50),
-            milestone: () => playTone(880, 200),
-            hover: () => playTone(330, 30)
-        };
-
-        function playTone(frequency, duration) {
-            if (!soundEnabled) return;
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            oscillator.frequency.value = frequency;
-            oscillator.type = 'sine';
-            
-            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration/1000);
-            
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + duration/1000);
-        }
-
-        function toggleSound() {
-            soundEnabled = !soundEnabled;
-            document.getElementById('soundToggle').textContent = soundEnabled ? '🔊' : '🔇';
-            sounds.click();
-        }
-
-        // Theme Toggle
-        function toggleTheme() {
-            const body = document.body;
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
-            body.setAttribute('data-theme', newTheme);
-            document.getElementById('themeIcon').textContent = newTheme === 'light' ? '🌙' : '☀️';
-            document.getElementById('themeText').textContent = newTheme === 'light' ? 'Dark Mode' : 'Light Mode';
-            
-            localStorage.setItem('theme', newTheme);
-            sounds.click();
-            
-            // Update chart colors
-            if (chartInstance) {
-                updateChartTheme();
-            }
-        }
-
-        // Load saved theme
-        window.addEventListener('load', () => {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            if (savedTheme === 'dark') {
-                toggleTheme();
-            }
-        });
-
-        // Particles Animation
-        function initParticles() {
-            const canvas = document.getElementById('particles-canvas');
-            const ctx = canvas.getContext('2d');
-            
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            
-            const particles = [];
-            const particleCount = 100;
-            
-            for (let i = 0; i < particleCount; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.5,
-                    vy: (Math.random() - 0.5) * 0.5,
-                    radius: Math.random() * 2
-                });
-            }
-            
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = 'white';
-                
-                particles.forEach(p => {
-                    p.x += p.vx;
-                    p.y += p.vy;
-                    
-                    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-                    
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                    ctx.fill();
-                });
-                
-                requestAnimationFrame(animate);
-            }
-            
-            animate();
-        }
-
-        // Format Functions
         function formatCurrency(amount) {
-            return '$' + amount.toLocaleString('en-US', {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0
-            });
+            if (amount >= 1000000) return '$' + (amount / 1000000).toFixed(1) + 'M';
+            if (amount >= 1000) return '$' + (amount / 1000).toFixed(1) + 'K';
+            return '$' + amount.toLocaleString('en-US', { minimumFractionDigits: 0 });
         }
 
-        function formatPercent(percent) {
-            return percent.toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            }) + '%';
+        function showView(view) {
+            const views = document.querySelectorAll('.view');
+            const tabs = document.querySelectorAll('.tab-btn');
+
+            views.forEach(v => v.classList.remove('active'));
+            tabs.forEach(t => t.classList.remove('active'));
+
+            if (view === 'overview') {
+                document.getElementById('overviewView').classList.add('active');
+                tabs[0].classList.add('active');
+            } else if (view === 'calendar') {
+                document.getElementById('calendarView').classList.add('active');
+                tabs[1].classList.add('active');
+                renderCalendar(currentMonth);
+            }
         }
 
-        function formatDate(date) {
-            const day = date.getDate().toString().padStart(2, '0');
-            const month = (date.getMonth() + 1).toString().padStart(2, '0');
-            const year = date.getFullYear();
-            return `${day}/${month}/${year}`;
+        function renderCalendar(month) {
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+
+            const startDay = month * 30 + 1;
+            const endDay = Math.min((month + 1) * 30, TOTAL_DAYS);
+
+            document.getElementById('calendarTitle').textContent = `Month ${month + 1} (Days ${startDay}–${endDay})`;
+
+            document.getElementById('prevBtn').disabled = month === 0;
+            document.getElementById('nextBtn').disabled = endDay >= TOTAL_DAYS;
+
+            for (let day = startDay; day <= endDay; day++) {
+                const value = INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, day);
+                const completed = day <= CURRENT_DAY;
+                const isCurrent = day === CURRENT_DAY;
+
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'calendar-day';
+                if (completed) dayDiv.classList.add('completed');
+                if (isCurrent) dayDiv.classList.add('current');
+
+                dayDiv.innerHTML = `
+                    <div class="day-num">Day ${day}</div>
+                    <div class="day-value">${formatCurrency(value)}</div>
+                `;
+
+                grid.appendChild(dayDiv);
+            }
         }
 
-        // Animate Counter
-        function animateValue(element, start, end, duration) {
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const current = Math.floor(progress * (end - start) + start);
-                element.textContent = formatCurrency(current);
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                } else {
-                    if (end > 10000) {
-                        triggerConfetti();
-                    }
-                }
-            };
-            window.requestAnimationFrame(step);
+        function prevMonth() {
+            if (currentMonth > 0) {
+                currentMonth--;
+                renderCalendar(currentMonth);
+            }
         }
 
-        // Confetti
-        function triggerConfetti() {
+        function nextMonth() {
+            if ((currentMonth + 1) * 30 < TOTAL_DAYS) {
+                currentMonth++;
+                renderCalendar(currentMonth);
+            }
+        }
+
+        function generateStars() {
+            const bg = document.getElementById('bgAnimation');
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                bg.appendChild(star);
+            }
+        }
+
+        function updateStats() {
+            const currentValue = INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, CURRENT_DAY);
+            const profit = currentValue - INITIAL_AMOUNT;
+            const progress = (CURRENT_DAY / TOTAL_DAYS) * 100;
+
+            document.getElementById('currentValue').textContent = formatCurrency(currentValue);
+            document.getElementById('profitValue').textContent = formatCurrency(profit);
+            document.getElementById('progressPercent').textContent = progress.toFixed(1) + '%';
+
+            setTimeout(() => {
+                document.getElementById('progressFill').style.width = progress + '%';
+            }, 500);
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            generateStars();
+            updateStats();
             confetti({
                 particleCount: 100,
                 spread: 70,
                 origin: { y: 0.6 }
             });
-            sounds.milestone();
-        }
-
-        // Create Chart
-        function createChart() {
-            const ctx = document.getElementById('portfolioChart').getContext('2d');
-            
-            const data = [];
-            const labels = [];
-            let amount = INITIAL_AMOUNT;
-            
-            for (let day = 0; day <= DAYS; day++) {
-                if (day % 5 === 0 || day === CURRENT_DAY || day === DAYS) {
-                    labels.push(`Day ${day}`);
-                    data.push(amount);
-                }
-                amount *= DAILY_GROWTH;
-            }
-            
-            const theme = document.body.getAttribute('data-theme');
-            const textColor = theme === 'dark' ? '#e9ecef' : '#212529';
-            const gridColor = theme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
-            
-            chartInstance = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Portfolio Value',
-                        data: data,
-                        borderColor: '#667eea',
-                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
-                        borderWidth: 3,
-                        fill: true,
-                        tension: 0.4,
-                        pointRadius: 5,
-                        pointHoverRadius: 8,
-                        pointBackgroundColor: '#667eea',
-                        pointBorderColor: '#fff',
-                        pointBorderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return formatCurrency(context.parsed.y);
-                                }
-                            },
-                            backgroundColor: 'rgba(0,0,0,0.8)',
-                            titleColor: '#fff',
-                            bodyColor: '#fff',
-                            padding: 12,
-                            displayColors: false
-                        }
-                    },
-                    scales: {
-                        y: {
-                            ticks: {
-                                callback: function(value) {
-                                    return '$' + (value/1000).toFixed(0) + 'K';
-                                },
-                                color: textColor
-                            },
-                            grid: {
-                                color: gridColor
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                color: textColor
-                            },
-                            grid: {
-                                color: gridColor
-                            }
-                        }
-                    },
-                    interaction: {
-                        intersect: false,
-                        mode: 'index'
-                    }
-                }
-            });
-        }
-
-        function updateChartTheme() {
-            const theme = document.body.getAttribute('data-theme');
-            const textColor = theme === 'dark' ? '#e9ecef' : '#212529';
-            const gridColor = theme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
-            
-            chartInstance.options.scales.y.ticks.color = textColor;
-            chartInstance.options.scales.x.ticks.color = textColor;
-            chartInstance.options.scales.y.grid.color = gridColor;
-            chartInstance.options.scales.x.grid.color = gridColor;
-            chartInstance.update();
-        }
-
-        // Days Visualization
-        function createDaysVisualization() {
-            const grid = document.getElementById('daysGrid');
-            let amount = INITIAL_AMOUNT;
-            
-            for (let day = 0; day <= DAYS; day++) {
-                const cell = document.createElement('div');
-                cell.className = 'day-cell-viz';
-                
-                if (day < CURRENT_DAY) {
-                    cell.classList.add('past');
-                } else if (day === CURRENT_DAY) {
-                    cell.classList.add('current');
-                } else {
-                    cell.classList.add('future');
-                }
-                
-                if (day % 30 === 0 || day === DAYS) {
-                    cell.classList.add('milestone');
-                }
-                
-                cell.addEventListener('mouseenter', (e) => {
-                    const value = INITIAL_AMOUNT * Math.pow(DAILY_GROWTH, day);
-                    showTooltip(e, `Day ${day}: ${formatCurrency(value)}`);
-                    sounds.hover();
-                });
-                
-                cell.addEventListener('mouseleave', hideTooltip);
-                
-                grid.appendChild(cell);
-                amount *= DAILY_GROWTH;
-            }
-        }
-
-        // Tooltip
-        function showTooltip(e, text) {
-            const tooltip = document.getElementById('tooltip');
-            tooltip.textContent = text;
-            tooltip.style.display = 'block';
-            tooltip.style.left = e.pageX + 10 + 'px';
-            tooltip.style.top = e.pageY + 10 + 'px';
-        }
-
-        function hideTooltip() {
-            document.getElementById('tooltip').style.display = 'none';
-        }
-
-        // Generate Table
-        function generateTable() {
-            const tbody = document.getElementById('tableBody');
-            let currentAmount = INITIAL_AMOUNT;
-            
-            // Day 0
-            let row = `
-                <tr class="milestone">
-                    <td class="day-cell">0</td>
-                    <td>${formatDate(START_DATE)}</td>
-                    <td class="amount-cell">${formatCurrency(INITIAL_AMOUNT)}</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>0%</td>
-                </tr>
-            `;
-            tbody.innerHTML += row;
-
-            // Days 1-365
-            for (let day = 1; day <= DAYS; day++) {
-                const previousAmount = currentAmount;
-                currentAmount = currentAmount * DAILY_GROWTH;
-                const dailyProfit = currentAmount - previousAmount;
-                const totalProfit = currentAmount - INITIAL_AMOUNT;
-                const profitPercent = ((currentAmount / INITIAL_AMOUNT) - 1) * 100;
-
-                const currentDate = new Date(START_DATE);
-                currentDate.setDate(START_DATE.getDate() + day);
-
-                const isMilestone = day % 30 === 0 || day === 365;
-                const isCurrentDay = day === CURRENT_DAY;
-                let rowClass = '';
-                if (isCurrentDay) {
-                    rowClass = 'style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-weight: bold; box-shadow: 0 0 25px rgba(102, 126, 234, 0.6);"';
-                } else if (isMilestone) {
-                    rowClass = 'class="milestone"';
-                }
-
-                const currentDayMarker = isCurrentDay ? ' 👈 כאן!' : '';
-                
-                row = `
-                    <tr ${rowClass} id="day-${day}">
-                        <td class="day-cell">${day}${currentDayMarker}</td>
-                        <td>${formatDate(currentDate)}</td>
-                        <td class="amount-cell">${formatCurrency(currentAmount)}</td>
-                        <td class="profit-cell">+${formatCurrency(dailyProfit)}</td>
-                        <td class="profit-cell">+${formatCurrency(totalProfit)}</td>
-                        <td>${formatPercent(profitPercent)}</td>
-                    </tr>
-                `;
-                tbody.innerHTML += row;
-            }
-        }
-
-        // Initialize Everything
-        window.addEventListener('load', () => {
-            initParticles();
-            generateTable();
-            createChart();
-            createDaysVisualization();
-
-            // Animate counters
-            document.querySelectorAll('.stat-card .value[data-target]').forEach(element => {
-                const target = parseInt(element.getAttribute('data-target'));
-                animateValue(element, 0, target, 2000);
-            });
-
-            // Progress bar animation
-            setTimeout(() => {
-                const progressPercent = (CURRENT_DAY / DAYS) * 100;
-                document.getElementById('progressBar').style.width = progressPercent + '%';
-            }, 500);
-
-            // Scroll to current day
-            setTimeout(() => {
-                const currentRow = document.getElementById('day-' + CURRENT_DAY);
-                if (currentRow) {
-                    currentRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-            }, 3000);
-
-            // Confetti on milestones
-            setTimeout(() => {
-                if (CURRENT_DAY % 10 === 0) {
-                    triggerConfetti();
-                }
-            }, 2500);
         });
-
-        // Add click sounds to stat cards
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.stat-card').forEach(card => {
-                card.addEventListener('click', () => sounds.click());
-            });
-        });
-    
-
-// Mobile View Management
-function showMobileView(view) {
-    const tabs = document.querySelectorAll('.mobile-tab');
-    const views = document.querySelectorAll('.mobile-view');
-    
-    tabs.forEach(tab => tab.classList.remove('active'));
-    views.forEach(v => v.classList.remove('active'));
-    
-    if (view === 'overview') {
-        tabs[0].classList.add('active');
-        document.getElementById('mobileOverview').classList.add('active');
-    } else {
-        tabs[1].classList.add('active');
-        document.getElementById('mobileDays').classList.add('active');
-        generateMobileDaysList();
-    }
-}
-
-// Generate Mobile Days List
-function generateMobileDaysList() {
-    const list = document.getElementById('mobileDaysList');
-    if (list.children.length > 0) return;
-    
-    const INITIAL = 2200;
-    const GROWTH = 1.02;
-    const CURRENT = 13;
-    const milestones = [7, 30, 60, 90, 180, 365];
-    
-    // Show key days
-    const keyDays = [0, 7, 13, 30, 60, 90, 180, 365];
-    
-    keyDays.forEach(day => {
-        const amount = INITIAL * Math.pow(GROWTH, day);
-        const profit = amount - INITIAL;
-        const isCurrent = day === CURRENT;
-        const isMilestone = milestones.includes(day);
-        
-        const div = document.createElement('div');
-        div.className = 'mobile-day-item';
-        if (isCurrent) div.classList.add('current');
-        if (isMilestone) div.classList.add('milestone');
-        
-        div.innerHTML = `
-            <div class="day-info">
-                <div class="day-label">${isCurrent ? '📍 היום' : 'יום'}</div>
-                <div class="day-number">${day}</div>
-            </div>
-            <div class="day-value-box">
-                <div class="day-amount">$${Math.round(amount).toLocaleString()}</div>
-                <div class="day-profit">+$${Math.round(profit).toLocaleString()}</div>
-            </div>
-        `;
-        
-        list.appendChild(div);
-    });
-}
-
-</script>
+    </script>
 </body>
 </html>
