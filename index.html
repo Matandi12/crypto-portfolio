@@ -578,13 +578,214 @@
             50% { transform: translateY(-10px); }
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .theme-toggle {
-                top: 15px;
-                left: 15px;
-                padding: 8px 15px;
-            }
+        /* Enhanced Mobile Responsive */
+/* Enhanced Mobile Responsive for Dashboard */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        border-radius: 20px;
+    }
+
+    .theme-toggle {
+        top: 10px;
+        left: 10px;
+        padding: 8px 12px;
+        font-size: 0.9em;
+    }
+
+    .sound-toggle {
+        top: 10px;
+        left: 110px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.3em;
+    }
+
+    .header {
+        padding: 30px 20px;
+    }
+
+    .header h1 {
+        font-size: 2.2em;
+        letter-spacing: -1px;
+    }
+    
+    .header p {
+        font-size: 1em;
+    }
+
+    .header .highlight {
+        padding: 10px 15px;
+        font-size: 1.1em;
+    }
+
+    .header a {
+        padding: 16px 30px !important;
+        font-size: 1.1em !important;
+    }
+
+    /* Progress Section */
+    .mission-progress {
+        padding: 20px;
+    }
+
+    .progress-label {
+        font-size: 1.1em;
+        margin-bottom: 12px;
+    }
+
+    .progress-bar-container {
+        height: 50px;
+    }
+
+    .progress-text {
+        font-size: 1em;
+    }
+
+    /* Stats Grid - 2 columns */
+    .stats {
+        padding: 20px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .stat-card {
+        padding: 20px 15px;
+    }
+
+    .stat-card h3 {
+        font-size: 0.75em;
+        margin-bottom: 10px;
+    }
+
+    .stat-card .value {
+        font-size: 1.8em !important;
+        min-height: 50px;
+    }
+
+    .stat-card.current .value {
+        font-size: 2em !important;
+    }
+
+    .stat-card.current p {
+        font-size: 0.85em;
+    }
+
+    /* Chart Section */
+    .chart-section {
+        padding: 20px;
+    }
+
+    .chart-header h2 {
+        font-size: 1.5em;
+    }
+
+    .chart-container {
+        height: 280px;
+        padding: 15px;
+    }
+
+    /* Days Visualization */
+    .days-viz-container {
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    .days-grid {
+        grid-template-columns: repeat(auto-fill, minmax(25px, 1fr));
+        gap: 4px;
+    }
+
+    /* Table */
+    .table-container {
+        padding: 20px;
+    }
+
+    .table-header h2 {
+        font-size: 1.5em;
+    }
+
+    table {
+        font-size: 0.8em;
+    }
+
+    th {
+        padding: 12px 8px;
+        font-size: 0.75em;
+    }
+
+    td {
+        padding: 10px 6px;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 20px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.8em;
+    }
+
+    .header p {
+        font-size: 0.95em;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .stat-card .value {
+        font-size: 2em !important;
+    }
+
+    .stat-card.current .value {
+        font-size: 2.2em !important;
+    }
+
+    .progress-bar-container {
+        height: 45px;
+    }
+
+    .days-grid {
+        grid-template-columns: repeat(7, 1fr);
+    }
+
+    table {
+        font-size: 0.75em;
+    }
+
+    th {
+        padding: 10px 5px;
+    }
+
+    td {
+        padding: 8px 4px;
+    }
+}
+
+/* Very Small Mobile */
+@media (max-width: 360px) {
+    .header h1 {
+        font-size: 1.5em;
+    }
+
+    .stat-card .value {
+        font-size: 1.7em !important;
+    }
+
+    .stat-card.current .value {
+        font-size: 1.9em !important;
+    }
+}
+
 
             .sound-toggle {
                 top: 15px;
